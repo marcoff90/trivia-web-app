@@ -7,6 +7,7 @@ import AuthorizationMiddleware
   from "./src/middlewares/authorization-middleware";
 import createRelationships from "./src/config/db-relationships";
 import DuelRouter from "./src/routers/duel-router";
+import CategoryRouter from "./src/routers/category-router";
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended: true}))
 createRelationships();
 app.use(RegisterRouter);
 app.use(AuthorizationMiddleware);
+app.use(CategoryRouter);
 app.use(DuelRouter);
 app.use(apiErrorHandler);
 app.listen(process.env.PORT || 3001);

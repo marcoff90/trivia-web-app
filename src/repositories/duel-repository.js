@@ -32,10 +32,10 @@ const findOneUnfinishedOnePlayerOnly = async (playerId) => {
   });
 };
 
-const findOneUnfinishedByPlayerOneId = async (playerId) => {
+const findByIdUnfinished = async (id) => {
   return await Duel.findOne({
     where: {
-      playerOneId: playerId,
+      id: id,
       finished: false
     }
   });
@@ -46,5 +46,5 @@ export default {
   findById,
   findOneUnfinished,
   findOneUnfinishedOnePlayerOnly,
-  findOneUnfinishedByPlayerOneId
+  findByIdUnfinished
 };

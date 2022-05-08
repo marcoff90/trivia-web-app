@@ -22,7 +22,7 @@ const createRelationships = () => {
     as: 'possibleAnswers',
     foreignKey: 'question_id',
     getPossibleAnswers() {
-      return this.getDataValue('possibleAnswer');
+      return this.getDataValue('possibleAnswers');
     }
   });
 

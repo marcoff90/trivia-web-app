@@ -1,5 +1,8 @@
 import DuelRepository from "../repositories/duel-repository";
 import UserService from "./user-service";
+import QuestionService from "./question-service";
+import question from "../models/question";
+import DuelQuestionsRepository from "../repositories/duel-questions-repository";
 
 const storeDuel = async (playerId) => {
   let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
@@ -26,17 +29,37 @@ const storeDuel = async (playerId) => {
   return duel;
 };
 
-const isSecondPlayerIn = async (playerId) => {
-  let duel = await DuelRepository.findOneUnfinishedByPlayerOneId(playerId);
-  if (duel['playerTwoId']) {
-    return duel;
+const isSecondPlayerIn = async (duelId) => {
+  return await DuelRepository.findByIdUnfinished(duelId);
+};
+
+const setCategories = async (duelId, categories) => {
+  let questions = await QuestionService.getQuestionsForDuel(categories);
+  for (let q of questions) {
+    let duelQ = {
+      duelId: duelId,
+      questionId: q.id
+    };
+    await DuelQuestionsRepository.create(duelQ);
   }
-  return false;
+  let duel = await DuelRepository.findByIdUnfinished(duelId);
+  let duelQs = await duel.getQuestions();
+  return duelQs;
+};
+
+const getQuestion = async (duelId, playerId) => {
+
+}
+
+const findByIdUnfinished = async (duelId) => {
+  return await DuelRepository.findByIdUnfinished(duelId);
 };
 
 export default {
   storeDuel,
-  isSecondPlayerIn
+  isSecondPlayerIn,
+  setCategories,
+  findByIdUnfinished
 };
 
 /**

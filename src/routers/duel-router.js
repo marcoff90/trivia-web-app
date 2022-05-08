@@ -3,8 +3,10 @@ import DuelController from "../controllers/duel-controller";
 
 const DuelRouter = Router();
 
-DuelRouter.post('/api/duel', DuelController.storeDuel);
+DuelRouter.post('/api/duels', DuelController.storeDuel);
 
-DuelRouter.get('/api/duel/check', DuelController.isSecondPlayerIn);
+DuelRouter.get('/api/duels/:id/check', DuelController.isSecondPlayerIn);
+
+DuelRouter.post('/api/duels/:id/categories', DuelController.setCategories);
 
 export default DuelRouter;
