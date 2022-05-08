@@ -7,7 +7,6 @@ import AuthorizationMiddleware
   from "./src/middlewares/authorization-middleware";
 import createRelationships from "./src/config/db-relationships";
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
