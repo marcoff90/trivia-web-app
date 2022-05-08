@@ -29,6 +29,16 @@ const Duel = sequelize.define('duel', {
     allowNull: false,
     defaultValue: 0
   },
+  playerOneUsername: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
+  },
+  playerTwoUsername: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
+  },
   questionsNumPlayerOne: {
     type: DataTypes.INTEGER,
     allowNull: false,

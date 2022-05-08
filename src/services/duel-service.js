@@ -2,27 +2,46 @@ import DuelRepository from "../repositories/duel-repository";
 import UserService from "./user-service";
 
 const storeDuel = async (playerId) => {
+  let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
+      playerId);
+  // * user double clicked on start duel
+  if (unfinishedDuel) {
+    return unfinishedDuel;
+  }
+
   let possibleDuel = await DuelRepository.findOneUnfinished();
   let player = await UserService.findById(playerId);
-
+  // * duel with waiting player one
   if (possibleDuel) {
     possibleDuel.setPlayerTwo(player);
+    possibleDuel['playerTwoUsername'] = player['username'];
     await possibleDuel.save();
     return possibleDuel;
   }
-
+  // * no waiting duel
   let duel = await DuelRepository.create();
   duel.setPlayerOne(player);
+  duel['playerOneUsername'] = player['username'];
   await duel.save();
   return duel;
 };
 
+const isSecondPlayerIn = async (playerId) => {
+  let duel = await DuelRepository.findOneUnfinishedByPlayerOneId(playerId);
+  if (duel['playerTwoId']) {
+    return duel;
+  }
+  return false;
+};
+
 export default {
-  storeDuel
-}
+  storeDuel,
+  isSecondPlayerIn
+};
 
 /**
  * store duel
+ *  -> check if player didnt double click
  *  -> check if there's a duel without player two
  *    -> in repo make filter
  *    -> if so, assign player as player two

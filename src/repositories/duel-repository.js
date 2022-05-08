@@ -20,10 +20,31 @@ const findOneUnfinished = async () => {
       finished: false
     }
   });
-}
+};
+
+const findOneUnfinishedOnePlayerOnly = async (playerId) => {
+  return await Duel.findOne({
+    where: {
+      playerOneId: playerId,
+      playerTwoId: null,
+      finished: false
+    }
+  });
+};
+
+const findOneUnfinishedByPlayerOneId = async (playerId) => {
+  return await Duel.findOne({
+    where: {
+      playerOneId: playerId,
+      finished: false
+    }
+  });
+};
 
 export default {
   create,
   findById,
-  findOneUnfinished
-}
+  findOneUnfinished,
+  findOneUnfinishedOnePlayerOnly,
+  findOneUnfinishedByPlayerOneId
+};

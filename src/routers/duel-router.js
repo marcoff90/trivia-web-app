@@ -5,4 +5,6 @@ const DuelRouter = Router();
 
 DuelRouter.post('/api/duel', DuelController.storeDuel);
 
+DuelRouter.get('/api/duel/check', DuelController.isSecondPlayerIn);
+
 export default DuelRouter;
