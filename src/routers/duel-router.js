@@ -9,4 +9,6 @@ DuelRouter.get('/api/duels/:id/check', DuelController.isSecondPlayerIn);
 
 DuelRouter.post('/api/duels/:id/categories', DuelController.setCategories);
 
+DuelRouter.get('/api/duels/:id/questions', DuelController.getQuestion);
+
 export default DuelRouter;

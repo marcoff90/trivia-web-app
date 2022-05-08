@@ -42,24 +42,31 @@ const setCategories = async (duelId, categories) => {
     };
     await DuelQuestionsRepository.create(duelQ);
   }
-  let duel = await DuelRepository.findByIdUnfinished(duelId);
-  let duelQs = await duel.getQuestions();
-  return duelQs;
 };
 
 const getQuestion = async (duelId, playerId) => {
+  let duel = await DuelRepository.findById(duelId);
+  let questionNumber = playerId === duel['playerOneId']
+      ? duel['questionsNumPlayerOne'] : duel['questionsNumPlayerTwo'];
+  let questions = await duel.getQuestions();
+  let question = questions[questionNumber];
+  let answers = await question.getPossibleAnswers();
+  return {
+    question,
+    answers
+  }
+};
 
-}
-
-const findByIdUnfinished = async (duelId) => {
-  return await DuelRepository.findByIdUnfinished(duelId);
+const findById = async (duelId) => {
+  return await DuelRepository.findById(duelId);
 };
 
 export default {
   storeDuel,
   isSecondPlayerIn,
   setCategories,
-  findByIdUnfinished
+  findById,
+  getQuestion
 };
 
 /**
