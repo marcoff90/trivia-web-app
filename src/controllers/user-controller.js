@@ -69,6 +69,8 @@ const showLogin = async (req, res, next) => {
   }
 };
 
+// reset password
+
 export default {
   storeUser,
   showLogin
