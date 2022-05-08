@@ -42,7 +42,7 @@ const createRelationships = () => {
     }
   });
 
-  User.hasOne(Duel, {
+  Duel.belongsTo(User, {
     as: 'playerOne',
     foreignKey: 'playerOneId',
     setPlayerOne(playerOne) {
@@ -50,13 +50,13 @@ const createRelationships = () => {
     }
   });
 
-  User.hasOne(Duel, {
+  Duel.belongsTo(User, {
     as: 'playerTwo',
     foreignKey: 'playerTwoId',
-    setPlayerOne(playerTwo) {
+    setPlayerTwo(playerTwo) {
       this.setDataValue('playerTwo', playerTwo);
     }
-  });
+  })
 
   sequelize.sync()
   .then(res => {

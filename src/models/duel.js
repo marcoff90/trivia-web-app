@@ -38,6 +38,11 @@ const Duel = sequelize.define('duel', {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0
+  },
+  finished: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 }, {timestamps: false});
 

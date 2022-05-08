@@ -1,10 +1,6 @@
 import ApiError from "../error/api-error";
 import UserService from "../services/user-service";
 import authentication from "../utils/token-generator";
-import CategoryRepository from "../repositories/category-repository";
-import PossibleAnswerRepository
-  from "../repositories/possible-answer-repository";
-import QuestionRepository from "../repositories/question-repository";
 
 const storeUser = async (req, res, next) => {
   let user = req.body;
@@ -69,7 +65,8 @@ const showLogin = async (req, res, next) => {
   }
 };
 
-// reset password
+// ! reset password
+// ! send email after registration
 
 export default {
   storeUser,

@@ -28,6 +28,11 @@ const User = sequelize.define('user', {
     allowNull: false,
     defaultValue: 0
   },
+  pointsToLevelUp: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
   totalScore: {
     type: DataTypes.INTEGER,
     allowNull: false,

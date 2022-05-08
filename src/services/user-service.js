@@ -17,7 +17,7 @@ const isEmailUsed = async (email) => {
 
 const login = async (user) => {
   let userInDb = await UserRepository.findByUsername(user.username);
-  let doesPasswordMatch =  bcrypt.compareSync(user['password'], userInDb['password']);
+  let doesPasswordMatch =  userInDb && bcrypt.compareSync(user['password'], userInDb['password']);
   return doesPasswordMatch ? userInDb : null;
 };
 
