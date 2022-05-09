@@ -1,6 +1,7 @@
 import ApiError from "../error/api-error";
 import UserService from "../services/user-service";
 import authentication from "../utils/token-generator";
+import bcrypt from "bcrypt";
 
 const storeUser = async (req, res, next) => {
   let user = req.body;
@@ -65,10 +66,68 @@ const showLogin = async (req, res, next) => {
   }
 };
 
-// ! reset password
-// ! send email after registration
+const forgottenPassword = async (req, res, next) => {
+  let userEmail = req.body.email;
+  let user;
+
+  if (!userEmail) {
+    next(ApiError.badRequest('Email must be defined!'));
+  } else {
+    user = await UserService.findByEmail(userEmail)
+  }
+
+  if (!user) {
+    next(ApiError.badRequest("Email doesn't match any user"));
+
+  } else {
+    await UserService.forgottenPassword(userEmail);
+    res.json('Email with reset link sent');
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  let userEmail = req.body['email'];
+  let password = req.body['password'];
+  let passwordRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$";
+  let user;
+  let token = req.query['token'];
+  let timeNow = Date.now() / 1000;
+  console.log(timeNow);
+
+  if (!userEmail) {
+    next(ApiError.badRequest('Email must be defined!'));
+
+  } else {
+    user = await UserService.findByEmail(userEmail);
+  }
+
+  if (!password) {
+    next(ApiError.badRequest('Password must be defined!'));
+
+  } else if (!user.password.match(passwordRegex)) {
+    next(ApiError.badRequest("Password doesn't match requirements!"));
+
+  } else if (!user) {
+    next(ApiError.badRequest("Email doesn't match any user"));
+
+  } else if (bcrypt.compareSync(password, user['password'])) {
+    next(ApiError.badRequest("Password cannot be same as it was!"));
+
+  } else if (user['forgottenPasswordToken'] !== token) {
+    next(ApiError.badRequest("Token doesn't match!"));
+
+  } else if (timeNow > user['forgottenPasswordTokenExpiration']) {
+    next(ApiError.badRequest('Token expired!'));
+
+  } else {
+    await UserService.resetPassword(userEmail, password);
+    res.json('Password changed successfully!');
+  }
+};
 
 export default {
   storeUser,
-  showLogin
+  showLogin,
+  forgottenPassword,
+  resetPassword
 };

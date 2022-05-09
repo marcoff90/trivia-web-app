@@ -42,6 +42,16 @@ const User = sequelize.define('user', {
     type: DataTypes.TIME,
     allowNull: true,
     defaultValue: null
+  },
+  forgottenPasswordToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
+  },
+  forgottenPasswordTokenExpiration: {
+    type: DataTypes.DOUBLE,
+    allowNull: true,
+    defaultValue: null
   }
 }, {timestamps: false});
 
