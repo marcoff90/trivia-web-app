@@ -1,8 +1,8 @@
 import DuelRepository from "../repositories/duel-repository";
 import UserService from "./user-service";
 import QuestionService from "./question-service";
-import question from "../models/question";
 import DuelQuestionsRepository from "../repositories/duel-questions-repository";
+import AnswerPointsRules from "../rules/answer-points-rules";
 
 const storeDuel = async (playerId) => {
   let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
@@ -47,15 +47,62 @@ const setCategories = async (duelId, categories) => {
 const getQuestion = async (duelId, playerId) => {
   let duel = await DuelRepository.findById(duelId);
   let questionNumber = playerId === duel['playerOneId']
-      ? duel['questionsNumPlayerOne'] : duel['questionsNumPlayerTwo'];
+      ? duel['questionsNumPlayerOne'] - 1 : duel['questionsNumPlayerTwo'] - 1;
   let questions = await duel.getQuestions();
   let question = questions[questionNumber];
-  let answers = await question.getPossibleAnswers();
+  let answersFull = await question.getPossibleAnswers();
+  let answers = [];
+  answersFull.forEach(e => answers.push({id: e.id, answer: e.answer}))
+
   return {
-    question,
-    answers
+    id: question.id,
+    difficulty: question['difficulty'],
+    question : question['question'],
+    answers: answers
   }
 };
+
+const checkAnswer = async (duelId, playerId, guessAnswerId, questionId) => {
+  let duel = await DuelRepository.findById(duelId);
+  let question = await QuestionService.findById(questionId);
+  let player = await UserService.findById(playerId);
+
+  let points = question['correct_answer_id'] === guessAnswerId
+      ? AnswerPointsRules.points(question['difficulty']) : 0;
+
+  duel['playerOneRoundScore'] += duel['playerOneId'] === playerId && points;
+  duel['playerTwoRoundScore'] += duel['playerTwoId'] === playerId && points;
+
+  player['totalScore'] += duel['playerOneId'] === playerId && points;
+  player['totalScore'] += duel['playerTwoId'] === playerId && points;
+  await player.save();
+
+  duel['questionsNumPlayerOne'] += duel['playerOneId'] === playerId && 1;
+  duel['questionsNumPlayerTwo'] += duel['playerTwoId'] === playerId && 1;
+  await duel.save();
+
+  return {
+    points,
+    playerTotalScore: player['totalScore'],
+    correctAnswerId: question['correct_answer_id'],
+    guessAnswerId,
+    questionNumber: duel['playerOneId'] === playerId ? duel['questionsNumPlayerOne'] : duel['questionsNumPlayerTwo']
+  };
+};
+
+const getRoundResults = async (duelId, playerId) => {
+  let duel = await DuelRepository.findById(duelId);
+  let player = await UserService.findById(playerId);
+
+  if (duel['questionNumPlayerOne'] % 5 === 0 && duel['questionsNumPlayerTwo']
+      % 5 === 0) {
+    duel['playerOneWins'] += duel['playerOneRoundScore'] > duel['playerTwoRoundScore'] && 1;
+    duel['playerTwoWins'] += duel['playerOneRoundScore'] < duel['playerTwoRoundScore'] && 1;
+    duel['playerOneDuelScore'] += duel['playerOneRoundScore'];
+    duel['playerTwoDuelScore'] += duel['playerTwoRoundScore'];
+    // player['totalScore'] +=
+  }
+}
 
 const findById = async (duelId) => {
   return await DuelRepository.findById(duelId);
@@ -66,7 +113,8 @@ export default {
   isSecondPlayerIn,
   setCategories,
   findById,
-  getQuestion
+  getQuestion,
+  checkAnswer
 };
 
 /**

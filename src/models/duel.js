@@ -9,12 +9,22 @@ const Duel = sequelize.define('duel', {
     primaryKey: true,
     unique: true
   },
-  playerOneScore: {
+  playerOneRoundScore: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0
   },
-  playerTwoScore: {
+  playerTwoRoundScore: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
+  playerOneDuelScore: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
+  playerTwoDuelScore: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0
@@ -42,12 +52,12 @@ const Duel = sequelize.define('duel', {
   questionsNumPlayerOne: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 0
+    defaultValue: 1
   },
   questionsNumPlayerTwo: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 0
+    defaultValue: 1
   },
   finished: {
     type: DataTypes.BOOLEAN,

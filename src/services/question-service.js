@@ -10,6 +10,11 @@ const getQuestionsForDuel = async (categories) => {
   return questions;
 };
 
+const findById = async (id) => {
+  return await QuestionRepository.findById(id);
+};
+
 export default {
-  getQuestionsForDuel
+  getQuestionsForDuel,
+  findById
 };

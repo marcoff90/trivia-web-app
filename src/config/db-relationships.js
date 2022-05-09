@@ -5,6 +5,7 @@ import PossibleAnswer from "../models/possible-answer";
 import DuelQuestions from "../models/duel-questions";
 import Duel from "../models/duel";
 import User from "../models/user";
+import DuelRoundScore from "../models/duel-round-score";
 
 const createRelationships = () => {
 
@@ -56,7 +57,20 @@ const createRelationships = () => {
     setPlayerTwo(playerTwo) {
       this.setDataValue('playerTwo', playerTwo);
     }
-  })
+  });
+
+  Duel.hasMany(DuelRoundScore, {
+    as: 'duelRoundScores',
+    foreignKey: 'duel_id',
+    getDuelRoundScores() {
+      return this.getDataValue('duelRoundScores');
+    }
+  });
+
+  DuelRoundScore.belongsTo(Duel, {
+    as: 'duelRoundScore',
+    foreignKey: 'duel_id'
+  });
 
   sequelize.sync()
   .then(res => {
