@@ -1,5 +1,7 @@
 import DuelService from "../services/duel-service";
 import ApiError from "../error/api-error";
+import DuelQuestionsService from "../services/duel-questions-service";
+import AnsweredQuestionsService from "../services/answered-questions-service";
 
 const storeDuel = async (req, res, next) => {
   let user = req.user;
@@ -32,7 +34,7 @@ const setCategories = async (req, res, next) => {
   let duelId = req.params.id;
   let player = req.user;
   let categories = req.body['categories'];
-  let duel = await DuelService.findById(duelId);
+  let duel = await DuelService.findByIdUnfinished(duelId);
 
   if (!categories) {
     next(ApiError.badRequest('Categories must be provided!'));
@@ -61,7 +63,7 @@ const setCategories = async (req, res, next) => {
 const getQuestion = async (req, res, next) => {
   let duelId = req.params.id;
   let player = req.user;
-  let duel = await DuelService.findById(duelId);
+  let duel = await DuelService.findByIdUnfinished(duelId);
   let questionsCount = req.query['count']
 
   if (!duel) {
@@ -69,6 +71,9 @@ const getQuestion = async (req, res, next) => {
 
   } else if (!duel['playerOneId'] && !duel['playerTwoId']) {
     next(ApiError.badRequest('Two players must play the game!'));
+
+  } else if (!DuelService.isPlayerInDuel(player.id, duel)) {
+    next(ApiError.forbidden('Player not part of this duel!'))
 
   } else if (!questionsCount) {
     next(ApiError.badRequest('Questions count must be provided!'));
@@ -78,7 +83,68 @@ const getQuestion = async (req, res, next) => {
 
   } else {
     let question = await DuelService.getQuestion(duelId, player.id);
-    res.json(question);
+
+    if (!question) {
+      next(ApiError.notFound("Questions haven't been assigned yet"))
+    } else {
+      res.json(question);
+    }
+  }
+};
+
+const checkAnswer = async (req, res, next) => {
+  let duelId = req.params.id;
+  let questionId = req.params.questionId;
+  let guessAnswerId = req.query['guess'];
+  let player = req.user;
+  let answeredQuestion = await AnsweredQuestionsService.findByDuelIdPlayerIdAndQuestionId(
+      duelId, player.id, questionId);
+
+  try {
+    guessAnswerId = parseInt(guessAnswerId);
+  } catch (e) {
+    next(ApiError.badRequest('Guess must be a number!'))
+  }
+
+  let isQuestionInDuel = await DuelQuestionsService.isQuestionInDuel(questionId,
+      duelId);
+
+  let duel = await DuelService.findByIdUnfinished(duelId);
+
+  if (!duel) {
+    next(ApiError.notFound('Duel not found!'));
+
+  } else if (!isQuestionInDuel) {
+    next(ApiError.badRequest('Question not part of duel!'))
+
+  } else if (!DuelService.isPlayerInDuel(player.id, duel)) {
+    next(ApiError.forbidden('Player not part of this duel!'))
+
+  } else if (!guessAnswerId) {
+    next(ApiError.badRequest('Guess must be provided!'));
+
+  } else if (answeredQuestion) {
+    next(ApiError.badRequest("You've already answered this question!"));
+
+  } else {
+    let result = await DuelService.checkAnswer(duelId, player.id, guessAnswerId,
+        questionId);
+    res.json(result);
+  }
+};
+
+const showRoundScore = async (req, res, next) => {
+  let duelId = req.params.id;
+  let duel = await DuelService.findByIdUnfinished(duelId);
+  if (!duel) {
+    next(ApiError.notFound('Duel not found!'));
+  } else {
+    let results = await DuelService.getRoundResults(duelId);
+    if (results) {
+      res.json(results);
+    } else {
+      res.json('Round is not finished for both players');
+    }
   }
 };
 
@@ -86,5 +152,7 @@ export default {
   storeDuel,
   isSecondPlayerIn,
   setCategories,
-  getQuestion
+  getQuestion,
+  checkAnswer,
+  showRoundScore
 };

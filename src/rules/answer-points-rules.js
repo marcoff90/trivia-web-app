@@ -6,6 +6,8 @@ const points = (difficulty) => {
       return 2;
     case 'hard':
       return 3;
+    default:
+      return 1;
   }
 };
 

@@ -19,16 +19,16 @@ const Duel = sequelize.define('duel', {
     allowNull: false,
     defaultValue: 0
   },
-  playerOneDuelScore: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
-  playerTwoDuelScore: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
+  // playerOneDuelScore: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  //   defaultValue: 0
+  // },
+  // playerTwoDuelScore: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  //   defaultValue: 0
+  // },
   playerOneWins: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -63,6 +63,11 @@ const Duel = sequelize.define('duel', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  round: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1
   }
 }, {timestamps: false});
 
