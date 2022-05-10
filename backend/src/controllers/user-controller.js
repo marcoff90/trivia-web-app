@@ -92,7 +92,6 @@ const resetPassword = async (req, res, next) => {
   let user;
   let token = req.query['token'];
   let timeNow = Date.now() / 1000;
-  console.log(timeNow);
 
   if (!userEmail) {
     next(ApiError.badRequest('Email must be defined!'));
