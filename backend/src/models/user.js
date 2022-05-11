@@ -23,6 +23,16 @@ const User = sequelize.define('user', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  avatar: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
+  },
   level: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -43,10 +53,23 @@ const User = sequelize.define('user', {
     allowNull: true,
     defaultValue: null
   },
+  confirmationToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null,
+    unique: true
+  },
+  confirmationTokenExpiration: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null,
+    unique: true
+  },
   forgottenPasswordToken: {
     type: DataTypes.STRING,
     allowNull: true,
-    defaultValue: null
+    defaultValue: null,
+    unique: true
   },
   forgottenPasswordTokenExpiration: {
     type: DataTypes.DOUBLE,

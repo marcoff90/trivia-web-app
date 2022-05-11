@@ -1,12 +1,39 @@
 import UserRepository from "../repositories/user-repository";
 import bcrypt from "bcrypt";
-import generateToken from "../utils/password-token";
-import sendPasswordResetMail from "../utils/mailer";
+import TokenGenerator from "../utils/password-token";
+import Mailer from "../utils/mailer";
 
 const create = async (user) => {
   user.password = bcrypt.hashSync(user['password'], 5);
+  let token = await TokenGenerator.generateConfirmationToken();
+  let expiration = Math.round(Date.now() / 1000 + 86400);
+  user['confirmationToken'] = token;
+  user['confirmationTokenExpiration'] = expiration;
   let savedUser = await UserRepository.create(user);
+  Mailer.sendConfirmationMail(user.email, token);
   return savedUser;
+};
+
+const confirmAccount = async (confirmationToken, avatar) => {
+  let user = await UserRepository.findByConfirmationToken(confirmationToken);
+  console.log(user);
+  user['active'] = true;
+  user['avatar'] = avatar;
+  user['confirmationToken'] = null;
+  user['confirmationTokenExpiration'] = null;
+  await user.save();
+  return user;
+};
+
+const generateNewConfirmationToken = async (confirmationToken) => {
+  let user = await UserRepository.findByConfirmationToken(confirmationToken);
+  let token = await TokenGenerator.generateConfirmationToken();
+  let expiration = Math.round(Date.now() / 1000 + 86400);
+  user['confirmationToken'] = token;
+  user['confirmationTokenExpiration'] = expiration;
+  Mailer.sendConfirmationMail(user.email, token);
+  await user.save();
+  return token;
 };
 
 const isUserNameTaken = async (username) => {
@@ -25,12 +52,12 @@ const login = async (user) => {
 
 const forgottenPassword = async (userEmail) => {
   let user = await UserRepository.findByEmail(userEmail);
-  let token = generateToken();
-  let expiration = Date.now() / 1000 + 86400;
+  let token = await TokenGenerator.generatePasswordToken();
+  let expiration = Math.round(Date.now() / 1000 + 86400);
   user['forgottenPasswordToken'] = token;
   user['forgottenPasswordTokenExpiration'] = expiration
   await user.save();
-  sendPasswordResetMail(userEmail, token);
+  Mailer.sendPasswordResetMail(userEmail, token);
 };
 
 const resetPassword = async (userEmail, password) => {
@@ -38,6 +65,7 @@ const resetPassword = async (userEmail, password) => {
   user['password'] = bcrypt.hashSync(password, 5);
   user['forgottenPasswordToken'] = null;
   user['forgottenPasswordTokenExpiration'] = null;
+  user['active'] = true;
   await user.save();
 };
 
@@ -47,7 +75,15 @@ const findById = async (id) => {
 
 const findByEmail = async (email) => {
   return await UserRepository.findByEmail(email);
-}
+};
+
+const findByPasswordToken = async (passwordToken) => {
+  return await UserRepository.findByPasswordToken(passwordToken);
+};
+
+const findByConfirmationToken = async (confirmationToken) => {
+  return await UserRepository.findByConfirmationToken(confirmationToken);
+};
 
 export default {
   create,
@@ -57,5 +93,9 @@ export default {
   findById,
   forgottenPassword,
   resetPassword,
-  findByEmail
+  findByEmail,
+  findByConfirmationToken,
+  findByPasswordToken,
+  confirmAccount,
+  generateNewConfirmationToken
 };
