@@ -1,0 +1,23 @@
+@import "constants";
+@import "color-scheme";
+
+.answer-container {
+  width: 481px;
+  height: 100px;
+  background-color: $main-blue;
+  border-radius: 39px;
+  text-align: center;
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: 0.05em;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  .answer {
+    margin: 0;
+  }
+}

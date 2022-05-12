@@ -2,5 +2,22 @@
 @import 'constants';
 
 .button {
-  @include button;
+  margin: 0;
+  width: 214px;
+  height: 62px;
+  border-radius: 11px;
+  background-color: $main-green;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: $fredoka;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 44px;
+  color: $white;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

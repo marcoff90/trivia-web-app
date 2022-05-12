@@ -1,0 +1,19 @@
+@import 'color-scheme';
+@import 'constants';
+
+.quiz-container {
+  width: 523px;
+  height: 789px;
+  background-color: $main-yellow;
+  box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 39px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .question {
+    margin: 1rem;
+  }
+  .answer {
+    margin: 1rem;
+  }
+}

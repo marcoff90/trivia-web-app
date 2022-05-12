@@ -1,0 +1,23 @@
+@import "color-scheme";
+@import "constants";
+
+.category-container {
+  width: 264px;
+  height: 83px;
+  background-color: $main-blue;
+  border-radius: 30px;
+  text-align: center;
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+  letter-spacing: 0.05em;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  .category {
+    margin: 0;
+  }
+}

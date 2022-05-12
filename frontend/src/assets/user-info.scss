@@ -1,0 +1,39 @@
+@import 'constants';
+
+.user-info {
+  width: 365px;
+  height: 121px;
+  border-radius: 39px;
+  background-color: $main-green;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  align-items: center;
+  .user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 1rem;
+    font-family: $fredoka;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: $white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    .username {
+      font-size: 36px;
+      line-height: 44px;
+      text-decoration: underline;
+      margin: 0;
+    }
+    .user-score {
+      font-size: 18px;
+      line-height: 22px;
+      margin: 0;
+    }
+  }
+  .avatar {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0.5rem;
+  }
+}
+
