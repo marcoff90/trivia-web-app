@@ -169,10 +169,29 @@ const activateAccount = async (req, res, next) => {
   }
 };
 
+const welcomeUser = async (req, res, next) => {
+  let confirmationToken = req.query['confirmation'];
+  if (!confirmationToken) {
+    next(ApiError.badRequest('Confirmation token must be provided!'));
+
+  } else {
+    let user = await UserService.findByConfirmationToken(confirmationToken);
+
+    if (!user) {
+      next(ApiError.notFound('Token not assigned to user!'));
+    } else {
+      res.json({
+        username: user['username']
+      })
+    }
+  }
+};
+
 export default {
   storeUser,
   showLogin,
   forgottenPassword,
   resetPassword,
-  activateAccount
+  activateAccount,
+  welcomeUser
 };

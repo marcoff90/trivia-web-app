@@ -14,4 +14,6 @@ RegisterRouter.post('/api/users', UserController.resetPassword);
 
 RegisterRouter.post('/api/users/activate', UserController.activateAccount);
 
+RegisterRouter.get('/api/users/welcome', UserController.welcomeUser);
+
 export default RegisterRouter;
