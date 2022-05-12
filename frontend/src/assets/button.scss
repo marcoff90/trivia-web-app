@@ -1,0 +1,6 @@
+@import 'color-scheme';
+@import 'constants';
+
+.button {
+  @include button;
+}

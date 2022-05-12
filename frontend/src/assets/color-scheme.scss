@@ -1,0 +1,23 @@
+$main-green: #31CFA0;
+$main-blue: #0FDDDD;
+$main-red: #F47171;
+$main-orange: #FCC695;
+$main-yellow: #FAEEB3;
+$main-grey: #C4C4C4;
+$white: #FFFF;
+
+$correct-green: #7EFF8B;
+$wrong-red: #FF9292;
+
+:export {
+  main-green: $main-green;
+  main-blue: $main-blue;
+  main-red: $main-red;
+  main-orange: $main-orange;
+  main-yellow: $main-yellow;
+  main-grey: $main-grey;
+  white: $white;
+  correct-green: $correct-green;
+  wrong-red: $wrong-red;
+}
+
