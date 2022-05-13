@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import Background from "./components/Background";
+// import Layout from "./components/Layout";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Background>
-      <App />
-    </Background>
+    // <Layout>
+      <App/>
+    // </Layout>
 );
 

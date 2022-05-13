@@ -10,24 +10,24 @@ import Quiz from "./components/Quiz";
 import Home from "./pages/Home";
 
 const App = () => {
-  const answers = [{id: 1, answer: 'answer1'}, {id: 2, answer: 'answer1'}, {id: 3, answer: 'answer1'}, {id: 4, answer: 'answer1'}];
+  const answers = [{id: 1, answer: 'answer1'}, {id: 2, answer: 'answer1'},
+    {id: 3, answer: 'answer1'}, {id: 4, answer: 'answer1'}];
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path={'/'} element={Home}/>
-        </Routes>
-      </BrowserRouter>
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path={'/'} element={<Home/>}/>
+          </Routes>
+        </BrowserRouter>
 
-      {/*<h1>Hello world</h1>*/}
-      {/*<Button text={'Button'} color={colors['main-red']}/>*/}
-      {/*<Input borderColor={colors['main-blue']} placeholder={'username'} color={colors['main-red']}/>*/}
-      {/*<Avatar avatar={avatar}/>*/}
-      {/*<UserInfo username={'marcoff'} avatar={avatar} userScore={1990}/>*/}
-      {/*<Category category={'Video Games'}/>*/}
-      {/*<Quiz question={'question'} answers={answers}/>*/}
-    </>
+        {/*<Button text={'Button'} color={colors['main-red']}/>*/}
+        {/*<Input borderColor={colors['main-blue']} placeholder={'username'} color={colors['main-red']}/>*/}
+        {/*<Avatar avatar={avatar}/>*/}
+        {/*<UserInfo username={'marcoff'} avatar={avatar} userScore={1990}/>*/}
+        {/*<Category category={'Video Games'}/>*/}
+        {/*<Quiz question={'question'} answers={answers}/>*/}
+      </>
   );
 };
 

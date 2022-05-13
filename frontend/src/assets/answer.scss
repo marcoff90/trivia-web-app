@@ -82,15 +82,9 @@ $iphone12-line-height: 30px;
   }
 }
 
-@media only screen and (min-width: 2560px) {
-  .answer-container {
-    @include QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
-  }
-}
-
 @media only screen and (min-width: 3840px) {
   .answer-container {
-    @include UHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+    @include QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
   }
 }
 

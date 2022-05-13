@@ -227,7 +227,7 @@ $avatar-margin-right: 0.5rem;
   }
 }
 
-@media only screen and (min-width: 2560px) {
+@media only screen and (min-width: 3840px) {
   .user-info {
     @include QHD-width-height($full-hd-width, $full-hd-height);
     background-color: $main-green;
@@ -244,27 +244,6 @@ $avatar-margin-right: 0.5rem;
     }
     .avatar {
       margin-right: ($QHD / $full-hd) * $avatar-margin-right;
-    }
-  }
-}
-
-@media only screen and (min-width: 3840px) {
-  .user-info {
-    @include UHD-width-height($full-hd-width, $full-hd-height);
-    background-color: $main-green;
-    .user {
-      margin-left: ($UHD / $full-hd) * $full-hd-user-margin-left;
-      .username {
-        font-size: ($UHD / $full-hd) * $full-hd-username-font-size;
-        line-height: ($UHD / $full-hd) * $full-hd-username-line-height;
-      }
-      .user-score {
-        font-size: ($UHD / $full-hd) * $full-hd-user-score-font-size;
-        line-height: ($UHD / $full-hd) * $full-hd-user-score-line-height;
-      }
-    }
-    .avatar {
-      margin-right: ($UHD / $full-hd) * $avatar-margin-right;
     }
   }
 }

@@ -82,14 +82,9 @@ $iphone12-line-height: 44px;
   }
 }
 
-@media only screen and (min-width: 2560px) {
+@media only screen and (min-width: 3840px) {
   .button {
     @include QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
   }
 }
 
-@media only screen and (min-width: 3840px) {
-  .button {
-    @include UHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
-  }
-}

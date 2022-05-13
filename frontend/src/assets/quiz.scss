@@ -129,7 +129,7 @@ $iphone12-answer-margin: 0.5rem;
   }
 }
 
-@media only screen and (min-width: 2560px) {
+@media only screen and (min-width: 3840px) {
   .quiz-container {
     @include QHD-width-height($full-hd-width, $full-hd-height);
     .question {
@@ -137,18 +137,6 @@ $iphone12-answer-margin: 0.5rem;
     }
     .answer {
       margin: ($QHD / $full-hd) * $full-hd-answer-margin;
-    }
-  }
-}
-
-@media only screen and (min-width: 3840px) {
-  .quiz-container {
-    @include UHD-width-height($full-hd-width, $full-hd-height);
-    .question {
-      margin: ($UHD / $full-hd) * $full-hd-question-margin;
-    }
-    .answer {
-      margin: ($UHD / $full-hd) * $full-hd-answer-margin;
     }
   }
 }
