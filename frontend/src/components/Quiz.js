@@ -2,9 +2,17 @@ import Question from "./Question";
 import Answer from "./Answer";
 import colors from '../assets/color-scheme.scss'
 import '../assets/quiz.scss';
-import {useState} from "react";
 
 const Quiz = (props) => {
+  /**
+   * gets data from get question page
+   * sends data to question and answer
+   * on click on answer gets back the id of the answer
+   * sends request to api
+   *
+   */
+
+
   const answerColors = [colors['main-green'], colors['main-blue'],
     colors['main-red'], colors['main-orange']];
   return (

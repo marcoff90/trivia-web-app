@@ -1,19 +1,154 @@
 @import 'color-scheme';
 @import 'constants';
 
+$full-hd-width: 523px;
+$full-hd-height: 789px;
+$full-hd-question-margin: 1rem;
+$full-hd-answer-margin: 1rem;
+
+$iphone12-width: 365px;
+$iphone12-height: 549px;
+$iphone12-question-margin: 0.5rem;
+$iphone12-answer-margin: 0.5rem;
+
 .quiz-container {
-  width: 523px;
-  height: 789px;
   background-color: $main-yellow;
   box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
   border-radius: 39px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  .question {
-    margin: 1rem;
+  align-items: center;
+}
+
+@media only screen and (min-width: 320px) {
+  .quiz-container {
+    @include iphoneSE-width-height($iphone12-width, $iphone12-height);
+    .question {
+      margin: ($SE / $iphone12) * $iphone12-question-margin;
+    }
+    .answer {
+      margin: ($SE / $iphone12) * $iphone12-answer-margin;
+    }
   }
-  .answer {
-    margin: 1rem;
+}
+
+@media only screen and (min-width: 375px) {
+  .quiz-container {
+    @include iphone8-width-height($iphone12-width, $iphone12-height);
+    .question {
+      margin: ($iphone8 / $iphone12) * $iphone12-question-margin;
+    }
+    .answer {
+      margin: ($iphone8 / $iphone12) * $iphone12-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .quiz-container {
+    @include iphone12-width-height($iphone12-width, $iphone12-height);
+    .question {
+      margin: $iphone12-question-margin;
+    }
+    .answer {
+      margin: $iphone12-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .quiz-container {
+    @include iphone8plus-width-height($iphone12-width, $iphone12-height);
+    .question {
+      margin: ($iphone8plus / $iphone12) * $iphone12-question-margin;
+    }
+    .answer {
+      margin: ($iphone8plus / $iphone12) * $iphone12-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .quiz-container {
+    @include iphone11-width-height($iphone12-width, $iphone12-height);
+    .question {
+      margin: ($iphone11 / $iphone12) * $iphone12-question-margin;
+    }
+    .answer {
+      margin: ($iphone11 / $iphone12) * $iphone12-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .quiz-container {
+    @include low-resolution-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: ($low-resolution / $full-hd) * $full-hd-question-margin;
+    }
+    .answer {
+      margin: ($low-resolution / $full-hd) * $full-hd-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .quiz-container {
+    @include hd-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: ($hd / $full-hd) * $full-hd-question-margin;
+    }
+    .answer {
+      margin: ($hd / $full-hd) * $full-hd-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .quiz-container {
+    @include macbook-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: ($macbook / $full-hd) * $full-hd-question-margin;
+    }
+    .answer {
+      margin: ($macbook / $full-hd) * $full-hd-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .quiz-container {
+    @include full-hd-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: $full-hd-question-margin;
+    }
+    .answer {
+      margin: $full-hd-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  .quiz-container {
+    @include QHD-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: ($QHD / $full-hd) * $full-hd-question-margin;
+    }
+    .answer {
+      margin: ($QHD / $full-hd) * $full-hd-answer-margin;
+    }
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .quiz-container {
+    @include UHD-width-height($full-hd-width, $full-hd-height);
+    .question {
+      margin: ($UHD / $full-hd) * $full-hd-question-margin;
+    }
+    .answer {
+      margin: ($UHD / $full-hd) * $full-hd-answer-margin;
+    }
   }
 }

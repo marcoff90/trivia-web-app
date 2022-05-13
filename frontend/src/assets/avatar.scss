@@ -1,3 +1,77 @@
+@import 'constants';
+
 .avatar {
   cursor: pointer;
+}
+
+$full-hd-width: 90px;
+$full-hd-height: 90px;
+
+$iphone12-width: 96px;
+$iphone12-height: 96px;
+
+@media only screen and (min-width: 320px) {
+  .avatar {
+    @include iphoneSE-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .avatar {
+    @include iphone8-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .avatar {
+    @include iphone12-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .avatar {
+    @include iphone8plus-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .avatar {
+    @include iphone11-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .avatar {
+    @include low-resolution-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .avatar {
+    @include hd-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .avatar {
+    @include macbook-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .avatar {
+    @include full-hd-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  .avatar {
+    @include QHD-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .avatar {
+    @include UHD-width-height($full-hd-width, $full-hd-height)
+  }
 }
