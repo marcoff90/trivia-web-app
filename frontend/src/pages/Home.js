@@ -11,7 +11,7 @@ import AxiosService from "../services/AxiosService";
 import {ToastContainer} from "react-toastify";
 import {useNavigate} from 'react-router-dom';
 
-const Home = (props) => {
+const Home = () => {
 
   const [showLogin, setShowLogin] = useState(false);
   const [showSendMail, setShowSendMail] = useState(false);
