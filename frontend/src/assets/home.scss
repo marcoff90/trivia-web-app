@@ -42,9 +42,19 @@ $full-hd-secondary-line-height:40px;
   }
   .control {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 3rem 2rem;
-    justify-content: space-between;
+    .button-group {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .modal {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
   }
 }
 

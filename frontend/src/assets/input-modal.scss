@@ -1,0 +1,52 @@
+@import 'constants';
+@import 'color-scheme';
+
+$full-hd-width: 452px;
+$full-hd-height: 425px;
+
+.modal-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 39px;
+  z-index: 3;
+}
+.modal-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+  .user-input {
+    margin-top: 2rem;
+    opacity: 1;
+  }
+  .button-container {
+    margin: 2rem 0 2rem 0;
+  }
+  .forgotten-password {
+    font-family: $fredoka;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: $white;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  .password-input {
+    margin: 1rem 1rem 0 1rem;
+    opacity: 1;
+    .password-specifics {
+      font-family: $montserrat;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
+      color: $white;
+      text-align: center;
+    }
+  }
+}
+
+

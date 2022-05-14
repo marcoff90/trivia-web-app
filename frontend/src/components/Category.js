@@ -3,7 +3,6 @@ import '../assets/category.scss';
 const Category = (props) => {
   const chooseCategory = () => {
     // border around div category container => constant for style
-    console.log('chosen')
   }
   return (
       <>
