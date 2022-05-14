@@ -24,6 +24,10 @@ $full-hd-height: 425px;
   }
   .button-container {
     margin: 2rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   .forgotten-password {
     font-family: $fredoka;
@@ -36,7 +40,7 @@ $full-hd-height: 425px;
     cursor: pointer;
   }
   .password-input {
-    margin: 1rem 1rem 0 1rem;
+    margin: 2rem 2rem 0 2rem;
     opacity: 1;
     .password-specifics {
       font-family: $montserrat;
@@ -45,6 +49,7 @@ $full-hd-height: 425px;
       line-height: 12px;
       color: $white;
       text-align: center;
+      margin-top: 0.3rem;
     }
   }
 }

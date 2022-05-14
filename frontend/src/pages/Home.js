@@ -14,11 +14,18 @@ const Home = (props) => {
   const openLoginModal = () => {
     setShowLogin(!showLogin);
   }
+
   const [showSendMail, setShowSendMail] = useState(false);
   const openMailModal = () => {
-    console.log('click')
-    setShowLogin(!showLogin);
+    setShowLogin(false);
     setShowSendMail(!showSendMail);
+  }
+
+  const [showSignUp, setShowSignUp] = useState(false);
+  const openSignUpModal = () => {
+    setShowLogin(false);
+    setShowSendMail(false);
+    setShowSignUp(!showSignUp);
   }
 
   return (
@@ -47,7 +54,8 @@ const Home = (props) => {
                       color={colors['main-green']}
                       onClick={() => openLoginModal()}/>
               <Button text={'Sign Up'}
-                      color={colors['main-blue']}/>
+                      color={colors['main-blue']}
+                      onClick={() => openSignUpModal()}/>
             </div>
 
             <div className={'modal'}>
@@ -104,6 +112,45 @@ const Home = (props) => {
 
               </InputModal>
             </div>
+
+            <div className={'modal'}>
+              <InputModal color={'rgba(15, 221, 221, 0.49)'}
+                          show={showSignUp}
+                          onClickOutside={() => {
+                            openSignUpModal()
+                          }}>
+                <div className={'user-input'}>
+                  <Input borderColor={colors['main-blue']}
+                         color={colors['main-blue']}
+                         placeholder={'username'}
+                         type={'text'}/>
+                </div>
+
+                <div className={'user-input'}>
+                  <Input borderColor={colors['main-blue']}
+                         color={colors['main-blue']}
+                         placeholder={'email'}
+                         type={'email'}/>
+                </div>
+
+                <div className={'password-input'}>
+                  <Input borderColor={colors['main-blue']}
+                         color={colors['main-blue']}
+                         placeholder={'password'}
+                         type={'password'}/>
+                  <div className={'password-specifics'}>At least 8 characters, 1 digit, 1 capital letter</div>
+                </div>
+
+                <div className={'button-container'}>
+                  <Button color={colors['main-blue']}
+                          text={'Sign Up'}/>
+
+
+                </div>
+
+              </InputModal>
+            </div>
+
           </div>
         </div>
       </>
