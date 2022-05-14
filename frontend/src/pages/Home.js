@@ -17,6 +17,7 @@ const Home = (props) => {
   const [showSendMail, setShowSendMail] = useState(false);
   const openMailModal = () => {
     console.log('click')
+    setShowLogin(!showLogin);
     setShowSendMail(!showSendMail);
   }
 
