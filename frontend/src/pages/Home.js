@@ -7,31 +7,55 @@ import Button from "../components/Button";
 import InputModal from "../components/InputModal";
 import Input from "../components/Input";
 import {useState} from "react";
+import AxiosService from "../services/AxiosService";
+import {ToastContainer} from "react-toastify";
+import {useNavigate} from 'react-router-dom';
 
 const Home = (props) => {
 
   const [showLogin, setShowLogin] = useState(false);
-  const openLoginModal = () => {
-    setShowLogin(!showLogin);
-  }
-
   const [showSendMail, setShowSendMail] = useState(false);
-  const openMailModal = () => {
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  let navigate = useNavigate();
+  const screenWidth = window.innerWidth;
+
+  const toggleLoginModal = () => {
+    setShowLogin(!showLogin);
+  };
+
+  const toggleMailModal = () => {
     setShowLogin(false);
     setShowSendMail(!showSendMail);
-  }
+  };
 
-  const [showSignUp, setShowSignUp] = useState(false);
-  const openSignUpModal = () => {
+  const toggleSignUpModal = () => {
     setShowLogin(false);
     setShowSendMail(false);
     setShowSignUp(!showSignUp);
-  }
+  };
 
-  const screenWidth = window.innerWidth;
+  const onChangeUsernameHandler = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const onChangePasswordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangeEmailHandler = (e) => {
+    setEmail(e.target.value);
+  };
 
   return (
       <>
+        <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            closeButton={false}
+        />
         <Background/>
         <div className={'main-logo'}>
           <Logo/>
@@ -53,62 +77,76 @@ const Home = (props) => {
 
             <div className={'button-group'}>
               <Button text={'Login'}
-                      color={screenWidth >= 1024 ? colors['main-green'] : colors['main-red']}
-                      onClick={() => openLoginModal()}/>
+                      color={screenWidth >= 1024 ? colors['main-green']
+                          : colors['main-red']}
+                      onClick={() => toggleLoginModal()}/>
               <Button text={'Sign Up'}
                       color={colors['main-blue']}
-                      onClick={() => openSignUpModal()}/>
+                      onClick={() => toggleSignUpModal()}/>
             </div>
 
             <div className={'modal'}>
-                  <InputModal color={screenWidth >= 1024 ? 'rgba(49, 207, 160,0.49)' : colors['main-orange']}
-                              show={showLogin}
-                              onClickOutside={() => {
-                                openLoginModal()
-                              }}>
-                    <div className={'user-input'}>
-                      <Input borderColor={colors['main-green']}
-                             color={colors['main-green']}
-                             placeholder={'username'}
-                             type={'text'}/>
-                    </div>
-
-                    <div className={'user-input'}>
-                      <Input borderColor={colors['main-green']}
-                             color={colors['main-green']}
-                             placeholder={'password'}
-                             type={'text'}/>
-                    </div>
-
-                    <div className={'button-container'}>
-                      <Button color={colors['main-green']}
-                              text={'Login'}/>
-
-                      <div className={'forgotten-password'}
-                           onClick={() => openMailModal()}>forgotten
-                        password?
-                      </div>
-                    </div>
-
-                  </InputModal>
-            </div>
-
-            <div className={'modal'}>
-              <InputModal color={screenWidth >= 1024 ? 'rgba(244, 113, 113, 0.49)' : colors['main-yellow']}
-                          show={showSendMail}
+              <InputModal color={screenWidth >= 1024 ? 'rgba(49, 207, 160,0.49)'
+                  : colors['main-orange']}
+                          show={showLogin}
                           onClickOutside={() => {
-                            openMailModal()
+                            toggleLoginModal()
                           }}>
+                <div className={'user-input'}>
+                  <Input borderColor={colors['main-green']}
+                         color={colors['main-green']}
+                         placeholder={'username'}
+                         type={'text'}
+                         onChange={onChangeUsernameHandler}
+                         value={username}/>
+                </div>
+
+                <div className={'user-input'}>
+                  <Input borderColor={colors['main-green']}
+                         color={colors['main-green']}
+                         placeholder={'password'}
+                         type={'password'}
+                         value={password}
+                         onChange={onChangePasswordHandler}/>
+                </div>
+
+                <div className={'button-container'}>
+                  <Button color={colors['main-green']}
+                          text={'Login'}
+                          onClick={() => AxiosService.login(username,
+                              password)}/>
+
+                  <div className={'forgotten-password'}
+                       onClick={() => toggleMailModal()}>forgotten
+                    password?
+                  </div>
+                </div>
+
+              </InputModal>
+            </div>
+
+            <div className={'modal'}>
+              <InputModal
+                  color={screenWidth >= 1024 ? 'rgba(244, 113, 113, 0.49)'
+                      : colors['main-yellow']}
+                  show={showSendMail}
+                  onClickOutside={() => {
+                    toggleMailModal()
+                  }}>
 
                 <div className={'user-input'}>
                   <Input borderColor={colors['main-red']}
                          color={colors['main-red']}
                          placeholder={'email'}
+                         value={email}
+                         onChange={onChangeEmailHandler}
                          type={'email'}/>
                 </div>
 
                 <div className={'button-container'}>
                   <Button color={colors['main-red']}
+                          onClick={() => AxiosService.forgottenPassword(email,
+                              navigate)}
                           text={'Send Mail'}/>
                 </div>
 
@@ -116,38 +154,57 @@ const Home = (props) => {
             </div>
 
             <div className={'modal'}>
-              <InputModal color={screenWidth >= 1024 ? 'rgba(15, 221, 221, 0.49)' : colors['main-blue']}
-                          show={showSignUp}
-                          onClickOutside={() => {
-                            openSignUpModal()
-                          }}>
+              <InputModal
+                  color={screenWidth >= 1024 ? 'rgba(15, 221, 221, 0.49)'
+                      : colors['main-blue']}
+                  show={showSignUp}
+                  onClickOutside={() => {
+                    toggleSignUpModal()
+                  }}>
                 <div className={'user-input'}>
-                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
-                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue']
+                      : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue']
+                             : colors['main-orange']}
                          placeholder={'username'}
+                         value={username}
+                         onChange={onChangeUsernameHandler}
                          type={'text'}/>
                 </div>
 
                 <div className={'user-input'}>
-                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
-                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue']
+                      : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue']
+                             : colors['main-orange']}
                          placeholder={'email'}
+                         value={email}
+                         onChange={onChangeEmailHandler}
                          type={'email'}/>
                 </div>
 
                 <div className={'password-input'}>
-                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
-                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue']
+                      : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue']
+                             : colors['main-orange']}
                          placeholder={'password'}
+                         value={password}
+                         onChange={onChangePasswordHandler}
                          type={'password'}/>
-                  <div className={'password-specifics'}>At least 8 characters, 1 digit, 1 capital letter</div>
+
+                  <div className={'password-specifics'}>At least 8 characters, 1
+                    digit, 1 capital letter
+                  </div>
                 </div>
 
                 <div className={'button-container'}>
-                  <Button color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                  <Button color={screenWidth >= 1024 ? colors['main-blue']
+                      : colors['main-orange']}
+                          onClick={() => AxiosService.register(username, email,
+                              password)}
                           text={'Sign Up'}/>
-
-
                 </div>
 
               </InputModal>

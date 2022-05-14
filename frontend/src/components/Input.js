@@ -9,6 +9,7 @@ const Input = (props) => {
                    borderColor: props.borderColor,
                    color: props.color
                  }}
+                 value={props.value}
                  placeholder={props.placeholder}
                  type={props.type}
                  onChange={props['onChange']}
