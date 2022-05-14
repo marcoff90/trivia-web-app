@@ -28,6 +28,8 @@ const Home = (props) => {
     setShowSignUp(!showSignUp);
   }
 
+  const screenWidth = window.innerWidth;
+
   return (
       <>
         <Background/>
@@ -51,7 +53,7 @@ const Home = (props) => {
 
             <div className={'button-group'}>
               <Button text={'Login'}
-                      color={colors['main-green']}
+                      color={screenWidth >= 1024 ? colors['main-green'] : colors['main-red']}
                       onClick={() => openLoginModal()}/>
               <Button text={'Sign Up'}
                       color={colors['main-blue']}
@@ -59,7 +61,7 @@ const Home = (props) => {
             </div>
 
             <div className={'modal'}>
-                  <InputModal color={'rgba(49, 207, 160,0.49)'}
+                  <InputModal color={screenWidth >= 1024 ? 'rgba(49, 207, 160,0.49)' : colors['main-orange']}
                               show={showLogin}
                               onClickOutside={() => {
                                 openLoginModal()
@@ -92,7 +94,7 @@ const Home = (props) => {
             </div>
 
             <div className={'modal'}>
-              <InputModal color={'rgba(244, 113, 113, 0.49)'}
+              <InputModal color={screenWidth >= 1024 ? 'rgba(244, 113, 113, 0.49)' : colors['main-yellow']}
                           show={showSendMail}
                           onClickOutside={() => {
                             openMailModal()
@@ -114,35 +116,35 @@ const Home = (props) => {
             </div>
 
             <div className={'modal'}>
-              <InputModal color={'rgba(15, 221, 221, 0.49)'}
+              <InputModal color={screenWidth >= 1024 ? 'rgba(15, 221, 221, 0.49)' : colors['main-blue']}
                           show={showSignUp}
                           onClickOutside={() => {
                             openSignUpModal()
                           }}>
                 <div className={'user-input'}>
-                  <Input borderColor={colors['main-blue']}
-                         color={colors['main-blue']}
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
                          placeholder={'username'}
                          type={'text'}/>
                 </div>
 
                 <div className={'user-input'}>
-                  <Input borderColor={colors['main-blue']}
-                         color={colors['main-blue']}
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
                          placeholder={'email'}
                          type={'email'}/>
                 </div>
 
                 <div className={'password-input'}>
-                  <Input borderColor={colors['main-blue']}
-                         color={colors['main-blue']}
+                  <Input borderColor={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
+                         color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
                          placeholder={'password'}
                          type={'password'}/>
                   <div className={'password-specifics'}>At least 8 characters, 1 digit, 1 capital letter</div>
                 </div>
 
                 <div className={'button-container'}>
-                  <Button color={colors['main-blue']}
+                  <Button color={screenWidth >= 1024 ? colors['main-blue'] : colors['main-orange']}
                           text={'Sign Up'}/>
 
 

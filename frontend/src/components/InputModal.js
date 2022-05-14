@@ -1,10 +1,11 @@
 import '../assets/input-modal.scss';
 import {useEffect, useRef} from 'react';
-import {Fade, Slide} from "react-awesome-reveal";
+import {Slide} from "react-awesome-reveal";
 
 const InputModal = (props) => {
   const ref = useRef(null);
-  const onClickOutside = props['onClickOutside']
+  const onClickOutside = props['onClickOutside'];
+  const screenWidth = window.innerWidth;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -26,7 +27,7 @@ const InputModal = (props) => {
       <>
         <div ref={ref}>
           <Slide duration={500}
-                 direction={'down'}>
+                 direction={screenWidth >= 1024 ? 'down' : 'up'}>
             <div className={'modal-background'}
                  style={{
                    backgroundColor: props.color,

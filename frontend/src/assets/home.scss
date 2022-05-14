@@ -8,7 +8,11 @@ $full-hd-primary-font-size: 48px;
 $full-hd-primary-line-height: 58px;
 
 $full-hd-secondary-font-size: 20px;
-$full-hd-secondary-line-height:40px;
+$full-hd-secondary-line-height: 40px;
+
+$iphone12-button-group-height: 168px;
+$iphone12-primary-font-size: 20px;
+$iphone12-primary-line-height: 30px;
 
 .home-page {
   height: 100vh;
@@ -19,7 +23,6 @@ $full-hd-secondary-line-height:40px;
   top: 0;
   left: 0;
   justify-content: space-between;
-
   .info-container {
     display: flex;
     flex-direction: column;
@@ -49,12 +52,11 @@ $full-hd-secondary-line-height:40px;
       width: 100%;
       flex-direction: row;
       justify-content: space-between;
+      margin-bottom: 1rem;
     }
     .modal {
       width: 100%;
-      margin-top: 1rem;
     }
-
   }
 }
 
@@ -67,13 +69,176 @@ $full-hd-secondary-line-height:40px;
   align-items: center;
 }
 
+@media only screen and (min-width: 320px) and (max-width: 1024px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+    .info-container {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      align-items: center;
+      .primary-info {
+        font-size: ($SE / $iphone12) * $iphone12-primary-font-size;
+        line-height: ($SE / $iphone12) * $iphone12-primary-line-height;
+        text-align: center;
+        margin-top: ($SE / $iphone12) * 1rem;
+      }
+      .secondary-info {
+        display: none;
+      }
+    }
+    .control {
+      flex-direction: column-reverse;
+      margin: ($SE / $iphone12) * 1rem ($SE / $iphone12) * 2rem ($SE / $iphone12) * 2rem ($SE / $iphone12) * 2rem;
+      width: 90vw;
+      .button-group {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: ($SE / $iphone12) * $iphone12-button-group-height;
+        margin-top: ($SE / $iphone12) * 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1024px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+    .info-container {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      .primary-info {
+        font-size: ($iphone8 / $iphone12) * $iphone12-primary-font-size;
+        line-height: ($iphone8 / $iphone12) * $iphone12-primary-line-height;
+        text-align: center;
+        margin-top: ($iphone8 / $iphone12) * 1rem;
+      }
+      .secondary-info {
+        display: none;
+      }
+    }
+    .control {
+      flex-direction: column-reverse;
+      margin: ($iphone8 / $iphone12) * 1rem ($iphone8 / $iphone12) *  2rem ($iphone8 / $iphone12) * 2rem ($iphone8 / $iphone12) *  2rem;
+      width: 90vw;
+      .button-group {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: ($iphone8 / $iphone12) * $iphone12-button-group-height;
+        margin-top: ($iphone8 / $iphone12) * 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1024px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+    .info-container {
+      margin-top: 3rem;
+      margin-bottom: 0;
+      .primary-info {
+        font-size: $iphone12-primary-font-size;
+        line-height: $iphone12-primary-line-height;
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .secondary-info {
+        display: none;
+      }
+    }
+    .control {
+      flex-direction: column-reverse;
+      margin: 1rem 2rem 2rem 2rem;
+      width: 90vw;
+      .button-group {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: $iphone12-button-group-height;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1024px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+    .info-container {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      .primary-info {
+        font-size: ($iphone8plus / $iphone12) * $iphone12-primary-font-size;
+        line-height: ($iphone8plus / $iphone12) * $iphone12-primary-line-height;
+        text-align: center;
+        margin-top: ($iphone8plus / $iphone12) * 1rem;
+      }
+      .secondary-info {
+        display: none;
+      }
+    }
+    .control {
+      flex-direction: column-reverse;
+      margin: ($iphone8plus / $iphone12) * 1rem ($iphone8plus / $iphone12) * 2rem ($iphone8plus / $iphone12) * 2rem ($iphone8plus / $iphone12) * 2rem;
+      width: 90vw;
+      .button-group {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: ($iphone8plus / $iphone12) * $iphone12-button-group-height;
+        margin-top: ($iphone8plus / $iphone12) * 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1024px) {
+  .home-page {
+    flex-direction: column;
+    align-items: center;
+    .info-container {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      .primary-info {
+        font-size: ($iphone11 / $iphone12) * $iphone12-primary-font-size;
+        line-height: ($iphone11 / $iphone12) * $iphone12-primary-line-height;
+        text-align: center;
+        margin-top: ($iphone11 / $iphone12) * 1rem;
+      }
+      .secondary-info {
+        display: none;
+      }
+    }
+    .control {
+      flex-direction: column-reverse;
+      margin: ($iphone11 / $iphone12) * 1rem ($iphone11 / $iphone12) * 2rem ($iphone11 / $iphone12) * 2rem ($iphone11 / $iphone12) * 2rem;
+      width: 90vw;
+      .button-group {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: ($iphone11 / $iphone12) * $iphone12-button-group-height;
+        margin-top: ($iphone11 / $iphone12) * 1rem;
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: 1024px) {
   .info-container {
     width: ($low-resolution / $full-hd) * $full-hd-width-info;
+
     .primary-info {
       font-size: ($low-resolution / $full-hd) * $full-hd-primary-font-size;
       line-height: ($low-resolution / $full-hd) * $full-hd-primary-line-height;
     }
+
     .secondary-info {
       font-size: ($low-resolution / $full-hd) * $full-hd-secondary-font-size;
       line-height: ($low-resolution / $full-hd) * $full-hd-secondary-line-height;
@@ -87,10 +252,12 @@ $full-hd-secondary-line-height:40px;
 @media only screen and (min-width: 1280px) {
   .info-container {
     width: ($hd / $full-hd) * $full-hd-width-info;
+
     .primary-info {
       font-size: ($hd / $full-hd) * $full-hd-primary-font-size;
       line-height: ($hd / $full-hd) * $full-hd-primary-line-height;
     }
+
     .secondary-info {
       font-size: ($hd / $full-hd) * $full-hd-secondary-font-size;
       line-height: ($hd / $full-hd) * $full-hd-secondary-line-height;
@@ -104,10 +271,12 @@ $full-hd-secondary-line-height:40px;
 @media only screen and (min-width: 1680px) {
   .info-container {
     width: ($macbook / $full-hd) * $full-hd-width-info;
+
     .primary-info {
       font-size: ($macbook / $full-hd) * $full-hd-primary-font-size;
       line-height: ($macbook / $full-hd) * $full-hd-primary-line-height;
     }
+
     .secondary-info {
       font-size: ($macbook / $full-hd) * $full-hd-secondary-font-size;
       line-height: ($macbook / $full-hd) * $full-hd-secondary-line-height;
@@ -121,10 +290,12 @@ $full-hd-secondary-line-height:40px;
 @media only screen and (min-width: 1920px) {
   .info-container {
     width: $full-hd-width-info;
+
     .primary-info {
       font-size: $full-hd-primary-font-size;
       line-height: $full-hd-primary-line-height;
     }
+
     .secondary-info {
       font-size: $full-hd-secondary-font-size;
       line-height: $full-hd-secondary-line-height;
@@ -138,10 +309,12 @@ $full-hd-secondary-line-height:40px;
 @media only screen and (min-width: 3840px) {
   .info-container {
     width: ($QHD / $full-hd) * $full-hd-width-info;
+
     .primary-info {
       font-size: ($QHD / $full-hd) * $full-hd-primary-font-size;
       line-height: ($QHD / $full-hd) * $full-hd-primary-line-height;
     }
+
     .secondary-info {
       font-size: ($QHD / $full-hd) * $full-hd-secondary-font-size;
       line-height: ($QHD / $full-hd) * $full-hd-secondary-line-height;
