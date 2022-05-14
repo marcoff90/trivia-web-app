@@ -10,13 +10,12 @@ const create = async (user) => {
   user['confirmationToken'] = token;
   user['confirmationTokenExpiration'] = expiration;
   let savedUser = await UserRepository.create(user);
-  Mailer.sendConfirmationMail(user.email, token);
+  Mailer.sendConfirmationMail(user.email, token, user.username);
   return savedUser;
 };
 
 const confirmAccount = async (confirmationToken, avatar) => {
   let user = await UserRepository.findByConfirmationToken(confirmationToken);
-  console.log(user);
   user['active'] = true;
   user['avatar'] = avatar;
   user['confirmationToken'] = null;
@@ -31,7 +30,7 @@ const generateNewConfirmationToken = async (confirmationToken) => {
   let expiration = Math.round(Date.now() / 1000 + 86400);
   user['confirmationToken'] = token;
   user['confirmationTokenExpiration'] = expiration;
-  Mailer.sendConfirmationMail(user.email, token);
+  Mailer.sendConfirmationMail(user.email, token, user.username);
   await user.save();
   return token;
 };
@@ -57,7 +56,7 @@ const forgottenPassword = async (userEmail) => {
   user['forgottenPasswordToken'] = token;
   user['forgottenPasswordTokenExpiration'] = expiration
   await user.save();
-  Mailer.sendPasswordResetMail(userEmail, token);
+  Mailer.sendPasswordResetMail(userEmail, token, user.username);
 };
 
 const resetPassword = async (userEmail, password) => {

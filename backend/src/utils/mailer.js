@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 
-const sendPasswordResetMail = (userEmail, token) => {
+const sendPasswordResetMail = (userEmail, token, username) => {
+  username = username[0].toUpperCase() + username.substring(1);
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,10 +15,7 @@ const sendPasswordResetMail = (userEmail, token) => {
     from: process.env.MAILER_USER,
     to: userEmail,
     subject: 'Password reset link',
-    text: 'Dear user,\n\n' +
-        'please finish the password reset process at ...' // ! finish link
-        + token + '\n\n' +
-        'Quizzer App'
+    html: `Dear ${username},\n\n` + '<p>Click <a href="http://localhost:3001/users/recover?token=' + token + '">here</a> to reset your password.</p>' + `\n\nQuizzer Team`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -29,7 +27,9 @@ const sendPasswordResetMail = (userEmail, token) => {
   });
 };
 
-const sendConfirmationMail = (userEmail, token) => {
+const sendConfirmationMail = (userEmail, token, username) => {
+  username = username[0].toUpperCase() + username.substring(1);
+
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -42,10 +42,7 @@ const sendConfirmationMail = (userEmail, token) => {
     from: process.env.MAILER_USER,
     to: userEmail,
     subject: 'Activate your account',
-    text: 'Dear user,\n\n' +
-        'please  activate your account ...' // ! finish link
-        + token + '\n\n' +
-        'Quizzer App'
+    html: `Dear ${username},\n\n` + '<p>Click <a href="http://localhost:3001/users?confirmation=' + token + '">here</a> to complete your registration.</p>' + `\n\nQuizzer Team`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
