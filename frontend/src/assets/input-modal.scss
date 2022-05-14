@@ -1,8 +1,10 @@
 @import 'constants';
 @import 'color-scheme';
 
-$full-hd-width: 452px;
-$full-hd-height: 425px;
+$password-font-size: 10px;
+$password-line-height: 12px;
+$forgotten-password-font-size: 16px;
+$forgotten-password-line-height: 19px;
 
 .modal-background {
   width: 100%;
@@ -54,4 +56,58 @@ $full-hd-height: 425px;
   }
 }
 
+@media only screen and (min-width: 1024px) {
+  .forgotten-password {
+    font-size: ($low-resolution / $full-hd) * $forgotten-password-font-size;
+    line-height: ($low-resolution / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($low-resolution / $full-hd) * $password-font-size;
+    line-height: ($low-resolution / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .forgotten-password {
+    font-size: ($hd / $full-hd) * $forgotten-password-font-size;
+    line-height: ($hd / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($hd / $full-hd) * $password-font-size;
+    line-height: ($hd / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .forgotten-password {
+    font-size: ($macbook / $full-hd) * $forgotten-password-font-size;
+    line-height: ($macbook / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($macbook / $full-hd) * $password-font-size;
+    line-height: ($macbook / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1980px) {
+  .forgotten-password {
+    font-size: $forgotten-password-font-size;
+    line-height: $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: $password-font-size;
+    line-height: $password-line-height;
+  }
+}
+
+@media only screen and (min-width:3840px) {
+  .forgotten-password {
+    font-size: ($QHD / $full-hd) * $forgotten-password-font-size;
+    line-height: ($QHD / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($QHD / $full-hd) * $password-font-size;
+    line-height: ($QHD / $full-hd) * $password-line-height;
+  }
+}
 
