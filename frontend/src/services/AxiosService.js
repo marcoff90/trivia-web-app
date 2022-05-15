@@ -95,7 +95,6 @@ const resetPassword = (email, password, resetToken, navigate) => {
 };
 
 const startDuel = (navigate) => {
-  console.log(axios.defaults.headers.common['Authorization']);
   axios.get(url + 'duels')
   .then(res => {
     console.log(res.data);
@@ -104,6 +103,16 @@ const startDuel = (navigate) => {
   .catch(err => {
     errorToast(err);
   })
+};
+
+const findSecondPlayer = (id, navigate) => {
+  axios.get(url + `duels/${id}/check`)
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    errorToast(err);
+  });
 };
 
 const errorToast = (err) => {
@@ -141,5 +150,6 @@ export default {
   activateUser,
   identifyUser,
   resetPassword,
-  startDuel
+  startDuel,
+  findSecondPlayer
 };

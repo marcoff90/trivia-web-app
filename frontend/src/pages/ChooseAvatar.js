@@ -77,7 +77,7 @@ const ChooseAvatar = () => {
   return (
       <>
         {
-          loading ? <Loader/> :
+          loading ? <div className={'avatar-loading'}><Loader/></div> :
               <>
                 <div className={'choose-avatar-page-background'}>
                   <p className={'main-welcome-message-background'}>Welcome to
