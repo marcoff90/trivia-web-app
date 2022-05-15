@@ -1,6 +1,12 @@
 @import "color-scheme";
 @import "constants";
 
+$margin-circle-full-hd: 18vh;
+$circle-width-height: 265px;
+$font-size: 36px;
+
+
+
 .choose-game-type-page {
   height: 100vh;
   margin-left: 50vw;
@@ -16,9 +22,9 @@
     display: flex;
     justify-content: center;
     .circle {
-      margin-top: 18vh;
-      height: 265px;
-      width: 265px;
+      width: $circle-width-height;
+      height: $circle-width-height;
+      margin-top: $margin-circle-full-hd;
       border-radius: 50%;
       background: $main-red;
       display: flex;
@@ -28,17 +34,178 @@
       cursor: pointer;
       .text {
         width: 50%;
+        font-size: $font-size;
         font-family: $fredoka;
         font-weight: 400;
-        font-size: 36px;
-        line-height: 44px;
         text-align: center;
         letter-spacing: 0.1em;
         color: $white;
       }
-
-
     }
   }
-
 }
+
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .choose-game-type-page {
+    margin: 0;
+    .user-info-container {
+      justify-content: center;
+      align-items: center;
+    }
+    .circle-container {
+      align-items: center;
+      .circle {
+        margin: 0;
+        height: ($SE / $iphone12) * $circle-width-height;
+        width: ($SE / $iphone12) * $circle-width-height;
+        .text {
+          width: 85%;
+          font-size: ($SE / $iphone12) * $font-size;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1023px) {
+  .choose-game-type-page {
+    margin: 0;
+    .user-info-container {
+      justify-content: center;
+      align-items: center;
+    }
+    .circle-container {
+      align-items: center;
+      .circle {
+        margin: 0;
+        height: ($iphone8 / $iphone12) * $circle-width-height;
+        width: ($iphone8 / $iphone12) * $circle-width-height;
+        .text {
+          width: 85%;
+          font-size: ($iphone8 / $iphone12) * $font-size;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1023px) {
+  .choose-game-type-page {
+    margin: 0;
+    .user-info-container {
+      justify-content: center;
+      align-items: center;
+    }
+    .circle-container {
+      align-items: center;
+      .circle {
+        margin: 0;
+        height: $circle-width-height;
+        width: $circle-width-height;
+        .text {
+          width: 85%;
+          font-size: $font-size;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
+  .choose-game-type-page {
+    margin: 0;
+    .user-info-container {
+      justify-content: center;
+      align-items: center;
+    }
+    .circle-container {
+      align-items: center;
+      .circle {
+        margin: 0;
+        height: ($iphone8plus / $iphone12) * $circle-width-height;
+        width: ($iphone8plus / $iphone12) * $circle-width-height;
+        .text {
+          width: 85%;
+          font-size: ($iphone8plus / $iphone12) * $font-size;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
+  .choose-game-type-page {
+    margin: 0;
+    .user-info-container {
+      justify-content: center;
+      align-items: center;
+    }
+    .circle-container {
+      align-items: center;
+      .circle {
+        margin: 0;
+        height: ($iphone11 / $iphone12) * $circle-width-height;
+        width: ($iphone11 / $iphone12) * $circle-width-height;
+        .text {
+          width: 85%;
+          font-size: ($iphone11 / $iphone12) * $font-size;
+        }
+      }
+    }
+  }
+}
+
+//@media only screen and (min-width: 1024px) {
+//  .circle {
+//    margin-top: ($low-resolution / $full-hd) * $margin-circle-full-hd;
+//    height: ($low-resolution / $full-hd) * $circle-width-height;
+//    width: ($low-resolution / $full-hd) * $circle-width-height;
+//    .text {
+//      font-size: ($low-resolution / $full-hd) * $font-size;
+//    }
+//  }
+//}
+//
+//@media only screen and (min-width: 1280px) {
+//  .circle {
+//    margin-top: ($hd / $full-hd) * $margin-circle-full-hd;
+//    height: ($hd / $full-hd) * $circle-width-height;
+//    width: ($hd / $full-hd) * $circle-width-height;
+//    .text {
+//      font-size: ($hd / $full-hd) * $font-size;
+//    }
+//  }
+//}
+//
+//@media only screen and (min-width: 1680px) {
+//  .circle {
+//    margin-top: ($macbook / $full-hd) * $margin-circle-full-hd;
+//    height: ($macbook / $full-hd) * $circle-width-height;
+//    width: ($macbook / $full-hd) * $circle-width-height;
+//    .text {
+//      font-size: ($macbook / $full-hd) * $font-size;
+//    }
+//  }
+//}
+//
+//@media only screen and (min-width: 1920px) {
+//  .circle {
+//    margin-top: $margin-circle-full-hd;
+//    height: $circle-width-height;
+//    width: $circle-width-height;
+//    .text {
+//      font-size: $font-size;
+//    }
+//  }
+//}
+//
+//@media only screen and (min-width: 3840px) {
+//  .circle {
+//    margin-top: ($QHD / $full-hd) * $margin-circle-full-hd;
+//    height: ($QHD / $full-hd) * $circle-width-height;
+//    width: ($QHD / $full-hd) * $circle-width-height;
+//    .text {
+//      font-size: ($QHD / $full-hd) * $font-size;
+//    }
+//  }
+//}

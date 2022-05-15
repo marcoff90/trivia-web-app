@@ -10,6 +10,7 @@ const ChooseGameType = () => {
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
+  let screenWidth = window.innerWidth;
   const [buttonText, setButtonText] = useState('START DUEL');
   const [clickableButton, setClickableButton] = useState(
       {pointerEvents: 'auto'});
@@ -24,7 +25,7 @@ const ChooseGameType = () => {
       setButtonText('1');
     }, 2000);
     setTimeout(() => {
-      AxiosService.startDuel()
+      AxiosService.startDuel(navigate)
     }, 3000);
   };
 
@@ -37,10 +38,10 @@ const ChooseGameType = () => {
                       avatar={avatar}
                       userScore={score}/>
           </div>
-          <div className={'circle-container'}
-               style={clickableButton}
-               onClick={() => startDuel()}>
-            <div className={'circle'}>
+          <div className={'circle-container'}>
+            <div className={'circle'}
+                 style={clickableButton}
+                 onClick={() => startDuel()}>
               <div className={'text'}>
                 {buttonText}
               </div>
