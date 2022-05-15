@@ -108,7 +108,7 @@ const ChooseAvatar = () => {
                           ))}
                     </>
                     <div className={'button-container'}>
-                      <Button text={'Choose'}/>
+                      <Button text={'Choose'} onClick={() => AxiosService.activateUser(confirmationToken, navigate, avatarUrl)}/>
                     </div>
                   </div>
 

@@ -1,8 +1,6 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-// TODO redirecting to pages
-
 const url = 'http://localhost:3000/api/';
 
 const login = (username, password, navigate) => {
@@ -11,10 +9,9 @@ const login = (username, password, navigate) => {
     password: password
   })
   .then(res => {
-    console.log(res.data);
     axios.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
     window.localStorage.setItem('token', res.data.token);
-    console.log(window.localStorage.getItem('token'));
+    // TODO navigate to choose-game
   })
   .catch(err => {
     errorToast(err);
@@ -55,6 +52,22 @@ const getUserNameByConfirmation = (confirmationToken, navigate) => {
   });
 };
 
+const activateUser = (confirmationToken, navigate, avatarUrl) => {
+  axios.post(url + 'users/activate?confirmation=' + confirmationToken, {
+    avatar: avatarUrl
+  })
+  .then(res => {
+    axios.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
+    window.localStorage.setItem('token', res.data.token);
+    window.localStorage.setItem('avatar', res.data.avatar);
+    window.localStorage.setItem('username', res.data.username);
+    // TODO navigate to choose-game
+  })
+  .catch(err => {
+    errorToast(err)
+  });
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -86,5 +99,6 @@ export default {
   getUserNameByConfirmation,
   infoToast,
   errorToast,
-  successToast
+  successToast,
+  activateUser
 };
