@@ -76,6 +76,20 @@ const identifyUser = (resetToken, navigate) => {
   });
 };
 
+const resetPassword = (email, password, resetToken, navigate) => {
+  axios.post(url + 'users/recover?token=' + resetToken, {
+    email: email,
+    password: password
+  })
+  .then(res => {
+    navigate('/');
+    successToast('Password changed successfully');
+  })
+  .catch(err => {
+    errorToast(err);
+  });
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -109,5 +123,6 @@ export default {
   errorToast,
   successToast,
   activateUser,
-  identifyUser
+  identifyUser,
+  resetPassword
 };

@@ -6,6 +6,7 @@ import Input from "../components/Input";
 import '../assets/reset-password.scss';
 import Button from "../components/Button";
 import NameLogo from "../components/NameLogo";
+import {ToastContainer} from "react-toastify";
 
 const ResetPassword = () => {
   const querySearcher = new URLSearchParams(useLocation().search);
@@ -15,7 +16,6 @@ const ResetPassword = () => {
 
   let token = querySearcher.get('token');
   let navigate = useNavigate();
-  let screenWidth = window.innerWidth;
 
   const onChangePasswordHandler = (e) => {
     setPassword(e.target.value);
@@ -70,7 +70,8 @@ const ResetPassword = () => {
                       </div>
                     </div>
                     <div className={'button-container'}>
-                      <Button text={'Reset'}/>
+                      <Button text={'Reset'}
+                              onClick={() => AxiosService.resetPassword(email, password, token, navigate)}/>
                     </div>
                   </div>
                   .

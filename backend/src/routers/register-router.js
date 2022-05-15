@@ -10,7 +10,7 @@ RegisterRouter.post('/api/login', UserController.showLogin);
 RegisterRouter.post('/api/users/forgotten-password',
     UserController.forgottenPassword);
 
-RegisterRouter.post('/api/users', UserController.resetPassword);
+RegisterRouter.post('/api/users/recover', UserController.resetPassword);
 
 RegisterRouter.post('/api/users/activate', UserController.activateAccount);
 

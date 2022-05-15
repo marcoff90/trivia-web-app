@@ -56,7 +56,7 @@ const confirmPasswordChange = (userEmail, username) => {
   let mailOptions = {
     from: process.env.MAILER_USER,
     to: userEmail,
-    subject: 'Activate your account',
+    subject: 'Your account has been updated',
     html: `Dear ${username},\n\n`
         + '<p>The password on your account has been changed. If you did not do this change. Change your <a href="http://localhost:3001">password</a></p>'
         + `\n\nQuizzer Team`

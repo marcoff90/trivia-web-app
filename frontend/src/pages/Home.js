@@ -51,11 +51,6 @@ const Home = () => {
 
   return (
       <>
-        <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            closeButton={false}
-        />
         <Background/>
         <div className={'main-logo'}>
           <Logo/>
