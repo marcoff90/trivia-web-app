@@ -40,9 +40,10 @@ const ChooseAvatar = () => {
 
   let navigate = useNavigate();
   let confirmationToken = querySearcher.get('confirmation');
+  let screenWidth = window.innerWidth;
 
   const chosenAvatar = {
-    border: '7px solid #FEF17C',
+    border: screenWidth >= 1024 ? '7px solid #FEF17C' : '3px solid #FEF17C',
     borderRadius: '50%'
   };
 

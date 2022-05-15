@@ -17,7 +17,13 @@
 }
 
 @media only screen and (max-width: 1023px) {
-  .layout-container {
+  .layout {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .name-logo {
     display: none;
   }
 }

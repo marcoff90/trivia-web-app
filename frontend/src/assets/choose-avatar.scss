@@ -7,6 +7,10 @@ $full-hd-text-border: 7px;
 $full-hd-width: 500px;
 $full-hd-text-shadow-border: 7px;
 
+$iphone12-font-size: 45px;
+$iphone12-line-height: 54px;
+$iphone12-width: 347px;
+
 @mixin welcome-message($resolution) {
   font-family: $fredoka;
   font-weight: 400;
@@ -14,6 +18,26 @@ $full-hd-text-shadow-border: 7px;
   line-height: ($resolution / $full-hd) * $full-hd-line-height;
   text-align: center;
   color: $white;
+}
+
+@mixin welcome-message-iphone($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $iphone12) * $iphone12-font-size;
+  line-height: ($resolution / $iphone12) * $iphone12-line-height;
+  text-align: center;
+  color: $white;
+}
+
+@mixin text-shadow-iphone($resolution) {
+  text-shadow: ($resolution / $iphone12) * -5px ($resolution / $iphone12) * -5px 0 $main-red,
+  0   ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px 0 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * 5px 0 $main-red,
+  0 ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px 0 0 $main-red;
 }
 
 @mixin text-shadow($resolution) {
@@ -84,6 +108,159 @@ $full-hd-text-shadow-border: 7px;
 
     .button-container {
       margin: 1rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+
+    .main-welcome-message {
+      @include welcome-message-iphone($SE);
+      @include text-shadow-iphone($SE);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($SE);
+      @include text-shadow-iphone($SE);
+    }
+    .box {
+      margin: 3rem;
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      @include welcome-message-iphone($iphone8);
+      @include text-shadow-iphone($iphone8);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone8);
+      @include text-shadow-iphone($iphone8);
+    }
+    .box {
+      margin: 3rem;
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon {
+        position: absolute;
+      }
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      @include welcome-message-iphone($iphone12);
+      @include text-shadow-iphone($iphone12);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone12);
+      @include text-shadow-iphone($iphone12);
+    }
+    .box {
+      margin: 3rem;
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon {
+        position: absolute;
+      }
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      @include welcome-message-iphone($iphone8plus);
+      @include text-shadow-iphone($iphone8plus);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone8plus);
+      @include text-shadow-iphone($iphone8plus);
+    }
+    .box {
+      margin: 3rem;
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon {
+        position: absolute;
+      }
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      @include welcome-message-iphone($iphone11);
+      @include text-shadow-iphone($iphone11);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone11);
+      @include text-shadow-iphone($iphone11);
+    }
+    .box {
+      margin: 3rem;
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon {
+        position: absolute;
+      }
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }
