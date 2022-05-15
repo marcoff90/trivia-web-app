@@ -1,0 +1,68 @@
+@import "color-scheme";
+@import "constants";
+
+$full-hd-font-size: 60px;
+$full-hd-line-height: 73px;
+$full-hd-text-border: 7px;
+
+@mixin welcome-message {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 73px;
+  text-align: center;
+  color: $white;
+}
+
+@mixin text-shadow {
+  text-shadow: -5px -5px 0 $main-red,
+  0   -5px 0 $main-red,
+  5px -5px 0 $main-red,
+  5px 0 0 $main-red,
+  5px 5px 0 $main-red,
+  0 5px 0 $main-red,
+  -5px 5px 0 $main-red,
+  -5px 0 0 $main-red;
+}
+
+@mixin avatar-page {
+  margin-left: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.choose-avatar-page-background {
+  @include avatar-page;
+  position: absolute;
+  .main-welcome-message-background {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    @include welcome-message;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+  .welcome-message-background {
+    @include welcome-message;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    margin: 0;
+  }
+}
+
+.choose-avatar-page {
+  @include avatar-page;
+  position: relative;
+
+  .main-welcome-message {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    @include welcome-message;
+    @include text-shadow;
+
+  }
+
+  .welcome-message {
+    @include welcome-message;
+    @include text-shadow;
+    margin: 0;
+  }
+}

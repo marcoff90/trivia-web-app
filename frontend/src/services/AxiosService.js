@@ -47,6 +47,14 @@ const forgottenPassword = (email, navigate) => {
   });
 };
 
+const getUserNameByConfirmation = (confirmationToken, navigate) => {
+ return axios.get(url + 'users/welcome?confirmation=' + confirmationToken)
+  .catch(err => {
+    navigate('/');
+    errorToast(err);
+  });
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -74,5 +82,9 @@ const infoToast = (message) => {
 export default {
   login,
   register,
-  forgottenPassword
-}
+  forgottenPassword,
+  getUserNameByConfirmation,
+  infoToast,
+  errorToast,
+  successToast
+};
