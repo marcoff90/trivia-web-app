@@ -115,6 +115,16 @@ const findSecondPlayer = (id, navigate) => {
   });
 };
 
+const getQuestion = (duelId, navigate) => {
+  axios.get(url + `duels/${duelId}/questions?count=1`)
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    errorToast(err);
+  });
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -151,5 +161,6 @@ export default {
   identifyUser,
   resetPassword,
   startDuel,
-  findSecondPlayer
+  findSecondPlayer,
+  getQuestion
 };

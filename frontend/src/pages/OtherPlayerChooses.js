@@ -1,12 +1,12 @@
-import {useNavigate, useParams} from "react-router-dom";
 import Auth from "../services/Auth";
 import UserInfo from "../components/UserInfo";
 import Loader from "../components/Loader";
-import '../assets/waiting-for-second-player.scss';
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import AxiosService from "../services/AxiosService";
+import '../assets/waiting-for-second-player.scss';
 
-const WaitingForSecondPlayer = () => {
+const OtherPlayerChooses = () => {
   let username = window.localStorage.getItem('username');
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
@@ -15,7 +15,7 @@ const WaitingForSecondPlayer = () => {
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
-      AxiosService.findSecondPlayer(id.id, navigate);
+      AxiosService.getQuestion(id.id, navigate);
     }, 5000);
     return () => {
       clearInterval(intervalCall);
@@ -31,11 +31,11 @@ const WaitingForSecondPlayer = () => {
                       avatar={avatar}
                       userScore={score}/>
           </div>
-          <p className={'header'}>Looking for second player</p>
+          <p className={'header'}>Other player is choosing categories</p>
           <Loader/>
         </div>
       </>
   );
 };
 
-export default WaitingForSecondPlayer;
+export default OtherPlayerChooses;
