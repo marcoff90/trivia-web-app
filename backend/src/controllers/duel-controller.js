@@ -38,6 +38,7 @@ const areQuestionsChosen = async (req, res, next) => {
   let player = req.user;
   let duel = await DuelService.findByIdUnfinished(duelId);
   let duelQuestions = await DuelQuestionsService.findByDuelId(duelId);
+  console.log(duelQuestions)
 
   if (!duel) {
     next(ApiError.notFound('Duel not found!'));
@@ -45,7 +46,7 @@ const areQuestionsChosen = async (req, res, next) => {
   } else if (duel['playerTwoId'] !== player.id) {
     next(ApiError.unauthorized('Only players in duel can see the game'));
 
-  } else if (!duelQuestions) {
+  } else if (duelQuestions.length === 0) {
     next(ApiError.notFound('Questions have not been assigned yet'));
 
   } else {
