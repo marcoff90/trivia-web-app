@@ -8,6 +8,7 @@ const Avatar = (props) => {
              onClick={props.onClick}
              width={props.width}
              height={props.height}
+             style={props.style}
              alt={'avatar'}/>
       </>
   );

@@ -24,15 +24,15 @@ const Quiz = (props) => {
 
           {/*</div>*/}
 
-          {/*<>*/}
-          {/*  {props.answers.map(*/}
-          {/*      ({id, answer}, index) => (*/}
-          {/*          <div className={'answer'}>*/}
-          {/*            <Answer answer={answer} id={id}*/}
-          {/*                    backgroundColor={answerColors[index]}/>*/}
-          {/*          </div>*/}
-          {/*      ))}*/}
-          {/*</>*/}
+          <>
+            {props.answers.map(
+                ({id, answer}, index) => (
+                    <div className={'answer'}>
+                      <Answer answer={answer} id={id}
+                              backgroundColor={answerColors[index]}/>
+                    </div>
+                ))}
+          </>
 
         </div>
       </>
