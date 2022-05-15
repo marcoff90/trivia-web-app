@@ -9,10 +9,10 @@ const Layout = (props) => {
         <Background zIndex={-2}/>
         <div className={'layout-container'}>
           <div className={'layout'}>
-            <div className={'name-logo'}>
+            <div className={'name-logo-layout'}>
               <NameLogo/>
             </div>
-            <div className={'logo'}>
+            <div className={'logo-layout'}>
               <Logo/>
             </div>
           </div>

@@ -68,6 +68,14 @@ const activateUser = (confirmationToken, navigate, avatarUrl) => {
   });
 };
 
+const identifyUser = (resetToken, navigate) => {
+  return axios.get(url + 'users/identify?token=' + resetToken)
+  .catch(err => {
+    navigate('/')
+    errorToast(err);
+  });
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -100,5 +108,6 @@ export default {
   infoToast,
   errorToast,
   successToast,
-  activateUser
+  activateUser,
+  identifyUser
 };

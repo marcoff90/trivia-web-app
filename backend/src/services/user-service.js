@@ -65,6 +65,7 @@ const resetPassword = async (userEmail, password) => {
   user['forgottenPasswordToken'] = null;
   user['forgottenPasswordTokenExpiration'] = null;
   user['active'] = true;
+  Mailer.confirmPasswordChange(user['email'], user['username']);
   await user.save();
 };
 

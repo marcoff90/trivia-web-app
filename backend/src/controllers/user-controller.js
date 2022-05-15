@@ -189,11 +189,30 @@ const welcomeUser = async (req, res, next) => {
   }
 };
 
+const identifyUserByResetToken = async (req, res, next) => {
+  let token = req.query['token'];
+  let user;
+  if (!token) {
+    next(ApiError.badRequest('Token must be provided!'));
+
+  } else {
+    user = await UserService.findByPasswordToken(token);
+
+    if (!user) {
+      next(ApiError.notFound('Token not assigned to user!'));
+
+    } else {
+      res.json('ok');
+    }
+  }
+};
+
 export default {
   storeUser,
   showLogin,
   forgottenPassword,
   resetPassword,
   activateAccount,
-  welcomeUser
+  welcomeUser,
+  identifyUserByResetToken
 };
