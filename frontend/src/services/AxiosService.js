@@ -3,14 +3,20 @@ import {toast} from "react-toastify";
 
 const url = 'http://localhost:3000/api/';
 
+const afterLoginSetup = (data) => {
+  axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
+  window.localStorage.setItem('token', data.token);
+  window.localStorage.setItem('avatar', data.avatar);
+  window.localStorage.setItem('username', data.username);
+};
+
 const login = (username, password, navigate) => {
   axios.post(url + 'login', {
     username: username,
     password: password
   })
   .then(res => {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
-    window.localStorage.setItem('token', res.data.token);
+    afterLoginSetup(res.data)
     // TODO navigate to choose-game
   })
   .catch(err => {
@@ -57,10 +63,7 @@ const activateUser = (confirmationToken, navigate, avatarUrl) => {
     avatar: avatarUrl
   })
   .then(res => {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + res.data.token;
-    window.localStorage.setItem('token', res.data.token);
-    window.localStorage.setItem('avatar', res.data.avatar);
-    window.localStorage.setItem('username', res.data.username);
+    afterLoginSetup(res.data)
     // TODO navigate to choose-game
   })
   .catch(err => {

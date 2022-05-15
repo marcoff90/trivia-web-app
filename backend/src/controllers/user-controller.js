@@ -66,7 +66,9 @@ const showLogin = async (req, res, next) => {
       } else {
 
       res.json({
-        token: token
+        token: token,
+        username: loggedUser['username'],
+        avatar: loggedUser['avatar']
       });
     }
   }
