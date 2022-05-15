@@ -94,6 +94,18 @@ const resetPassword = (email, password, resetToken, navigate) => {
   });
 };
 
+const startDuel = (navigate) => {
+  console.log(axios.defaults.headers.common['Authorization']);
+  axios.get(url + 'duels')
+  .then(res => {
+    console.log(res.data);
+    // TODO get the response - based on result navigate to either waiting for 1st player to choose or waiting for second player
+  })
+  .catch(err => {
+    errorToast(err);
+  })
+};
+
 const errorToast = (err) => {
   return toast.error(err.response.data.error, {
     position: "top-center",
@@ -128,5 +140,6 @@ export default {
   successToast,
   activateUser,
   identifyUser,
-  resetPassword
+  resetPassword,
+  startDuel
 };

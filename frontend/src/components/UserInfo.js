@@ -23,7 +23,7 @@ const UserInfo = (props) => {
 
   return (
       <>
-        <div className='user-info grid-container'>
+        <div className='user-info grid-container' onMouseLeave={() => setShowButton(false)}>
           <div className='user grid-item'>
             {
               showButton ? <Button text={'Log out'} color={colors['main-red']} onClick={() => logout()}/>

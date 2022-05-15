@@ -5,6 +5,7 @@ import Mailer from "../utils/mailer";
 
 const create = async (user) => {
   user.password = bcrypt.hashSync(user['password'], 5);
+  user.username = user.username[0].toUpperCase() + user.username.substring(1);
   let token = await TokenGenerator.generateConfirmationToken();
   let expiration = Math.round(Date.now() / 1000 + 86400);
   user['confirmationToken'] = token;
