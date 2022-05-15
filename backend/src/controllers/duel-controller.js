@@ -25,8 +25,31 @@ const isSecondPlayerIn = async (req, res, next) => {
   } else if (isDuelReady['playerOneId'] !== player.id) {
     next(ApiError.unauthorized('Only players in duel can see the game'));
 
+  } else if (isDuelReady['playerTwoId'] == null) {
+    next(ApiError.badRequest('Waiting for second player'));
+
   } else {
     res.json(isDuelReady);
+  }
+};
+
+const areQuestionsChosen = async (req, res, next) => {
+  let duelId = req.params.id;
+  let player = req.user;
+  let duel = await DuelService.findByIdUnfinished(duelId);
+  let duelQuestions = await DuelQuestionsService.findByDuelId(duelId);
+
+  if (!duel) {
+    next(ApiError.notFound('Duel not found!'));
+
+  } else if (duel['playerTwoId'] !== player.id) {
+    next(ApiError.unauthorized('Only players in duel can see the game'));
+
+  } else if (!duelQuestions) {
+    next(ApiError.notFound('Questions have not been assigned yet'));
+
+  } else {
+    res.json(duel);
   }
 };
 
@@ -154,5 +177,6 @@ export default {
   setCategories,
   getQuestion,
   checkAnswer,
-  showRoundScore
+  showRoundScore,
+  areQuestionsChosen
 };

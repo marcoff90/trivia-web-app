@@ -6,7 +6,9 @@ import ResetPassword from "./pages/ResetPassword";
 import {ToastContainer} from "react-toastify";
 import ChooseGameType from "./pages/ChooseGameType";
 import WaitingForSecondPlayer from "./pages/WaitingForSecondPlayer";
-import OtherPlayerChooses from "./pages/OtherPlayerChooses";
+import PlayerTwoWaits from "./pages/PlayerTwoWaits";
+import ChooseCategory from "./pages/ChooseCategory";
+import PlayerVsPlayer from "./pages/PlayerVsPlayer";
 
 const App = () => {
 
@@ -23,8 +25,10 @@ const App = () => {
             <Route path={'/users'}  element={<ChooseAvatar/>}/>
             <Route path={'/users/recover'} element={<ResetPassword/>}/>
             <Route path={'/games/duels/'} element={<ChooseGameType/>}/>
-            <Route path={'/games/duels/:id/check'} element={<WaitingForSecondPlayer/>}/>
-            <Route path={'/games/duels/:id/waiting-player'} element={<OtherPlayerChooses/>}/>
+            <Route path={'/games/duels/:id/searching-player'} element={<WaitingForSecondPlayer/>}/>
+            <Route path={'/games/duels/:id/waiting-player'} element={<PlayerTwoWaits/>}/>
+            <Route path={'/games/duels/:id/choose-category'} element={<ChooseCategory/>}/>
+            <Route path={'/games/duels/:id/start'} element={<PlayerVsPlayer/>}/>
           </Routes>
         </BrowserRouter>
       </>

@@ -1,6 +1,8 @@
 const ChooseCategory = () => {
   return (
-      <><h1>Category</h1></>
+      <>
+        <p>Category</p>
+      </>
   );
 };
 

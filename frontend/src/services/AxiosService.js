@@ -95,10 +95,14 @@ const resetPassword = (email, password, resetToken, navigate) => {
 };
 
 const startDuel = (navigate) => {
-  axios.get(url + 'duels')
+  axios.get(url + 'duels/new')
   .then(res => {
-    console.log(res.data);
-    // TODO get the response - based on result navigate to either waiting for 1st player to choose or waiting for second player
+    let duel = res.data;
+    if (duel['playerTwoId'] === null) {
+      navigate(`/games/duels/${duel.id}/searching-player`)
+    } else {
+      navigate(`/games/duels/${duel.id}/waiting-player`)
+    }
   })
   .catch(err => {
     errorToast(err);
@@ -106,12 +110,24 @@ const startDuel = (navigate) => {
 };
 
 const findSecondPlayer = (id, navigate) => {
-  axios.get(url + `duels/${id}/check`)
+  axios.get(url + `duels/${id}/player-check`)
   .then(res => {
     console.log(res);
+    navigate(`/duels/${id}/choose-category`)
   })
   .catch(err => {
     errorToast(err);
+  });
+};
+
+const areQuestionsChosen = (id, navigate) => {
+  axios.get(url + `duels/${id}/questions-check`)
+  .then(res => {
+    console.log(res);
+    navigate(`/duels/${id}/start`)
+  })
+  .catch(err => {
+    errorToast(err)
   });
 };
 
@@ -162,5 +178,6 @@ export default {
   resetPassword,
   startDuel,
   findSecondPlayer,
-  getQuestion
+  getQuestion,
+  areQuestionsChosen
 };

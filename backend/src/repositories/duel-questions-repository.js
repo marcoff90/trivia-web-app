@@ -13,8 +13,17 @@ const findByDuelIdAndQuestionId = async (duelId, questionId) => {
   });
 };
 
+const findByDuelId = async (duelId) => {
+  return await DuelQuestions.findAll({
+    where: {
+      duelId: duelId
+    }
+  });
+};
+
 
 export default {
   create,
-  findByDuelIdAndQuestionId
+  findByDuelIdAndQuestionId,
+  findByDuelId
 };

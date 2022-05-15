@@ -1,4 +1,4 @@
-### Quizzer Trivia App
+### PlayerVsPlayer Trivia App
 - two player game with trivia questions
 - REST API in Express.js - [Architecture](https://github.com/marcoff90/trivia-web-app/tree/master/docs/api_architecture.pdf)
 - Frontend TBD in React.js

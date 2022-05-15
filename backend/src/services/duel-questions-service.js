@@ -13,7 +13,12 @@ const create = async (duelId, questionId) => {
   await DuelQuestionsRepository.create(duelQ);
 };
 
+const findByDuelId = async (duelId) => {
+  return await DuelQuestionsRepository.findByDuelId(duelId);
+}
+
 export default {
   isQuestionInDuel,
-  create
+  create,
+  findByDuelId
 };

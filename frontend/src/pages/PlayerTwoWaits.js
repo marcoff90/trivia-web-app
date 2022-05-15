@@ -6,7 +6,7 @@ import {useEffect} from "react";
 import AxiosService from "../services/AxiosService";
 import '../assets/waiting-for-second-player.scss';
 
-const OtherPlayerChooses = () => {
+const PlayerTwoWaits = () => {
   let username = window.localStorage.getItem('username');
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
@@ -15,7 +15,7 @@ const OtherPlayerChooses = () => {
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
-      AxiosService.getQuestion(id.id, navigate);
+      AxiosService.areQuestionsChosen(id.id, navigate);
     }, 5000);
     return () => {
       clearInterval(intervalCall);
@@ -38,4 +38,4 @@ const OtherPlayerChooses = () => {
   );
 };
 
-export default OtherPlayerChooses;
+export default PlayerTwoWaits;
