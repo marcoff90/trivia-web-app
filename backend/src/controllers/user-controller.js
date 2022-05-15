@@ -68,7 +68,8 @@ const showLogin = async (req, res, next) => {
       res.json({
         token: token,
         username: loggedUser['username'],
-        avatar: loggedUser['avatar']
+        avatar: loggedUser['avatar'],
+        totalScore: loggedUser['totalScore']
       });
     }
   }
@@ -170,6 +171,7 @@ const activateAccount = async (req, res, next) => {
         username: user['username'],
         active: user['active'],
         avatar: user['avatar'],
+        totalScore: user['totalScore'],
         token: token
       });
     }

@@ -8,7 +8,6 @@ import InputModal from "../components/InputModal";
 import Input from "../components/Input";
 import {useState} from "react";
 import AxiosService from "../services/AxiosService";
-import {ToastContainer} from "react-toastify";
 import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
@@ -109,7 +108,7 @@ const Home = () => {
                   <Button color={colors['main-green']}
                           text={'Login'}
                           onClick={() => AxiosService.login(username,
-                              password)}/>
+                              password, navigate)}/>
 
                   <div className={'forgotten-password'}
                        onClick={() => toggleMailModal()}>forgotten
@@ -140,8 +139,7 @@ const Home = () => {
 
                 <div className={'button-container'}>
                   <Button color={colors['main-red']}
-                          onClick={() => AxiosService.forgottenPassword(email,
-                              navigate)}
+                          onClick={() => AxiosService.forgottenPassword(email)}
                           text={'Send Mail'}/>
                 </div>
 

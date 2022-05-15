@@ -3,17 +3,22 @@ import '../assets/user-info.scss'
 import {useState} from "react";
 import Button from "./Button";
 import colors from "../assets/color-scheme.scss";
+import {useNavigate} from "react-router-dom";
+import AxiosService from "../services/AxiosService";
 
 const UserInfo = (props) => {
-
   const [showButton, setShowButton] = useState(false);
 
   const showLogout = () => {
     setShowButton(!showButton);
   };
 
+  let navigate = useNavigate();
+
   const logout = () => {
-    // delete sessionStorage, redirect to landing page
+    window.localStorage.clear();
+    navigate('/');
+    AxiosService.infoToast('See you next time 👋');
   }
 
   return (

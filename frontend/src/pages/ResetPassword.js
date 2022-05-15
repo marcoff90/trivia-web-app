@@ -6,7 +6,7 @@ import Input from "../components/Input";
 import '../assets/reset-password.scss';
 import Button from "../components/Button";
 import NameLogo from "../components/NameLogo";
-import {ToastContainer} from "react-toastify";
+import Loader from "../components/Loader";
 
 const ResetPassword = () => {
   const querySearcher = new URLSearchParams(useLocation().search);
@@ -41,7 +41,7 @@ const ResetPassword = () => {
   return (
       <>
         {
-          loading ? <></> :
+          loading ? <Loader/> :
               <>
                 <div className={'reset-page'}>
                   <div className={'reset-logo'}>

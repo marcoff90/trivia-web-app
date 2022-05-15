@@ -8,6 +8,7 @@ const afterLoginSetup = (data) => {
   window.localStorage.setItem('token', data.token);
   window.localStorage.setItem('avatar', data.avatar);
   window.localStorage.setItem('username', data.username);
+  window.localStorage.setItem('totalScore', data.totalScore);
 };
 
 const login = (username, password, navigate) => {
@@ -17,14 +18,14 @@ const login = (username, password, navigate) => {
   })
   .then(res => {
     afterLoginSetup(res.data)
-    // TODO navigate to choose-game
+    navigate('/games');
   })
   .catch(err => {
     errorToast(err);
   });
 };
 
-const register = (username, email, password, navigate) => {
+const register = (username, email, password) => {
   axios.post(url + 'registration', {
     username: username,
     email: email,
@@ -38,7 +39,7 @@ const register = (username, email, password, navigate) => {
   });
 };
 
-const forgottenPassword = (email, navigate) => {
+const forgottenPassword = (email) => {
   axios.post(url + 'users/forgotten-password', {
     email: email
   })
@@ -64,7 +65,7 @@ const activateUser = (confirmationToken, navigate, avatarUrl) => {
   })
   .then(res => {
     afterLoginSetup(res.data)
-    // TODO navigate to choose-game
+    navigate('/games');
   })
   .catch(err => {
     errorToast(err)

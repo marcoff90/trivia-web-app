@@ -4,6 +4,7 @@ import ChooseAvatar from "./pages/ChooseAvatar";
 import './assets/app.scss';
 import ResetPassword from "./pages/ResetPassword";
 import {ToastContainer} from "react-toastify";
+import ChooseGameType from "./pages/ChooseGameType";
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
             <Route path={'/'} element={<Home/>}/>
             <Route path={'/users'}  element={<ChooseAvatar/>}/>
             <Route path={'/users/recover'} element={<ResetPassword/>}/>
+            <Route path={'/games'} element={<ChooseGameType/>}/>
           </Routes>
         </BrowserRouter>
       </>

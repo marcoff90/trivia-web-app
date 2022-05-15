@@ -5,7 +5,6 @@ import Loader from "../components/Loader";
 import '../assets/choose-avatar.scss';
 import Button from "../components/Button";
 import Avatar from "../components/Avatar";
-import {ToastContainer} from "react-toastify";
 
 const ChooseAvatar = () => {
   const querySearcher = new URLSearchParams(useLocation().search);
