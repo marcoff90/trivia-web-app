@@ -25,17 +25,17 @@ const ChooseAvatar = () => {
     {id: 11, selected: false}]
   );
   const avatars = [
-    {id: 1, avatar: 'avatars/memoji.svg'},
-    {id: 2, avatar: 'avatars/memoji-1.svg'},
-    {id: 3, avatar: 'avatars/memoji-2.svg'},
-    {id: 4, avatar: 'avatars/memoji-3.svg'},
-    {id: 5, avatar: 'avatars/memoji-4.svg'},
-    {id: 6, avatar: 'avatars/memoji-5.svg'},
-    {id: 7, avatar: 'avatars/memoji-6.svg'},
-    {id: 8, avatar: 'avatars/memoji-7.svg'},
-    {id: 9, avatar: 'avatars/memoji-8.svg'},
-    {id: 10, avatar: 'avatars/memoji-9.svg'},
-    {id: 11, avatar: 'avatars/memoji-10.svg'}
+    {id: 1, avatar: '/avatars/memoji.svg'},
+    {id: 2, avatar: '/avatars/memoji-1.svg'},
+    {id: 3, avatar: '/avatars/memoji-2.svg'},
+    {id: 4, avatar: '/avatars/memoji-3.svg'},
+    {id: 5, avatar: '/avatars/memoji-4.svg'},
+    {id: 6, avatar: '/avatars/memoji-5.svg'},
+    {id: 7, avatar: '/avatars/memoji-6.svg'},
+    {id: 8, avatar: '/avatars/memoji-7.svg'},
+    {id: 9, avatar: '/avatars/memoji-8.svg'},
+    {id: 10, avatar: '/avatars/memoji-9.svg'},
+    {id: 11, avatar: '/avatars/memoji-10.svg'}
   ];
 
   let navigate = useNavigate();

@@ -20,7 +20,7 @@ const App = () => {
             <Route path={'/'} element={<Home/>}/>
             <Route path={'/users'}  element={<ChooseAvatar/>}/>
             <Route path={'/users/recover'} element={<ResetPassword/>}/>
-            <Route path={'/games'} element={<ChooseGameType/>}/>
+            <Route path={'/games/duels/'} element={<ChooseGameType/>}/>
           </Routes>
         </BrowserRouter>
       </>

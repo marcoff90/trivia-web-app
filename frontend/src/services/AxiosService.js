@@ -18,7 +18,7 @@ const login = (username, password, navigate) => {
   })
   .then(res => {
     afterLoginSetup(res.data)
-    navigate('/games');
+    navigate('/games/duels');
   })
   .catch(err => {
     errorToast(err);
@@ -65,7 +65,7 @@ const activateUser = (confirmationToken, navigate, avatarUrl) => {
   })
   .then(res => {
     afterLoginSetup(res.data)
-    navigate('/games');
+    navigate('/games/duels');
   })
   .catch(err => {
     errorToast(err)
