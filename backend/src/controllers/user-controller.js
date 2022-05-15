@@ -160,10 +160,12 @@ const activateAccount = async (req, res, next) => {
 
     } else {
       let user = await UserService.confirmAccount(confirmationToken, avatar);
+      let token = await authentication(user);
       res.json({
         username: user['username'],
         active: user['active'],
-        avatar: user['avatar']
+        avatar: user['avatar'],
+        token: token
       });
     }
   }
