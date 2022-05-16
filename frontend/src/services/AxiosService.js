@@ -116,7 +116,7 @@ const findSecondPlayer = (id, navigate) => {
     navigate(`/games/duels/${id}/choose-category`)
   })
   .catch(err => {
-    errorToast(err);
+    console.log(err);
   });
 };
 
@@ -127,7 +127,7 @@ const areQuestionsChosen = (id, navigate) => {
     navigate(`/games/duels/${id}/start`)
   })
   .catch(err => {
-    errorToast(err)
+    console.log(err);
   });
 };
 

@@ -50,7 +50,6 @@ const ChooseCategory = () => {
 
     if (chosenCategory.length > 0) {
       unselectCategory(id);
-      console.log(selectedCategories);
     } else {
       if (selectedCategories.length >= 5) {
         toast.error('Maximum number of categories has been chosen', {
@@ -60,7 +59,6 @@ const ChooseCategory = () => {
         });
       } else {
         selectCategory(id);
-        console.log(selectedCategories);
       }
     }
   };
@@ -131,7 +129,6 @@ const ChooseCategory = () => {
                 </div>
 
                 <div className={'categories-container grid-item'}>
-                  {/*<>*/}
                   {categories.map(
                       ({id, category}, index) => (
                           <div className={'category-box'}>
@@ -142,7 +139,6 @@ const ChooseCategory = () => {
                                       category={category}/>
                           </div>
                       ))}
-                  {/*</>*/}
                 </div>
 
                 <div className={'button-container'}>
