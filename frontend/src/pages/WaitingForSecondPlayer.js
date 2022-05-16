@@ -11,11 +11,12 @@ const WaitingForSecondPlayer = () => {
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
-  let id = useParams();
+  let duelId = useParams();
+  console.log(duelId.duelId)
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
-      AxiosService.findSecondPlayer(id.id, navigate);
+      AxiosService.findSecondPlayer(duelId.duelId, navigate);
     }, 5000);
     return () => {
       clearInterval(intervalCall);

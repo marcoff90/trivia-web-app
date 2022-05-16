@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import UserInfo from "../components/UserInfo";
 import {useEffect, useState} from "react";
 import AxiosService from "../services/AxiosService";
@@ -8,12 +8,14 @@ import '../assets/choose-category.scss';
 import Button from "../components/Button";
 import {toast} from "react-toastify";
 import Category from "../components/Category";
+import Auth from "../services/Auth";
 
 const ChooseCategory = () => {
   let username = window.localStorage.getItem('username');
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let screenWidth = window.innerWidth;
+  let duelId = useParams();
   let navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
@@ -105,6 +107,7 @@ const ChooseCategory = () => {
 
   return (
       <>
+        <Auth/>
         {loading ?
 
             <div className={'loading'}>
@@ -142,7 +145,11 @@ const ChooseCategory = () => {
                 </div>
 
                 <div className={'button-container'}>
-                  <Button text={'Choose'} color={screenWidth >=1024 ? colors['main-green'] : colors['main-red']}/>
+                  <Button text={'Choose'}
+                          color={screenWidth >= 1024 ? colors['main-green']
+                              : colors['main-red']}
+                          onClick={() => AxiosService.setCategories(duelId.duelId,
+                              selectedCategories, navigate)}/>
                 </div>
 
               </div>

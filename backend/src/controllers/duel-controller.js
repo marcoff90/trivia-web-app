@@ -61,15 +61,15 @@ const setCategories = async (req, res, next) => {
 
   if (!categories) {
     next(ApiError.badRequest('Categories must be provided!'));
+
+  }  else if (categories.length !== 5) {
+    next(ApiError.badRequest('Five categories must be chosen!'));
   }
 
   let categoriesSet = new Set(categories);
 
   if (categoriesSet.size !== 5) {
     next(ApiError.badRequest('Categories must be unique!'));
-
-  } else if (categories.length !== 5) {
-    next(ApiError.badRequest('Five categories must be chosen!'));
 
   } else if (!duel) {
     next(ApiError.notFound('Duel not found!'));
@@ -79,7 +79,7 @@ const setCategories = async (req, res, next) => {
 
   } else {
     await DuelService.setCategories(duelId, categories);
-    res.json({message:'Categories added successfully'}, duel);
+    res.json({message:'Categories added successfully', duel});
   }
 };
 

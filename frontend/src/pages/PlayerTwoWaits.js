@@ -11,11 +11,11 @@ const PlayerTwoWaits = () => {
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
-  let id = useParams();
+  let duelId = useParams();
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
-      AxiosService.areQuestionsChosen(id.id, navigate);
+      AxiosService.areQuestionsChosen(duelId.duelId, navigate);
     }, 5000);
     return () => {
       clearInterval(intervalCall);

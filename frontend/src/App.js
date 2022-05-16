@@ -25,10 +25,10 @@ const App = () => {
             <Route path={'/users'}  element={<ChooseAvatar/>}/>
             <Route path={'/users/recover'} element={<ResetPassword/>}/>
             <Route path={'/games/duels/'} element={<ChooseGameType/>}/>
-            <Route path={'/games/duels/:id/searching-player'} element={<WaitingForSecondPlayer/>}/>
-            <Route path={'/games/duels/:id/waiting-player'} element={<PlayerTwoWaits/>}/>
-            <Route path={'/games/duels/:id/choose-category'} element={<ChooseCategory/>}/>
-            <Route path={'/games/duels/:id/start'} element={<PlayerVsPlayer/>}/>
+            <Route path={'/games/duels/:duelId/searching-player'} element={<WaitingForSecondPlayer/>}/>
+            <Route path={'/games/duels/:duelId/waiting-player'} element={<PlayerTwoWaits/>}/>
+            <Route path={'/games/duels/:duelId/choose-category'} element={<ChooseCategory/>}/>
+            <Route path={'/games/duels/:duelId/start'} element={<PlayerVsPlayer/>}/>
           </Routes>
         </BrowserRouter>
       </>
