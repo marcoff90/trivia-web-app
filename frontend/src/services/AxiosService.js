@@ -98,7 +98,8 @@ const startDuel = (navigate) => {
   axios.get(url + 'duels/new')
   .then(res => {
     let duel = res.data;
-    if (duel['playerTwoId'] === null) {
+    console.log(duel['playerTwoId']);
+    if (!duel['playerTwoId']) {
       navigate(`/games/duels/${duel.id}/searching-player`)
     } else {
       navigate(`/games/duels/${duel.id}/waiting-player`)
@@ -129,14 +130,18 @@ const areQuestionsChosen = (id, navigate) => {
   });
 };
 
-const getQuestion = (duelId, navigate) => {
-  axios.get(url + `duels/${duelId}/questions?count=1`)
-  .then(res => {
-    console.log(res.data);
-    // TODO navigate to Quizzer page
-  })
+const getQuestion = (duelId) => {
+  return axios.get(url + `duels/${duelId}/questions?count=1`)
   .catch(err => {
     errorToast(err);
+  });
+};
+
+const checkAnswer = (duelId, questionId, guessId) => {
+  return axios.get(
+      url + `duels/${duelId}/questions/${questionId}?guess=${guessId}`)
+  .catch(err => {
+    errorToast(err)
   });
 };
 
@@ -155,6 +160,16 @@ const setCategories = (duelId, categories, navigate) => {
   })
   .then(res => {
     navigate(`/games/duels/${duelId}/start`, {state: {data: res.data}});
+  })
+  .catch(err => {
+    errorToast(err);
+  });
+};
+
+const getResults = (duelId, navigate) => {
+  axios.get(url + `duels/${duelId}/results`)
+  .then(res => {
+    navigate(`/games/duels/${duelId}/round-results`, {state: {data: res.data}})
   })
   .catch(err => {
     errorToast(err);
@@ -201,5 +216,7 @@ export default {
   getQuestion,
   areQuestionsChosen,
   getCategories,
-  setCategories
+  setCategories,
+  checkAnswer,
+  getResults
 };

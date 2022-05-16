@@ -5,7 +5,7 @@ const Answer = (props) => {
   return (
       <>
         <div className={'answer-container'}
-             style={{backgroundColor: props.backgroundColor}}
+             style={props.style}
              onClick={props.onClick}>
           <p className={'answer'}>{props.answer}</p>
         </div>

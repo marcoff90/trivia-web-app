@@ -12,7 +12,6 @@ const WaitingForSecondPlayer = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
-  console.log(duelId.duelId)
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
@@ -21,7 +20,7 @@ const WaitingForSecondPlayer = () => {
     return () => {
       clearInterval(intervalCall);
     };
-  }, [])
+  }, []);
 
   return (
       <>

@@ -17,7 +17,13 @@ const PlayerVsPlayer = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      AxiosService.getQuestion(duelId.duelId, navigate);
+      AxiosService.getQuestion(duelId.duelId)
+      .then(res => {
+        navigate(`/games/duels/${duelId.duelId}/questions`, {state: {data: res.data}});
+      })
+      .catch(err => {
+        AxiosService.errorToast(err);
+      });
     }, 5000)
   }, []);
 

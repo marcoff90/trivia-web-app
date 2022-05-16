@@ -9,6 +9,7 @@ import WaitingForSecondPlayer from "./pages/WaitingForSecondPlayer";
 import PlayerTwoWaits from "./pages/PlayerTwoWaits";
 import ChooseCategory from "./pages/ChooseCategory";
 import PlayerVsPlayer from "./pages/PlayerVsPlayer";
+import QuizPage from "./pages/QuizPage";
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
             <Route path={'/games/duels/:duelId/waiting-player'} element={<PlayerTwoWaits/>}/>
             <Route path={'/games/duels/:duelId/choose-category'} element={<ChooseCategory/>}/>
             <Route path={'/games/duels/:duelId/start'} element={<PlayerVsPlayer/>}/>
+            <Route path={'/games/duels/:duelId/questions'} element={<QuizPage/>}/>
           </Routes>
         </BrowserRouter>
       </>
