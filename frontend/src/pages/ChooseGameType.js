@@ -10,7 +10,6 @@ const ChooseGameType = () => {
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
-  let screenWidth = window.innerWidth;
   const [buttonText, setButtonText] = useState('START DUEL');
   const [clickableButton, setClickableButton] = useState(
       {pointerEvents: 'auto'});

@@ -38,7 +38,6 @@ const areQuestionsChosen = async (req, res, next) => {
   let player = req.user;
   let duel = await DuelService.findByIdUnfinished(duelId);
   let duelQuestions = await DuelQuestionsService.findByDuelId(duelId);
-  console.log(duelQuestions)
 
   if (!duel) {
     next(ApiError.notFound('Duel not found!'));
@@ -80,7 +79,7 @@ const setCategories = async (req, res, next) => {
 
   } else {
     await DuelService.setCategories(duelId, categories);
-    res.json('Categories added successfully');
+    res.json({message:'Categories added successfully'}, duel);
   }
 };
 

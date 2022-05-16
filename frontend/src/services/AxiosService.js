@@ -113,7 +113,7 @@ const findSecondPlayer = (id, navigate) => {
   axios.get(url + `duels/${id}/player-check`)
   .then(res => {
     console.log(res);
-    navigate(`/duels/${id}/choose-category`)
+    navigate(`/games/duels/${id}/choose-category`)
   })
   .catch(err => {
     errorToast(err);
@@ -124,7 +124,7 @@ const areQuestionsChosen = (id, navigate) => {
   axios.get(url + `duels/${id}/questions-check`)
   .then(res => {
     console.log(res);
-    navigate(`/duels/${id}/start`)
+    navigate(`/games/duels/${id}/start`)
   })
   .catch(err => {
     errorToast(err)
@@ -136,6 +136,13 @@ const getQuestion = (duelId, navigate) => {
   .then(res => {
     console.log(res);
   })
+  .catch(err => {
+    errorToast(err);
+  });
+};
+
+const getCategories = () => {
+  return axios.get(url + 'categories')
   .catch(err => {
     errorToast(err);
   });
@@ -179,5 +186,6 @@ export default {
   startDuel,
   findSecondPlayer,
   getQuestion,
-  areQuestionsChosen
+  areQuestionsChosen,
+  getCategories
 };

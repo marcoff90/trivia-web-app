@@ -22,8 +22,8 @@ const ChooseAvatar = () => {
     {id: 8, selected: false},
     {id: 9, selected: false},
     {id: 10, selected: false},
-    {id: 11, selected: false}]
-  );
+    {id: 11, selected: false}
+  ]);
   const avatars = [
     {id: 1, avatar: '/avatars/memoji.svg'},
     {id: 2, avatar: '/avatars/memoji-1.svg'},
@@ -108,7 +108,9 @@ const ChooseAvatar = () => {
                           ))}
                     </>
                     <div className={'button-container'}>
-                      <Button text={'Choose'} onClick={() => AxiosService.activateUser(confirmationToken, navigate, avatarUrl)}/>
+                      <Button text={'Choose'}
+                              onClick={() => AxiosService.activateUser(
+                                  confirmationToken, navigate, avatarUrl)}/>
                     </div>
                   </div>
 
