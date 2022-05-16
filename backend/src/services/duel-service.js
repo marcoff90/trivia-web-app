@@ -39,9 +39,13 @@ const isSecondPlayerIn = async (duelId) => {
 };
 
 const setCategories = async (duelId, categories) => {
-  let questions = await QuestionService.getQuestionsForDuel(categories);
-  for (let q of questions) {
-    await DuelQuestionsService.create(duelId, q.id);
+  // in case of double assigning nothing happens
+  let possibleQuestions = await DuelQuestionsService.findByDuelId(duelId);
+  if (!possibleQuestions) {
+    let questions = await QuestionService.getQuestionsForDuel(categories);
+    for (let q of questions) {
+      await DuelQuestionsService.create(duelId, q.id);
+    }
   }
 };
 
