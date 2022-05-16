@@ -1,15 +1,25 @@
-import {useLocation, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Auth from "../services/Auth";
 import UserInfo from "../components/UserInfo";
 import '../assets/player-vs-player.scss';
 import Avatar from "../components/Avatar";
+import {useEffect} from "react";
+import AxiosService from "../services/AxiosService";
+import Loader from "../components/Loader";
 
 const PlayerVsPlayer = () => {
   const {state} = useLocation();
   let duelId = useParams();
+  let navigate = useNavigate();
   let username = window.localStorage.getItem('username');
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
+
+  useEffect(() => {
+    setTimeout(() => {
+      AxiosService.getQuestion(duelId.duelId, navigate);
+    }, 5000)
+  }, []);
 
   return (
       <>
@@ -46,6 +56,9 @@ const PlayerVsPlayer = () => {
 
               </div>
             </div>
+          <div className={'loading'}>
+            <Loader/>
+          </div>
         </div>
       </>
   );

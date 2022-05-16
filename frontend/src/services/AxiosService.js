@@ -133,7 +133,7 @@ const getQuestion = (duelId, navigate) => {
   axios.get(url + `duels/${duelId}/questions?count=1`)
   .then(res => {
     console.log(res.data);
-    // TODO
+    // TODO navigate to Quizzer page
   })
   .catch(err => {
     errorToast(err);
