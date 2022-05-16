@@ -2,6 +2,7 @@ import DuelService from "../services/duel-service";
 import ApiError from "../error/api-error";
 import DuelQuestionsService from "../services/duel-questions-service";
 import AnsweredQuestionsService from "../services/answered-questions-service";
+import UserService from "../services/user-service";
 
 const storeDuel = async (req, res, next) => {
   let user = req.user;
@@ -49,7 +50,13 @@ const areQuestionsChosen = async (req, res, next) => {
     next(ApiError.notFound('Questions have not been assigned yet'));
 
   } else {
-    res.json(duel);
+    let playerOneAvatar = await UserService.getUsersAvatar(duel['playerOneId']);
+    let playerTwoAvatar = await UserService.getUsersAvatar(duel['playerTwoId']);
+    res.json({
+      duel,
+      playerOneAvatar,
+      playerTwoAvatar
+    });
   }
 };
 
@@ -62,7 +69,7 @@ const setCategories = async (req, res, next) => {
   if (!categories) {
     next(ApiError.badRequest('Categories must be provided!'));
 
-  }  else if (categories.length !== 5) {
+  } else if (categories.length !== 5) {
     next(ApiError.badRequest('Five categories must be chosen!'));
   }
 
@@ -79,7 +86,13 @@ const setCategories = async (req, res, next) => {
 
   } else {
     await DuelService.setCategories(duelId, categories);
-    res.json({message:'Categories added successfully', duel});
+    let playerOneAvatar = await UserService.getUsersAvatar(duel['playerOneId']);
+    let playerTwoAvatar = await UserService.getUsersAvatar(duel['playerTwoId']);
+    res.json({
+      duel,
+      playerOneAvatar,
+      playerTwoAvatar
+    });
   }
 };
 
@@ -162,9 +175,17 @@ const showRoundScore = async (req, res, next) => {
   if (!duel) {
     next(ApiError.notFound('Duel not found!'));
   } else {
-    let results = await DuelService.getRoundResults(duelId);
-    if (results) {
-      res.json(results);
+    let duelWithResults = await DuelService.getRoundResults(duelId);
+    if (duelWithResults) {
+      let playerOneAvatar = await UserService.getUsersAvatar(
+          duel['playerOneId']);
+      let playerTwoAvatar = await UserService.getUsersAvatar(
+          duel['playerTwoId']);
+      res.json({
+        duelWithResults,
+        playerOneAvatar,
+        playerTwoAvatar
+      });
     } else {
       res.json('Round is not finished for both players');
     }

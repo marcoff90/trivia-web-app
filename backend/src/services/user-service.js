@@ -85,6 +85,11 @@ const findByConfirmationToken = async (confirmationToken) => {
   return await UserRepository.findByConfirmationToken(confirmationToken);
 };
 
+const getUsersAvatar = async (userId) => {
+  let user = await UserRepository.findById(userId);
+  return user['avatar'];
+};
+
 export default {
   create,
   isEmailUsed,
@@ -97,5 +102,6 @@ export default {
   findByConfirmationToken,
   findByPasswordToken,
   confirmAccount,
-  generateNewConfirmationToken
+  generateNewConfirmationToken,
+  getUsersAvatar
 };
