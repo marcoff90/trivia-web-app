@@ -2,6 +2,30 @@
 @import 'color-scheme';
 @import 'choose-avatar';
 
+$font-size-full-hd: 50px;
+$line-height-full-hdt: 60px;
+
+$font-size-iphone12: 35px;
+$line-height-iphone12: 42px;
+
+@mixin header-text-full-hd($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $full-hd) * $font-size-full-hd;
+  line-height: ($resolution / $full-hd) * $line-height-full-hdt;
+  text-align: center;
+  color: $white;
+}
+
+@mixin header-text-iphone12($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $iphone12) * $font-size-iphone12;
+  line-height: ($resolution / $iphone12) * $line-height-iphone12;
+  text-align: center;
+  color: $white;
+}
+
 .loading {
   display: flex;
   align-items: center;
@@ -31,13 +55,6 @@
         .header {
           width: 60%;
           margin: 0;
-          font-family: $fredoka;
-          font-weight: 400;
-          font-size: ($macbook / $full-hd) * 50px;
-          line-height: ($macbook / $full-hd) * 60px;
-          text-align: center;
-          color: $white;
-          @include text-shadow($macbook);
         }
       }
 
@@ -89,5 +106,112 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .choose-category-page {
+    margin: 0;
+    align-items: center;
+    width: 100vw;
+
+    .choose-category-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .header-info {
+        margin: 1rem 0 0 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .header-container {
+          justify-content: center;
+          .header {
+            @include header-text-iphone12($SE);
+            @include text-shadow-iphone($SE)
+          }
+        }
+        .user-info-container {
+          margin-top: 1rem;
+        }
+      }
+      .categories-container {
+        margin: 2rem 0;
+        overflow-y: scroll;
+        padding: 1rem 0;
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+        display: grid;
+        background: $main-yellow;
+        border-radius: 39px;
+        height: 45vh;
+        .category-box {
+          margin: 0.5rem 0;
+        }
+
+      }
+      .button-container {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1023px) {
+  .header {
+    @include header-text-iphone12($iphone8);
+    @include text-shadow-iphone($iphone8)
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1023px) {
+  .header {
+    @include header-text-iphone12($iphone12);
+    @include text-shadow-iphone($iphone12)
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
+  .header {
+    @include header-text-iphone12($iphone8plus);
+    @include text-shadow-iphone($iphone8plus)
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
+  .header {
+    @include header-text-iphone12($iphone11);
+    @include text-shadow-iphone($iphone11)
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .header {
+    @include header-text-full-hd($low-resolution);
+    @include text-shadow($low-resolution);
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .header {
+    @include header-text-full-hd($macbook);
+    @include text-shadow($macbook);
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .header {
+    @include header-text-full-hd($full-hd);
+    @include text-shadow($full-hd);
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .header {
+    @include header-text-full-hd($QHD);
+    @include text-shadow($QHD);
   }
 }

@@ -142,7 +142,7 @@ const ChooseCategory = () => {
                 </div>
 
                 <div className={'button-container'}>
-                  <Button text={'Start Game'}/>
+                  <Button text={'Choose'} color={screenWidth >=1024 ? colors['main-green'] : colors['main-red']}/>
                 </div>
 
               </div>
