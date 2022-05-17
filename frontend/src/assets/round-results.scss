@@ -1,8 +1,8 @@
 @import "constants";
 @import "color-scheme";
 
-$font-size-full-hd: 75px;
-$line-height-full-hdt: 91px;
+$font-size-full-hd: 50px;
+$line-height-full-hdt: 60px;
 
 $font-size-iphone12: 35px;
 $line-height-iphone12: 42px;
@@ -26,25 +26,25 @@ $line-height-iphone12: 42px;
 }
 
 @mixin text-shadow-iphone($resolution) {
-  text-shadow: ($resolution / $iphone12) * -5px ($resolution / $iphone12) * -5px 0 $main-green,
-  0 ($resolution / $iphone12) * -5px 0 $main-green,
-  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * -5px 0 $main-green,
-  ($resolution / $iphone12) * 5px 0 0 $main-green,
-  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * 5px 0 $main-green,
-  0 ($resolution / $iphone12) * 5px 0 $main-green,
-  ($resolution / $iphone12) * -5px ($resolution / $iphone12) * 5px 0 $main-green,
-  ($resolution / $iphone12) * -5px 0 0 $main-green;
+  text-shadow: ($resolution / $iphone12) * -5px ($resolution / $iphone12) * -5px 0 $main-red,
+  0 ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px 0 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * 5px 0 $main-red,
+  0 ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px 0 0 $main-red;
 }
 
 @mixin text-shadow($resolution) {
-  text-shadow: ($resolution / $full-hd) * -5px ($resolution / $full-hd) * -5px 0 $main-green,
-  0 ($resolution / $full-hd) * -5px 0 $main-green,
-  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * -5px 0 $main-green,
-  ($resolution / $full-hd) * 5px 0 0 $main-green,
-  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * 5px 0 $main-green,
-  0 ($resolution / $full-hd) * 5px 0 $main-green,
-  ($resolution / $full-hd) * -5px ($resolution / $full-hd) * 5px 0 $main-green,
-  ($resolution / $full-hd) * -5px 0 0 $main-green;
+  text-shadow: ($resolution / $full-hd) * -5px ($resolution / $full-hd) * -5px 0 $main-red,
+  0 ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px 0 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * 5px 0 $main-red,
+  0 ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px 0 0 $main-red;
 }
 
 @mixin player-name-full-hd($resolution) {
@@ -93,107 +93,167 @@ $line-height-iphone12: 42px;
   height: ($resolution / $iphone12) * 463px;
 }
 
-.player-vs-player-page {
+.round-results-page {
   height: 100vh;
   margin-left: 50vw;
   display: flex;
   flex-direction: column;
 
-  .user-info-container {
+  .round-header-container {
     display: flex;
-    margin: 2rem;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .round-header {
+      margin: 2rem;
+    }
+
+    .round-user-info-container {
+      display: flex;
+      margin: 2rem;
+      justify-content: flex-end;
+    }
   }
 
-  .players-container {
+
+  .round-players-container {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
     margin-right: 2rem;
 
-    background-container-results-results {
+    .round-player-one-score {
+      display: flex;
+      flex-direction: row;
+      width: 60%;
+      height: 50px;
+      .score-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $fredoka;
+        color: $white;
+        background: $main-grey;
+        border-radius: 50%;;
+      }
+    }
+
+    .round-player-two-score {
+
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+      width: 60%;
+      height: 50px;
+      margin-right: 2rem;
+      .score-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $fredoka;
+        color: $white;
+        background: $main-grey;
+        border-radius: 50%;
+      }
+    }
+
+
+    .round-background-container-results {
       background-size: cover;
       display: grid;
-      grid-template-rows: 39% 18% 43%;
+      grid-template-rows: 50% 50%;
 
-      .player-one-container {
+      .round-player-one-container {
         display: flex;
         flex-direction: row;
 
-        .player-one-box {
+        .round-player-one-box {
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
           align-items: center;
           width: 50%;
           height: 100%;
-          .wins {
+
+          .round-wins {
             display: flex;
             flex-direction: row;
+            align-items: center;
           }
         }
 
-        .empty-box {
-          width: 50%;
-          height: 100%;
+        .round-empty-box {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
         }
       }
 
-      .text-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .player-two-container {
+      .round-player-two-container {
         display: flex;
         flex-direction: row;
 
-        .player-two-box {
+        .round-player-two-box {
           display: flex;
           flex-direction: column;
+          justify-content: flex-start;
           align-items: center;
           width: 50%;
-          height: 90%;
-          margin-right: 6rem;
-          .wins {
+          height: 100%;
+          margin-right: 3rem;
+
+          .round-wins {
             display: flex;
             flex-direction: row;
+            align-items: center;
           }
         }
 
-        .empty-box {
+        .round-empty-box {
           width: 50%;
           height: 100%;
         }
-
       }
-    }
-  }
-  .loading {
-    margin: 0;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    .sk-cube-grid {
-      margin: 0;
     }
   }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 1023px) {
-  .player-vs-player-page {
+  .round-results-page {
     margin: 0;
     align-items: center;
 
-    .players-container {
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
       justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($SE);
+        @include text-shadow-iphone($SE);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
       margin: 1rem 0 0 0;
 
-      background-container-results-results {
+      .round-background-container-results {
         @include background-iphone-results($SE);
-        grid-template-rows: 45% 20% 35%;
         border-radius: 39px;
         box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
 
@@ -201,24 +261,19 @@ $line-height-iphone12: 42px;
           pointer-events: none;
         }
 
-        .player-name {
+        .round-player-name {
           @include player-name-iphone12($SE)
         }
 
-        .vs-text {
-          margin-right: 2rem;
-          @include header-text-iphone12($SE);
-          @include text-shadow-iphone($SE);
-        }
 
-        .player-two-box {
-          margin-left: 6rem;
+        .round-player-two-box {
+          margin-left: 7rem;
 
           .avatar {
             pointer-events: none;
           }
 
-          .player-name {
+          .round-player-name {
             @include player-name-iphone12($SE)
           }
         }
@@ -228,17 +283,40 @@ $line-height-iphone12: 42px;
 }
 
 @media only screen and (min-width: 375px) and (max-width: 1023px) {
-  .player-vs-player-page {
+  .round-results-page {
     margin: 0;
     align-items: center;
 
-    .players-container {
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
       justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone8);
+        @include text-shadow-iphone($iphone8);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
       margin: 1rem 0 0 0;
 
-      background-container-results {
+      .round-background-container-results {
         @include background-iphone-results($iphone8);
-        grid-template-rows: 45% 20% 35%;
         border-radius: 39px;
         box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
 
@@ -246,24 +324,19 @@ $line-height-iphone12: 42px;
           pointer-events: none;
         }
 
-        .player-name {
+        .round-player-name {
           @include player-name-iphone12($iphone8)
         }
 
-        .vs-text {
-          margin-left: 2rem;
-          @include header-text-iphone12($iphone8);
-          @include text-shadow-iphone($iphone8);
-        }
 
-        .player-two-box {
+        .round-player-two-box {
           margin-left: 7rem;
 
           .avatar {
             pointer-events: none;
           }
 
-          .player-name {
+          .round-player-name {
             @include player-name-iphone12($iphone8)
           }
         }
@@ -273,17 +346,40 @@ $line-height-iphone12: 42px;
 }
 
 @media only screen and (min-width: 390px) and (max-width: 1023px) {
-  .player-vs-player-page {
+  .round-results-page {
     margin: 0;
     align-items: center;
 
-    .players-container {
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
       justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone12);
+        @include text-shadow-iphone($iphone12);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
       margin: 1rem 0 0 0;
 
-      background-container-results {
+      .round-background-container-results {
         @include background-iphone-results($iphone12);
-        grid-template-rows: 45% 20% 35%;
         border-radius: 39px;
         box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
 
@@ -291,24 +387,19 @@ $line-height-iphone12: 42px;
           pointer-events: none;
         }
 
-        .player-name {
+        .round-player-name {
           @include player-name-iphone12($iphone12)
         }
 
-        .vs-text {
-          margin-left: 2rem;
-          @include header-text-iphone12($iphone12);
-          @include text-shadow-iphone($iphone12);
-        }
 
-        .player-two-box {
-          margin-left: 12rem;
+        .round-player-two-box {
+          margin-left: 6rem;
 
           .avatar {
             pointer-events: none;
           }
 
-          .player-name {
+          .round-player-name {
             @include player-name-iphone12($iphone12)
           }
         }
@@ -318,17 +409,40 @@ $line-height-iphone12: 42px;
 }
 
 @media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
-  .player-vs-player-page {
+  .round-results-page {
     margin: 0;
     align-items: center;
 
-    .players-container {
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
       justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone8plus);
+        @include text-shadow-iphone($iphone8plus);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
       margin: 1rem 0 0 0;
 
-      background-container-results {
+      .round-background-container-results {
         @include background-iphone-results($iphone8plus);
-        grid-template-rows: 45% 20% 35%;
         border-radius: 39px;
         box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
 
@@ -336,24 +450,19 @@ $line-height-iphone12: 42px;
           pointer-events: none;
         }
 
-        .player-name {
+        .round-player-name {
           @include player-name-iphone12($iphone8plus)
         }
 
-        .vs-text {
-          margin-left: 2rem;
-          @include header-text-iphone12($iphone8plus);
-          @include text-shadow-iphone($iphone8plus);
-        }
 
-        .player-two-box {
-          margin-left: 11rem;
+        .round-player-two-box {
+          margin-left: 6rem;
 
           .avatar {
             pointer-events: none;
           }
 
-          .player-name {
+          .round-player-name {
             @include player-name-iphone12($iphone8plus)
           }
         }
@@ -363,17 +472,40 @@ $line-height-iphone12: 42px;
 }
 
 @media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
-  .player-vs-player-page {
+  .round-results-page {
     margin: 0;
     align-items: center;
 
-    .players-container {
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
       justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone11);
+        @include text-shadow-iphone($iphone11);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
       margin: 1rem 0 0 0;
 
-      background-container-results {
+      .round-background-container-results {
         @include background-iphone-results($iphone11);
-        grid-template-rows: 45% 20% 35%;
         border-radius: 39px;
         box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
 
@@ -381,24 +513,19 @@ $line-height-iphone12: 42px;
           pointer-events: none;
         }
 
-        .player-name {
+        .round-player-name {
           @include player-name-iphone12($iphone11)
         }
 
-        .vs-text {
-          margin-left: 2rem;
-          @include header-text-iphone12($iphone11);
-          @include text-shadow-iphone($iphone11);
-        }
 
-        .player-two-box {
-          margin-left: 14rem;
+        .round-player-two-box {
+          margin-left: 6rem;
 
           .avatar {
             pointer-events: none;
           }
 
-          .player-name {
+          .round-player-name {
             @include player-name-iphone12($iphone11)
           }
         }
@@ -408,100 +535,217 @@ $line-height-iphone12: 42px;
 }
 
 @media only screen and (min-width: 1024px) {
-  background-container-results {
-    @include background-full-hd-results($low-resolution);
-
-    .avatar {
-      @include avatar-sizing-full-hd($low-resolution)
+  .round-results-page {
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 1rem;
     }
 
-    .player-name {
-      @include player-name-full-hd($low-resolution);
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($low-resolution);
+        @include text-shadow($low-resolution);
+      }
     }
 
-    .player-two-box {
-      margin-left: 7rem;
-    }
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($low-resolution);
 
-    .vs-text {
-      @include header-text-full-hd($low-resolution);
-      @include text-shadow($low-resolution);
+        .avatar {
+          @include avatar-sizing-full-hd($low-resolution)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($low-resolution)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 3rem;
+          .avatar {
+            @include avatar-sizing-full-hd($low-resolution)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($low-resolution)
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 1280px) {
-  background-container-results {
-    @include background-full-hd-results($hd);
-
-    .avatar {
-      @include avatar-sizing-full-hd($hd)
+  .round-results-page {
+    .score-circle {
+      width: 35px;
+      height: 35px;
+      margin: 1rem;
     }
 
-    .player-name {
-      @include player-name-full-hd($hd);
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($hd);
+        @include text-shadow($hd);
+      }
     }
 
-    .vs-text {
-      @include header-text-full-hd($hd);
-      @include text-shadow($hd);
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($hd);
+
+        .avatar {
+          @include avatar-sizing-full-hd($hd)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($hd)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($hd)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($hd)
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 1680px) {
-  background-container-results {
-    @include background-full-hd-results($macbook);
-
-    .avatar {
-      @include avatar-sizing-full-hd($macbook)
+  .round-results-page {
+    .score-circle {
+      width: 50px;
+      height: 50px;
+      margin: 1rem;
     }
 
-    .player-name {
-      @include player-name-full-hd($macbook);
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($macbook);
+        @include text-shadow($macbook);
+      }
     }
 
-    .vs-text {
-      @include header-text-full-hd($macbook);
-      @include text-shadow($macbook);
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($macbook);
+
+        .avatar {
+          @include avatar-sizing-full-hd($macbook)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($macbook)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($macbook)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($macbook)
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 1920px) {
-  background-container-results {
-    @include background-full-hd-results($full-hd);
-
-    .avatar {
-      @include avatar-sizing-full-hd($full-hd)
+  .round-results-page {
+    .score-circle {
+      width: 75px;
+      height: 75px;
+      margin: 1rem;
+      font-size: 40px;
     }
 
-    .player-name {
-      @include player-name-full-hd($full-hd);
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($full-hd);
+        @include text-shadow($full-hd);
+      }
     }
 
-    .vs-text {
-      @include header-text-full-hd($full-hd);
-      @include text-shadow($full-hd);
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($full-hd);
+
+        .avatar {
+          @include avatar-sizing-full-hd($full-hd)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($full-hd)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($full-hd)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($full-hd)
+          }
+        }
+      }
     }
   }
 }
 
 @media only screen and (min-width: 3840px) {
-  background-container-results {
-    @include background-full-hd-results($QHD);
-
-    .avatar {
-      @include avatar-sizing-full-hd($QHD)
+  .round-results-page {
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      margin: 1rem;
     }
 
-    .player-name {
-      @include player-name-full-hd($QHD);
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($QHD);
+        @include text-shadow($QHD);
+      }
     }
 
-    .vs-text {
-      @include header-text-full-hd($QHD);
-      @include text-shadow($QHD);
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($QHD);
+
+        .avatar {
+          @include avatar-sizing-full-hd($QHD)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($QHD)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($QHD)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($QHD)
+          }
+        }
+      }
     }
   }
 }
+
+
+
+

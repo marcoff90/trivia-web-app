@@ -5,23 +5,15 @@ import Avatar from "../components/Avatar";
 import '../assets/round-results.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrophy} from "@fortawesome/free-solid-svg-icons";
-import {useEffect, useState} from "react";
-
+import {useEffect} from "react";
 
 const RoundResults = () => {
   const {state} = useLocation();
   let username = window.localStorage.getItem('username');
-  const [loading, setLoading] = useState(true);
   let avatar = window.localStorage.getItem('avatar');
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
-
-  console.log(state['data']);
-
-  useEffect(() => {
-
-  })
 
   // render from state
   // pop up toast we'll continue in 5 seconds
@@ -31,56 +23,79 @@ const RoundResults = () => {
   return (
       <>
         <Auth/>
-        <div className={'player-vs-player-page'}>
+        <div className={'round-results-page'}>
 
-          <div className={'header-container'}>
+          <div className={'round-header-container'}>
 
-            <div className={'header-box'}>
-              <p className={'header'}>Round {state['data']['duelWithResults']['duel']['playerOneRound']}</p>
+            <div className={'round-header-box'}>
+              <p className={'round-header'}>Round {state['data']['duelWithResults']['duel']['playerOneRound']}</p>
             </div>
 
-
-            <div className={'user-info-container'}>
+            <div className={'round-user-info-container'}>
               <UserInfo username={username}
                         avatar={avatar}
                         userScore={score}/>
             </div>
           </div>
 
+          <div className={'round-players-container'}>
+            <div className={'round-player-one-score'}>
+              {state['data']['duelWithResults']['scores'].map(
+                  ({id, playerOneScore}, index) => (
+                      <div className={'score-circle'}>
+                        <p>{playerOneScore}</p>
+                      </div>
+                  ))}
+            </div>
 
+            <div className={'round-background-container-results grid-container'}>
 
-          <div className={'players-container'}>
-            <div className={'background-container-results grid-container'}>
+              <div className={'round-player-one-container grid-item'}>
 
-              <div className={'player-one-container grid-item'}>
-                <div className={'player-one-box'}>
+                <div className={'round-player-one-box'}>
                   <Avatar avatar={state['data']['playerOneAvatar']}/>
-                  <p className={'player-name'}>{state['data']['duelWithResults']['duel']['playerOneUsername']}</p>
+                  <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerOneUsername']}</p>
 
-                  <div className={'wins'}>
-                    <p className={'player-name'}>{state['data']['duelWithResults']['duel']['playerOneWins']}</p>
-                    <FontAwesomeIcon icon={faTrophy}/>
+                  <div className={'round-wins'}>
+                    <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerOneWins']}</p>
+                    <FontAwesomeIcon style={{color: 'white'}}
+                                     icon={faTrophy}
+                                     size='lg'/>
                   </div>
 
                 </div>
-                <div className={'empty-box'}/>
+                <div className={'round-empty-box'}/>
               </div>
 
-              <div className={'player-two-container grid-item'}>
+              <div className={'round-player-two-container grid-item'}>
 
-                <div className={'empty-box'}/>
-                <div className={'player-two-box'}>
+                <div className={'round-empty-box'}/>
+
+                <div className={'round-player-two-box'}>
                   <Avatar avatar={state['data']['playerTwoAvatar']}/>
-                  <p className={'player-name'}>{state['data']['duelWithResults']['duel']['playerTwoUsername']}</p>
+                  <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerTwoUsername']}</p>
 
-                  <div className={'wins'}>
-                    <p className={'player-name'}>{state['data']['duelWithResults']['duel']['playerTwoWins']}</p>
-                    <FontAwesomeIcon icon={faTrophy}/>
+                  <div className={'round-wins'}>
+                    <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerTwoWins']}</p>
+                    <FontAwesomeIcon style={{color: 'white'}}
+                                     icon={faTrophy}
+                                     size='lg'/>
                   </div>
                 </div>
+
               </div>
 
             </div>
+
+            <div className={'round-player-two-score'}>
+              {state['data']['duelWithResults']['scores'].map(
+                  ({id, playerTwoScore}, index) => (
+                      <div className={'score-circle'}>
+                        <p>{playerTwoScore}</p>
+                      </div>
+                  ))}
+            </div>
+
           </div>
         </div>
       </>
