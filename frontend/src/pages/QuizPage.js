@@ -19,7 +19,23 @@ const QuizPage = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
-  let screenWidth = window.innerWidth;
+
+  const answersInitialState = [false, false, false, false];
+  const [correctAnswerState, setCorrectAnswerState] = useState(answersInitialState);
+
+  const tagCorrectAnswer = (correctAnswerId) => {
+    let index = findAnswerIndex(correctAnswerId);
+    correctAnswerState[index] = true;
+    setCorrectAnswerState(correctAnswerState);
+  };
+
+  const findAnswerIndex = (answerId) => {
+    for (let answer of answers) {
+      if (answer.id === answerId) {
+        return answers.indexOf(answer);
+      }
+    }
+  };
 
   const [loading, setLoading] = useState(true);
   const [pointsForAnswer, setPointsForAnswer] = useState(0);
@@ -31,26 +47,6 @@ const QuizPage = () => {
 
   const [answers, setAnswers] = useState(state['data']['answers']);
   const [timer, setTimer] = useState(15);
-  const [correctAnswerState, setCorrectAnswerState] = useState([]);
-  const [wrongAnswerState, setWrongAnswerState] = useState([]);
-
-  const correctAnswerBorder = {
-    border: screenWidth >= 1024 ? '7px solid #7EFF8B' : '3px solid #7EFF8B',
-  };
-
-  const wrongAnswerBorder = {
-    border: screenWidth >= 1024 ? '7px solid #FF9292' : '3px solid #FF9292',
-  };
-
-  const setBorder = (index) => {
-    if (correctAnswerState[index].selected) {
-      return correctAnswerBorder.border;
-    } else if (wrongAnswerState[index].selected) {
-      return wrongAnswerBorder.border;
-    } else {
-      return {};
-    }
-  };
 
   const answerColors = [
     colors['main-green'],
@@ -59,27 +55,9 @@ const QuizPage = () => {
     colors['main-orange']
   ];
 
-  const setAnswersState = () => {
-    console.log(correctAnswerState);
-    console.log(wrongAnswerState);
-    setCorrectAnswerState(answers.forEach(item => {
-      correctAnswerState.push({
-        id: item.id,
-        selected: false
-      })
-    }));
-    setWrongAnswerState(answers.forEach(item => {
-      wrongAnswerState.push({
-        id: item.id,
-        selected: false
-      })
-    }));
-    setCorrectAnswerState(correctAnswerState);
-    setWrongAnswerState(wrongAnswerState);
-    setLoading(false);
-  };
-
   const loadQuestion = () => {
+    setCorrectAnswerState(answersInitialState);
+
     AxiosService.getQuestion(duelId.duelId)
     .then(res => {
       setShowPoints(false);
@@ -89,42 +67,21 @@ const QuizPage = () => {
         question: res.data['question']
       });
       setAnswers(res.data['answers']);
-      setAnswersState();
+      setLoading(false)
     })
     .catch(err => {
       AxiosService.errorToast(err);
     });
   };
 
-  const tagCorrectAnswer = (answerId) => {
-    for (let answer of correctAnswerState) {
-      answer.selected = answer.id === answerId;
-    }
-    setCorrectAnswerState(correctAnswerState);
-  };
-
-  const tagWrongAnswer = (answerId) => {
-    for (let answer of wrongAnswerState) {
-      answer.selected = answer.id === answerId;
-    }
-    setWrongAnswerState(wrongAnswerState);
-  };
-
-  const tagAnswers = (correctAnswerId, guessId) => {
-    if (correctAnswerId === guessId) {
-      tagCorrectAnswer(guessId);
-    } else {
-      tagWrongAnswer(guessId);
-      tagCorrectAnswer(correctAnswerId);
-    }
-  };
-
   const checkAnswer = (guessId) => {
+
     AxiosService.checkAnswer(duelId.duelId, question.id, guessId)
     .then(res => {
-
+      let correctAnswerId = res.data['correctAnswerId'];
       setPointsForAnswer(res.data['points']);
-      tagAnswers(res.data['correctAnswerId'], guessId);
+      console.log(findAnswerIndex(correctAnswerId));
+      tagCorrectAnswer(correctAnswerId);
 
       setTimeout(() => {
         setShowPoints(true);
@@ -140,10 +97,6 @@ const QuizPage = () => {
           setTimer(15);
           // timerInterval();
         }
-        // after three seconds check if question num % 5 = 0
-        // if so axios to results in then navigate to results with res.data in state -> results back to questin with new question in state
-        // if not reset timer load new question
-
       }, 3000);
     });
   };
@@ -164,7 +117,7 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (loading) {
-      setAnswersState();
+      setLoading(false)
       // timerInterval();
     }
   }, []);
@@ -217,10 +170,8 @@ const QuizPage = () => {
                           ({id, answer}, index) => (
                               <div className={'answer'}>
                                 <Answer answer={answer}
-                                        style={{
-                                          backgroundColor: answerColors[index],
-                                          border: setBorder(index)
-                                        }}
+                                        color={answerColors[index]}
+                                        correct={correctAnswerState[index]}
                                         onClick={() => checkAnswer(id)}/>
                               </div>
                           ))}
