@@ -171,12 +171,18 @@ const checkAnswer = async (req, res, next) => {
 
 const showRoundScore = async (req, res, next) => {
   let duelId = req.params.id;
+  let player = req.user;
   let duel = await DuelService.findByIdUnfinished(duelId);
   if (!duel) {
     next(ApiError.notFound('Duel not found!'));
   } else {
-    let duelWithResults = await DuelService.getRoundResults(duelId);
-    if (duelWithResults) {
+    let duelWithResults = await DuelService.getRoundResults(duelId, player.id);
+
+    console.log(duelWithResults);
+    if (!duelWithResults) {
+      next(ApiError.badRequest('Wait a moment for other player to finish this round too ☺️'));
+
+    } else {
       let playerOneAvatar = await UserService.getUsersAvatar(
           duel['playerOneId']);
       let playerTwoAvatar = await UserService.getUsersAvatar(
@@ -186,8 +192,6 @@ const showRoundScore = async (req, res, next) => {
         playerOneAvatar,
         playerTwoAvatar
       });
-    } else {
-      res.json('Round is not finished for both players');
     }
   }
 };

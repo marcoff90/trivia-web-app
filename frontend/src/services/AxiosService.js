@@ -133,7 +133,7 @@ const areQuestionsChosen = (id, navigate) => {
 const getQuestion = (duelId) => {
   return axios.get(url + `duels/${duelId}/questions?count=1`)
   .catch(err => {
-    errorToast(err);
+    console.log(err);
   });
 };
 
@@ -141,7 +141,7 @@ const checkAnswer = (duelId, questionId, guessId) => {
   return axios.get(
       url + `duels/${duelId}/questions/${questionId}?guess=${guessId}`)
   .catch(err => {
-    errorToast(err)
+    console.log(err);
   });
 };
 
@@ -166,14 +166,8 @@ const setCategories = (duelId, categories, navigate) => {
   });
 };
 
-const getResults = (duelId, navigate) => {
-  axios.get(url + `duels/${duelId}/results`)
-  .then(res => {
-    navigate(`/games/duels/${duelId}/round-results`, {state: {data: res.data}})
-  })
-  .catch(err => {
-    errorToast(err);
-  });
+const getResults = (duelId) => {
+  return axios.get(url + `duels/${duelId}/results`)
 };
 
 const errorToast = (err) => {

@@ -64,7 +64,12 @@ const Duel = sequelize.define('duel', {
     allowNull: false,
     defaultValue: false
   },
-  round: {
+  playerOneRound: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1
+  },
+  playerTwoRound: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 1

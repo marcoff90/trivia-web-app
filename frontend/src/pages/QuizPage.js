@@ -11,8 +11,7 @@ import Answer from "../components/Answer";
 import Loader from "../components/Loader";
 import '../assets/quiz-page.scss';
 import {toast} from "react-toastify";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
+import {CountdownCircleTimer} from "react-countdown-circle-timer";
 
 const QuizPage = () => {
   const {state} = useLocation();
@@ -25,7 +24,8 @@ const QuizPage = () => {
 
   const [key, setKey] = useState(0);
   const [answers, setAnswers] = useState(state['data']['answers']);
-  const [correctAnswerState, setCorrectAnswerState] = useState(answersInitialState);
+  const [correctAnswerState, setCorrectAnswerState] = useState(
+      answersInitialState);
   const [loading, setLoading] = useState(true);
   const [showPoints, setShowPoints] = useState(false);
 
@@ -71,9 +71,9 @@ const QuizPage = () => {
     });
   };
 
-  const renderTime = ({ remainingTime }) => {
+  const renderTime = ({remainingTime}) => {
     if (remainingTime === 0) {
-      // checkAnswer(-1);
+      checkAnswer(-1);
     }
 
     return (
@@ -122,12 +122,28 @@ const QuizPage = () => {
 
       setTimeout(() => {
         if (res.data['questionNumber'] % 5 === 0) {
-          // AxiosService.getResults(duelId.duelId, navigate);
-          loadQuestion();
+          toast.info('Wait for other player to finish ☺️', {
+            position: "top-center",
+            autoClose: false,
+            theme: 'colored',
+            closeOnClick: true
+          });
+
+          const intervalCall = setInterval(() => {
+            AxiosService.getResults(duelId.duelId, navigate)
+            .then(res => {
+              navigate(`/games/duels/${duelId}/round-results`,
+                  {state: {data: res.data}});
+              if (res.status) {
+                clearInterval(intervalCall);
+              }
+            })
+          }, 5000);
+
         } else {
           loadQuestion();
+          setKey(prevKey => prevKey + 1)
         }
-        setKey(prevKey => prevKey + 1)
       }, 3000);
     });
   };
@@ -158,9 +174,10 @@ const QuizPage = () => {
                         key={key}
                         duration={15}
                         isSmoothColorTransition={true}
-                        colors={[colors['main-blue'], colors['main-yellow'], colors['main-orange'], colors['main-red']]}
+                        colors={[colors['main-blue'], colors['main-yellow'],
+                          colors['main-orange'], colors['main-red']]}
                         colorsTime={[11, 8, 3, 0]}
-                        onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+                        onComplete={() => ({shouldRepeat: true, delay: 1})}
                         size={80}
                         strokeWidth={7}
                     >

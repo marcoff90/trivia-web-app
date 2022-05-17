@@ -10,6 +10,7 @@ import PlayerTwoWaits from "./pages/PlayerTwoWaits";
 import ChooseCategory from "./pages/ChooseCategory";
 import PlayerVsPlayer from "./pages/PlayerVsPlayer";
 import QuizPage from "./pages/QuizPage";
+import RoundResults from "./pages/RoundResults";
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path={'/games/duels/:duelId/choose-category'} element={<ChooseCategory/>}/>
             <Route path={'/games/duels/:duelId/start'} element={<PlayerVsPlayer/>}/>
             <Route path={'/games/duels/:duelId/questions'} element={<QuizPage/>}/>
+            <Route path={'/games/duels/:duelId/round-results'} element={<RoundResults/>}/>
           </Routes>
         </BrowserRouter>
       </>

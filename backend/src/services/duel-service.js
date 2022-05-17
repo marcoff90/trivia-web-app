@@ -8,6 +8,7 @@ import DuelQuestionsService from "./duel-questions-service";
 import AnsweredQuestionRepository
   from "../repositories/answered-question-repository";
 import AnsweredQuestionsService from "./answered-questions-service";
+import {compileTrust} from "express/lib/utils";
 
 const storeDuel = async (playerId) => {
   let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
@@ -102,21 +103,43 @@ const checkAnswer = async (duelId, playerId, guessAnswerId, questionId) => {
   };
 };
 
-const getRoundResults = async (duelId) => {
+const getRoundResults = async (duelId, playerId) => {
   let duel = await DuelRepository.findById(duelId);
 
-  if ((duel['questionsNumPlayerOne'] - 1) % 5 === 0 && (duel['questionsNumPlayerTwo'] - 1)
-      % 5 === 0) {
+  if (duel['questionsNumPlayerOne'] / 5 === duel['playerOneRound'] && duel['questionsNumPlayerTwo']
+      / 5 === duel['playerTwoRound']) {
 
     duel['playerOneWins'] += duel['playerOneRoundScore']
         > duel['playerTwoRoundScore'] && 1;
     duel['playerTwoWins'] += duel['playerOneRoundScore']
         < duel['playerTwoRoundScore'] && 1;
 
-    await DuelRoundScoreService.create(duel['round'],
-        duel['playerOneRoundScore'], duel['playerTwoRoundScore'], duel.id);
+    let roundNumber = playerId === duel['playerOneId'] ? duel['playerOneRound']
+        : duel['playerTwoRound'];
 
-    duel['round'] = duel['round'] >= 5 ? 5 : duel['round'] + 1;
+    let duelResults = await DuelRoundScoreService.findOneByDuelIdAndRound(
+        duelId, roundNumber);
+
+    if (!duelResults) {
+      await DuelRoundScoreService.create(duel['playerOneRound'],
+          duel['playerOneRoundScore'], duel['playerTwoRoundScore'], duel.id);
+
+    } else {
+      duelResults['playerOneScore'] = duel['playerOneRoundScore'];
+      duelResults['playerTwoScore'] = duel['playerTwoRoundScore'];
+      await duelResults.save();
+    }
+
+    duel['playerOneRound'] = playerId === duel['playerOneId'] ? duel['playerOneRoundScore'] + 1 : duel['playerOneRound'];
+    duel['playerTwoRound'] = playerId === duel['playerTwoId'] ? duel['playerTwoRoundScore'] + 1 : duel['playerTwoRound'];
+
+    if (duel['playerOneRound'] >= 5) {
+      duel['playerOneRound'] = 5;
+    }
+    if (duel['playerTwoRound'] >= 5) {
+      duel['playerTwoRound'] = 5;
+    }
+
     duel['playerOneRoundScore'] = 0;
     duel['playerTwoRoundScore'] = 0;
 
@@ -133,8 +156,26 @@ const getRoundResults = async (duelId) => {
       duel,
       scores
     };
+
   } else {
-    return null;
+
+    let roundNumber = playerId === duel['playerOneId'] ? duel['playerOneRound']
+        : duel['playerTwoRound'];
+
+    let results = await DuelRoundScoreService.findOneByDuelIdAndRound(
+        duelId, roundNumber);
+
+    console.log(results);
+
+    if (results) {
+      let score = await duel.getDuelRoundScores();
+      return {
+        duel,
+        scores: score
+      }
+    } else {
+      return null
+    }
   }
 };
 
