@@ -114,46 +114,49 @@ const ChooseCategory = () => {
               <Loader/>
             </div> :
 
-            <div className={'choose-category-page'}>
-              <div className={'choose-category-container grid-container'}>
+            <>
+                <div className={'choose-category-page'}>
+                  <div className={'choose-category-container grid-container'}>
 
-                <div className={'header-info grid-item'}>
+                    <div className={'header-info grid-item'}>
 
-                  <div className={'header-container'}>
-                    <p className={'header'}>Choose 5 categories</p>
+                      <div className={'header-container'}>
+                        <p className={'header'}>Choose 5 categories</p>
+                      </div>
+
+                      <div className={'user-info-container'}>
+                        <UserInfo username={username}
+                                  avatar={avatar}
+                                  userScore={score}/>
+                      </div>
+
+                    </div>
+
+                    <div className={'categories-container grid-item'}>
+                      {categories.map(
+                          ({id, category}, index) => (
+                              <div className={'category-box'}>
+                                <Category style={categoriesState[index].selected
+                                    ? chosenCategory : {}}
+                                          onClick={() => onClickCategoriesHandler(
+                                              id)}
+                                          category={category}/>
+                              </div>
+                          ))}
+                    </div>
+
+                    <div className={'button-container'}>
+                      <Button text={'Choose'}
+                              color={screenWidth >= 1024 ? colors['main-green']
+                                  : colors['main-red']}
+                              onClick={() => AxiosService.setCategories(
+                                  duelId.duelId,
+                                  selectedCategories, navigate)}/>
+                    </div>
+
                   </div>
-
-                  <div className={'user-info-container'}>
-                    <UserInfo username={username}
-                              avatar={avatar}
-                              userScore={score}/>
-                  </div>
-
                 </div>
-
-                <div className={'categories-container grid-item'}>
-                  {categories.map(
-                      ({id, category}, index) => (
-                          <div className={'category-box'}>
-                            <Category style={categoriesState[index].selected
-                                ? chosenCategory : {}}
-                                      onClick={() => onClickCategoriesHandler(
-                                          id)}
-                                      category={category}/>
-                          </div>
-                      ))}
-                </div>
-
-                <div className={'button-container'}>
-                  <Button text={'Choose'}
-                          color={screenWidth >= 1024 ? colors['main-green']
-                              : colors['main-red']}
-                          onClick={() => AxiosService.setCategories(duelId.duelId,
-                              selectedCategories, navigate)}/>
-                </div>
-
-              </div>
-            </div>
+            </>
         }
       </>
   );

@@ -19,7 +19,8 @@ const PlayerVsPlayer = () => {
     setTimeout(() => {
       AxiosService.getQuestion(duelId.duelId)
       .then(res => {
-        navigate(`/games/duels/${duelId.duelId}/questions`, {state: {data: res.data}});
+        navigate(`/games/duels/${duelId.duelId}/questions`,
+            {state: {data: res.data}});
       })
       .catch(err => {
         AxiosService.errorToast(err);
@@ -30,7 +31,7 @@ const PlayerVsPlayer = () => {
   return (
       <>
         <Auth/>
-        <div className={'player-vs-player-page'}>
+          <div className={'player-vs-player-page'}>
             <div className={'user-info-container'}>
               <UserInfo username={username}
                         avatar={avatar}
@@ -62,10 +63,10 @@ const PlayerVsPlayer = () => {
 
               </div>
             </div>
-          <div className={'loading'}>
-            <Loader/>
+            <div className={'loading'}>
+              <Loader/>
+            </div>
           </div>
-        </div>
       </>
   );
 };

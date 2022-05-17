@@ -71,11 +71,13 @@ const ResetPassword = () => {
                     </div>
                     <div className={'button-container'}>
                       <Button text={'Reset'}
-                              onClick={() => AxiosService.resetPassword(email, password, token, navigate)}/>
+                              onClick={() => AxiosService.resetPassword(email,
+                                  password, token, navigate)}/>
                     </div>
                   </div>
                   .
                 </div>
+
               </>
         }
       </>

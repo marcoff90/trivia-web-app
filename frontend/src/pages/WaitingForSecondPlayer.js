@@ -25,15 +25,15 @@ const WaitingForSecondPlayer = () => {
   return (
       <>
         <Auth/>
-        <div className={'waiting-for-second-player-page'}>
-          <div className={'user-info-container'}>
-            <UserInfo username={username}
-                      avatar={avatar}
-                      userScore={score}/>
+          <div className={'waiting-for-second-player-page'}>
+            <div className={'user-info-container'}>
+              <UserInfo username={username}
+                        avatar={avatar}
+                        userScore={score}/>
+            </div>
+            <p className={'header'}>Looking for second player</p>
+            <Loader/>
           </div>
-          <p className={'header'}>Looking for second player</p>
-          <Loader/>
-        </div>
       </>
   );
 };

@@ -6,6 +6,8 @@ import '../assets/round-results.scss';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrophy} from "@fortawesome/free-solid-svg-icons";
 import {useEffect} from "react";
+import {toast} from "react-toastify";
+import AxiosService from "../services/AxiosService";
 
 const RoundResults = () => {
   const {state} = useLocation();
@@ -14,90 +16,202 @@ const RoundResults = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
+  let duel = state['data']['duelWithResults']['duel'];
+  let scores = [] = state['data']['duelWithResults']['scores'];
 
-  // render from state
-  // pop up toast we'll continue in 5 seconds
-  // after time out get question request
-  // if round number 5 pop up toast saying you won/lost and redirect to start duel
+  const finishDuelForPlayerOne = () => {
+    duel['playerOneWins'] > duel['duel']['playerTwoWins']
+        ?
+        toast.info('Congratulations! You have won the game!', {
+          position: "top-center",
+          autoClose: 3000,
+          theme: 'colored',
+        }) :
+        toast.info('You have lost 😔 Better luck next time!️', {
+          position: "top-center",
+          autoClose: 3000,
+          theme: 'colored',
+        });
+    redirectToGamePage();
+  };
+
+  const finishDuelForPlayerTwo = () => {
+    duel['playerOneWins'] < duel['duel']['playerTwoWins']
+        ?
+        toast.info('Congratulations! You have won the game!', {
+          position: "top-center",
+          autoClose: 3000,
+          theme: 'colored',
+        }) :
+        toast.info('You have lost 😔 Better luck next time!️', {
+          position: "top-center",
+          autoClose: 3000,
+          theme: 'colored',
+        });
+    redirectToGamePage();
+  };
+
+  const continueGameForPlayerOne = () => {
+    scores[scores.length - 1]['playerOneScore'] > scores[scores.length
+    - 1]['playerTwoScore']
+        ?
+        toast.info(
+            'Congratulations! You have won the round! The game continues in 5 seconds ☺️',
+            {
+              position: "top-center",
+              autoClose: 4000,
+              theme: 'colored',
+            }) :
+        toast.info('There is still time to get ahead️', {
+          position: "top-center",
+          autoClose: 4000,
+          theme: 'colored',
+        });
+    redirectToQuestion();
+  };
+
+  const continueGameForPlayerTwo = () => {
+    scores[scores.length - 1]['playerOneScore'] < scores[scores.length
+    - 1]['playerTwoScore']
+        ?
+        toast.info(
+            'Congratulations! You have won the round! The game continues in 5 seconds ☺️',
+            {
+              position: "top-center",
+              autoClose: 4000,
+              theme: 'colored',
+            }) :
+        toast.info('There is still time to get ahead️', {
+          position: "top-center",
+          autoClose: 4000,
+          theme: 'colored',
+        });
+    redirectToQuestion();
+  };
+
+  const redirectToGamePage = () => {
+    setTimeout(() => {
+      navigate('/games/duels');
+    }, 3000);
+  };
+
+  const redirectToQuestion = () => {
+    setTimeout(() => {
+      AxiosService.getQuestion(duelId.duelId)
+      .then(res => {
+        navigate(`/games/duels/${duelId.duelId}/questions`,
+            {state: {data: res.data}});
+      })
+      .catch(err => {
+        AxiosService.errorToast(err);
+      });
+    }, 5000);
+  };
+
+  useEffect(() => {
+    console.log('useEffect')
+    if (username === duel['playerOneUsername']) {
+
+      if (duel['finished']) {
+        // game finished -> based on player position show pop up and redirect
+        finishDuelForPlayerOne();
+      } else {
+        console.log('redirect player one')
+        continueGameForPlayerOne();
+      }
+
+    } else if (username === duel['playerTwoUsername']) {
+      if (duel['finished']) {
+        // game finished -> based on player position show pop up and redirect
+        finishDuelForPlayerTwo();
+      } else {
+        console.log('redirect player two')
+
+        continueGameForPlayerTwo();
+      }
+    }
+
+  }, []);
 
   return (
       <>
         <Auth/>
-        <div className={'round-results-page'}>
+          <div className={'round-results-page'}>
 
-          <div className={'round-header-container'}>
+            <div className={'round-header-container'}>
 
-            <div className={'round-header-box'}>
-              <p className={'round-header'}>Round {state['data']['duelWithResults']['duel']['playerOneRound']}</p>
+              <div className={'round-header-box'}>
+                <p className={'round-header'}>Round {duel['playerOneRound']}</p>
+              </div>
+
+              <div className={'round-user-info-container'}>
+                <UserInfo username={username}
+                          avatar={avatar}
+                          userScore={score}/>
+              </div>
             </div>
 
-            <div className={'round-user-info-container'}>
-              <UserInfo username={username}
-                        avatar={avatar}
-                        userScore={score}/>
-            </div>
-          </div>
+            <div className={'round-players-container'}>
+              <div className={'round-player-one-score'}>
+                {scores.map(
+                    ({id, playerOneScore}, index) => (
+                        <div className={'score-circle'}>
+                          <p>{playerOneScore}</p>
+                        </div>
+                    ))}
+              </div>
 
-          <div className={'round-players-container'}>
-            <div className={'round-player-one-score'}>
-              {state['data']['duelWithResults']['scores'].map(
-                  ({id, playerOneScore}, index) => (
-                      <div className={'score-circle'}>
-                        <p>{playerOneScore}</p>
-                      </div>
-                  ))}
-            </div>
+              <div
+                  className={'round-background-container-results grid-container'}>
 
-            <div className={'round-background-container-results grid-container'}>
+                <div className={'round-player-one-container grid-item'}>
 
-              <div className={'round-player-one-container grid-item'}>
+                  <div className={'round-player-one-box'}>
+                    <Avatar avatar={state['data']['playerOneAvatar']}/>
+                    <p className={'round-player-name'}>{duel['playerOneUsername']}</p>
 
-                <div className={'round-player-one-box'}>
-                  <Avatar avatar={state['data']['playerOneAvatar']}/>
-                  <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerOneUsername']}</p>
+                    <div className={'round-wins'}>
+                      <p className={'round-player-name'}>{duel['playerOneWins']}</p>
+                      <FontAwesomeIcon style={{color: 'white'}}
+                                       icon={faTrophy}
+                                       size='lg'/>
+                    </div>
 
-                  <div className={'round-wins'}>
-                    <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerOneWins']}</p>
-                    <FontAwesomeIcon style={{color: 'white'}}
-                                     icon={faTrophy}
-                                     size='lg'/>
+                  </div>
+                  <div className={'round-empty-box'}/>
+                </div>
+
+                <div className={'round-player-two-container grid-item'}>
+
+                  <div className={'round-empty-box'}/>
+
+                  <div className={'round-player-two-box'}>
+                    <Avatar avatar={state['data']['playerTwoAvatar']}/>
+                    <p className={'round-player-name'}>{duel['playerTwoUsername']}</p>
+
+                    <div className={'round-wins'}>
+                      <p className={'round-player-name'}>{duel['playerTwoWins']}</p>
+                      <FontAwesomeIcon style={{color: 'white'}}
+                                       icon={faTrophy}
+                                       size='lg'/>
+                    </div>
                   </div>
 
                 </div>
-                <div className={'round-empty-box'}/>
-              </div>
-
-              <div className={'round-player-two-container grid-item'}>
-
-                <div className={'round-empty-box'}/>
-
-                <div className={'round-player-two-box'}>
-                  <Avatar avatar={state['data']['playerTwoAvatar']}/>
-                  <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerTwoUsername']}</p>
-
-                  <div className={'round-wins'}>
-                    <p className={'round-player-name'}>{state['data']['duelWithResults']['duel']['playerTwoWins']}</p>
-                    <FontAwesomeIcon style={{color: 'white'}}
-                                     icon={faTrophy}
-                                     size='lg'/>
-                  </div>
-                </div>
 
               </div>
 
-            </div>
+              <div className={'round-player-two-score'}>
+                {scores.map(
+                    ({id, playerTwoScore}, index) => (
+                        <div className={'score-circle'}>
+                          <p>{playerTwoScore}</p>
+                        </div>
+                    ))}
+              </div>
 
-            <div className={'round-player-two-score'}>
-              {state['data']['duelWithResults']['scores'].map(
-                  ({id, playerTwoScore}, index) => (
-                      <div className={'score-circle'}>
-                        <p>{playerTwoScore}</p>
-                      </div>
-                  ))}
             </div>
-
           </div>
-        </div>
       </>
   );
 };

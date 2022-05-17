@@ -31,22 +31,22 @@ const ChooseGameType = () => {
   return (
       <>
         <Auth/>
-        <div className={'choose-game-type-page'}>
-          <div className={'user-info-container'}>
-            <UserInfo username={username}
-                      avatar={avatar}
-                      userScore={score}/>
-          </div>
-          <div className={'circle-container'}>
-            <div className={'circle'}
-                 style={clickableButton}
-                 onClick={() => startDuel()}>
-              <div className={'text'}>
-                {buttonText}
+          <div className={'choose-game-type-page'}>
+            <div className={'user-info-container'}>
+              <UserInfo username={username}
+                        avatar={avatar}
+                        userScore={score}/>
+            </div>
+            <div className={'circle-container'}>
+              <div className={'circle'}
+                   style={clickableButton}
+                   onClick={() => startDuel()}>
+                <div className={'text'}>
+                  {buttonText}
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </>
   );
 };

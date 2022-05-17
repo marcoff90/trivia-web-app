@@ -143,8 +143,8 @@ const getRoundResults = async (duelId, playerId) => {
     duel['playerOneRoundScore'] = 0;
     duel['playerTwoRoundScore'] = 0;
 
-    if (duel['questionsNumPlayerOne'] === 26 && duel['questionsNumPlayerTwo']
-        === 26) {
+    if (duel['questionsNumPlayerOne'] === 25 && duel['questionsNumPlayerTwo']
+        === 25) {
       duel.finished = true;
     }
 
