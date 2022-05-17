@@ -28,6 +28,7 @@ const QuizPage = () => {
       answersInitialState);
   const [loading, setLoading] = useState(true);
   const [showPoints, setShowPoints] = useState(false);
+  const [showTimer, setShowTimer] = useState(true);
 
   const [question, setQuestion] = useState({
     id: state['data']['id'],
@@ -121,7 +122,8 @@ const QuizPage = () => {
       }, 500);
 
       setTimeout(() => {
-        if (res.data['questionNumber'] % 5 === 0) {
+        if ((res.data['questionNumber'] - 1) % 5 === 0) {
+          setShowTimer(false);
           toast.info('Wait for other player to finish ☺️', {
             position: "top-center",
             autoClose: false,
@@ -132,11 +134,12 @@ const QuizPage = () => {
           const intervalCall = setInterval(() => {
             AxiosService.getResults(duelId.duelId, navigate)
             .then(res => {
-              navigate(`/games/duels/${duelId.duelId}/round-results`,
-                  {state: {data: res.data}});
               if (res.status) {
+                console.log('stopping interval');
                 clearInterval(intervalCall);
               }
+              navigate(`/games/duels/${duelId.duelId}/round-results`,
+                  {state: {data: res.data}});
             })
           }, 5000);
 
@@ -151,6 +154,7 @@ const QuizPage = () => {
   useEffect(() => {
     if (loading) {
       setLoading(false)
+      setShowTimer(true);
     }
   }, []);
 
@@ -165,57 +169,59 @@ const QuizPage = () => {
               :
 
               <>
-                  <div className={'quiz-page'}>
+                <div className={'quiz-page'}>
 
-                    <div className={'header-container'}>
+                  <div className={'header-container'}>
 
-                      <div className={'timer-wrapper'}>
-                        <CountdownCircleTimer
-                            isPlaying
-                            key={key}
-                            duration={15}
-                            isSmoothColorTransition={true}
-                            colors={[colors['main-blue'], colors['main-yellow'],
-                              colors['main-orange'], colors['main-red']]}
-                            colorsTime={[11, 8, 3, 0]}
-                            onComplete={() => ({shouldRepeat: true, delay: 1})}
-                            size={80}
-                            strokeWidth={7}
-                        >
-                          {renderTime}
-                        </CountdownCircleTimer>
-                      </div>
-
-                      <div className={'user-info-container'}>
-                        <UserInfo username={username}
-                                  avatar={avatar}
-                                  userScore={score}/>
-                      </div>
-                    </div>
-
-                    <div className={'quizzer-container'}>
-
-                      <Quiz>
-                        <div className={'question'}>
-                          <Question question={question.question}/>
+                    {showTimer &&
+                        <div className={'timer-wrapper'}>
+                          <CountdownCircleTimer
+                              isPlaying
+                              key={key}
+                              duration={15}
+                              isSmoothColorTransition={true}
+                              colors={[colors['main-blue'], colors['main-yellow'],
+                                colors['main-orange'], colors['main-red']]}
+                              colorsTime={[11, 8, 3, 0]}
+                              onComplete={() => ({shouldRepeat: true, delay: 1})}
+                              size={80}
+                              strokeWidth={7}
+                          >
+                            {renderTime}
+                          </CountdownCircleTimer>
                         </div>
+                    }
 
-                        <>
-                          {answers.map(
-                              ({id, answer}, index) => (
-                                  <div className={'answer'}>
-                                    <Answer answer={answer}
-                                            color={answerColors[index]}
-                                            correct={correctAnswerState[index]}
-                                            onClick={() => checkAnswer(id)}/>
-                                  </div>
-                              ))}
-                        </>
-                      </Quiz>
-
+                    <div className={'user-info-container'}>
+                      <UserInfo username={username}
+                                avatar={avatar}
+                                userScore={score}/>
                     </div>
+                  </div>
+
+                  <div className={'quizzer-container'}>
+
+                    <Quiz>
+                      <div className={'question'}>
+                        <Question question={question.question}/>
+                      </div>
+
+                      <>
+                        {answers.map(
+                            ({id, answer}, index) => (
+                                <div className={'answer'}>
+                                  <Answer answer={answer}
+                                          color={answerColors[index]}
+                                          correct={correctAnswerState[index]}
+                                          onClick={() => checkAnswer(id)}/>
+                                </div>
+                            ))}
+                      </>
+                    </Quiz>
 
                   </div>
+
+                </div>
               </>
         }
       </>

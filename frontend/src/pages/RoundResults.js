@@ -16,6 +16,7 @@ const RoundResults = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
+  console.log(state)
   let duel = state['data']['duelWithResults']['duel'];
   let scores = [] = state['data']['duelWithResults']['scores'];
 
@@ -90,9 +91,7 @@ const RoundResults = () => {
   };
 
   const redirectToGamePage = () => {
-    setTimeout(() => {
-      navigate('/games/duels');
-    }, 3000);
+
   };
 
   const redirectToQuestion = () => {
@@ -109,24 +108,28 @@ const RoundResults = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect')
     if (username === duel['playerOneUsername']) {
-
-      if (duel['finished']) {
+      if (duel['questionsNumPlayerOne'] == 26) {
         // game finished -> based on player position show pop up and redirect
+        console.log('finish')
         finishDuelForPlayerOne();
+        setTimeout(() => {
+          navigate('/games/duels');
+        }, 3000);
       } else {
         console.log('redirect player one')
         continueGameForPlayerOne();
       }
 
     } else if (username === duel['playerTwoUsername']) {
-      if (duel['finished']) {
+      if (duel['questionsNumPlayerTwo'] == 26) {
+        console.log('finish')
         // game finished -> based on player position show pop up and redirect
         finishDuelForPlayerTwo();
+        setTimeout(() => {
+          navigate('/games/duels');
+        }, 3000);
       } else {
-        console.log('redirect player two')
-
         continueGameForPlayerTwo();
       }
     }
@@ -141,7 +144,7 @@ const RoundResults = () => {
             <div className={'round-header-container'}>
 
               <div className={'round-header-box'}>
-                <p className={'round-header'}>Round {duel['playerOneRound']}</p>
+                <p className={'round-header'}>Round {username == duel['playerOneUsername'] ? duel['playerOneRound'] - 1  : duel['playerTwoRound'] - 1}</p>
               </div>
 
               <div className={'round-user-info-container'}>
@@ -153,7 +156,7 @@ const RoundResults = () => {
 
             <div className={'round-players-container'}>
               <div className={'round-player-one-score'}>
-                {scores.map(
+                {scores.filter(e => e.playerOneScore >= 0).map(
                     ({id, playerOneScore}, index) => (
                         <div className={'score-circle'}>
                           <p>{playerOneScore}</p>
@@ -202,7 +205,7 @@ const RoundResults = () => {
               </div>
 
               <div className={'round-player-two-score'}>
-                {scores.map(
+                {scores.filter(e => e.playerTwoScore >= 0).map(
                     ({id, playerTwoScore}, index) => (
                         <div className={'score-circle'}>
                           <p>{playerTwoScore}</p>

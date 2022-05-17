@@ -178,7 +178,6 @@ const showRoundScore = async (req, res, next) => {
   } else {
     let duelWithResults = await DuelService.getRoundResults(duelId, player.id);
 
-    console.log(duelWithResults);
     if (!duelWithResults) {
       next(ApiError.badRequest('Wait a moment for other player to finish this round too ☺️'));
 
