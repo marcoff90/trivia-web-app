@@ -1,4 +1,5 @@
 import Duel from "../models/duel";
+import {Op} from "sequelize";
 
 const create = async () => {
   let savedDuel = await Duel.create();
@@ -16,6 +17,9 @@ const findById = async (id) => {
 const findOneUnfinished = async () => {
   return await Duel.findOne({
     where: {
+      playerOneId: {
+        [Op.ne]: null
+      },
       playerTwoId: null,
       finished: false
     }

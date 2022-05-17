@@ -1,0 +1,751 @@
+@import "constants";
+@import "color-scheme";
+
+$font-size-full-hd: 50px;
+$line-height-full-hdt: 60px;
+
+$font-size-iphone12: 35px;
+$line-height-iphone12: 42px;
+
+@mixin header-text-full-hd($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $full-hd) * $font-size-full-hd;
+  line-height: ($resolution / $full-hd) * $line-height-full-hdt;
+  text-align: center;
+  color: $white;
+}
+
+@mixin header-text-iphone12($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $iphone12) * $font-size-iphone12;
+  line-height: ($resolution / $iphone12) * $line-height-iphone12;
+  text-align: center;
+  color: $white;
+}
+
+@mixin text-shadow-iphone($resolution) {
+  text-shadow: ($resolution / $iphone12) * -5px ($resolution / $iphone12) * -5px 0 $main-red,
+  0 ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px 0 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * 5px 0 $main-red,
+  0 ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px 0 0 $main-red;
+}
+
+@mixin text-shadow($resolution) {
+  text-shadow: ($resolution / $full-hd) * -5px ($resolution / $full-hd) * -5px 0 $main-red,
+  0 ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px 0 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * 5px 0 $main-red,
+  0 ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px 0 0 $main-red;
+}
+
+@mixin player-name-full-hd($resolution) {
+  margin: 0;
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $full-hd) * 36px;
+  line-height: ($resolution / $full-hd) * 44px;
+  letter-spacing: 0.05em;
+  color: $white;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@mixin player-name-iphone12($resolution) {
+  margin: 0;
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $iphone12) * 18px;
+  line-height: ($resolution / $iphone12) * 22px;
+  letter-spacing: 0.05em;
+  color: $white;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@mixin avatar-sizing-full-hd($resolution) {
+  height: ($resolution / $full-hd) * 140px;
+  width: ($resolution / $full-hd) *  140px;
+  pointer-events: none;
+}
+
+@mixin avatar-sizing-iphone($resolution) {
+  height: ($resolution / $full-hd) * 140px;
+  width: ($resolution / $full-hd) *  140px;
+  pointer-events: none;
+}
+
+@mixin background-full-hd-results($resolution) {
+  background-image: url("img/round-results.svg");
+  width: ($resolution / $full-hd) * 646px;
+  height: ($resolution / $full-hd) * 650px;
+}
+
+@mixin background-iphone-results($resolution) {
+  background-image: url("img/round-results-mobile.svg");
+  width: ($resolution / $iphone12) * 365px;
+  height: ($resolution / $iphone12) * 463px;
+}
+
+.round-results-page {
+  height: 100vh;
+  margin-left: 50vw;
+  display: flex;
+  flex-direction: column;
+
+  .round-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .round-header {
+      margin: 2rem;
+    }
+
+    .round-user-info-container {
+      display: flex;
+      margin: 2rem;
+      justify-content: flex-end;
+    }
+  }
+
+
+  .round-players-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 2rem;
+
+    .round-player-one-score {
+      display: flex;
+      flex-direction: row;
+      width: 60%;
+      height: 50px;
+      .score-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $fredoka;
+        color: $white;
+        background: $main-grey;
+        border-radius: 50%;;
+      }
+    }
+
+    .round-player-two-score {
+
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+      width: 60%;
+      height: 50px;
+      margin-right: 2rem;
+      .score-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $fredoka;
+        color: $white;
+        background: $main-grey;
+        border-radius: 50%;
+      }
+    }
+
+
+    .round-background-container-results {
+      background-size: cover;
+      display: grid;
+      grid-template-rows: 50% 50%;
+
+      .round-player-one-container {
+        display: flex;
+        flex-direction: row;
+
+        .round-player-one-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          align-items: center;
+          width: 50%;
+          height: 100%;
+
+          .round-wins {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+        }
+
+        .round-empty-box {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+
+      .round-player-two-container {
+        display: flex;
+        flex-direction: row;
+
+        .round-player-two-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          width: 50%;
+          height: 100%;
+          margin-right: 3rem;
+
+          .round-wins {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+        }
+
+        .round-empty-box {
+          width: 50%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .round-results-page {
+    margin: 0;
+    align-items: center;
+
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($SE);
+        @include text-shadow-iphone($SE);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0 0;
+
+      .round-background-container-results {
+        @include background-iphone-results($SE);
+        border-radius: 39px;
+        box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+
+        .avatar {
+          pointer-events: none;
+        }
+
+        .round-player-name {
+          @include player-name-iphone12($SE)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 7rem;
+
+          .avatar {
+            pointer-events: none;
+          }
+
+          .round-player-name {
+            @include player-name-iphone12($SE)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1023px) {
+  .round-results-page {
+    margin: 0;
+    align-items: center;
+
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone8);
+        @include text-shadow-iphone($iphone8);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0 0;
+
+      .round-background-container-results {
+        @include background-iphone-results($iphone8);
+        border-radius: 39px;
+        box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+
+        .avatar {
+          pointer-events: none;
+        }
+
+        .round-player-name {
+          @include player-name-iphone12($iphone8)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 7rem;
+
+          .avatar {
+            pointer-events: none;
+          }
+
+          .round-player-name {
+            @include player-name-iphone12($iphone8)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1023px) {
+  .round-results-page {
+    margin: 0;
+    align-items: center;
+
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone12);
+        @include text-shadow-iphone($iphone12);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0 0;
+
+      .round-background-container-results {
+        @include background-iphone-results($iphone12);
+        border-radius: 39px;
+        box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+
+        .avatar {
+          pointer-events: none;
+        }
+
+        .round-player-name {
+          @include player-name-iphone12($iphone12)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 6rem;
+
+          .avatar {
+            pointer-events: none;
+          }
+
+          .round-player-name {
+            @include player-name-iphone12($iphone12)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
+  .round-results-page {
+    margin: 0;
+    align-items: center;
+
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone8plus);
+        @include text-shadow-iphone($iphone8plus);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0 0;
+
+      .round-background-container-results {
+        @include background-iphone-results($iphone8plus);
+        border-radius: 39px;
+        box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+
+        .avatar {
+          pointer-events: none;
+        }
+
+        .round-player-name {
+          @include player-name-iphone12($iphone8plus)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 6rem;
+
+          .avatar {
+            pointer-events: none;
+          }
+
+          .round-player-name {
+            @include player-name-iphone12($iphone8plus)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
+  .round-results-page {
+    margin: 0;
+    align-items: center;
+
+
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+      font-size: 20px;
+    }
+
+    .round-header-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+      margin-top: 1rem;
+      .round-header {
+        margin: 0;
+        @include header-text-iphone12($iphone11);
+        @include text-shadow-iphone($iphone11);
+      }
+      .round-user-info-container {
+        justify-content: center;
+        margin: 0 0 1rem 0;
+      }
+    }
+
+    .round-players-container {
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0 0;
+
+      .round-background-container-results {
+        @include background-iphone-results($iphone11);
+        border-radius: 39px;
+        box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.25);
+
+        .avatar {
+          pointer-events: none;
+        }
+
+        .round-player-name {
+          @include player-name-iphone12($iphone11)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 6rem;
+
+          .avatar {
+            pointer-events: none;
+          }
+
+          .round-player-name {
+            @include player-name-iphone12($iphone11)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .round-results-page {
+    .score-circle {
+      width: 30px;
+      height: 30px;
+      margin: 1rem;
+    }
+
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($low-resolution);
+        @include text-shadow($low-resolution);
+      }
+    }
+
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($low-resolution);
+
+        .avatar {
+          @include avatar-sizing-full-hd($low-resolution)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($low-resolution)
+        }
+
+
+        .round-player-two-box {
+          margin-left: 3rem;
+          .avatar {
+            @include avatar-sizing-full-hd($low-resolution)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($low-resolution)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .round-results-page {
+    .score-circle {
+      width: 35px;
+      height: 35px;
+      margin: 1rem;
+    }
+
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($hd);
+        @include text-shadow($hd);
+      }
+    }
+
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($hd);
+
+        .avatar {
+          @include avatar-sizing-full-hd($hd)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($hd)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($hd)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($hd)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .round-results-page {
+    .score-circle {
+      width: 50px;
+      height: 50px;
+      margin: 1rem;
+    }
+
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($macbook);
+        @include text-shadow($macbook);
+      }
+    }
+
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($macbook);
+
+        .avatar {
+          @include avatar-sizing-full-hd($macbook)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($macbook)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($macbook)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($macbook)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .round-results-page {
+    .score-circle {
+      width: 75px;
+      height: 75px;
+      margin: 1rem;
+      font-size: 40px;
+    }
+
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($full-hd);
+        @include text-shadow($full-hd);
+      }
+    }
+
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($full-hd);
+
+        .avatar {
+          @include avatar-sizing-full-hd($full-hd)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($full-hd)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($full-hd)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($full-hd)
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .round-results-page {
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      margin: 1rem;
+    }
+
+    .round-header-container {
+      .round-header {
+        @include header-text-full-hd($QHD);
+        @include text-shadow($QHD);
+      }
+    }
+
+    .round-players-container {
+      .round-background-container-results {
+        @include background-full-hd-results($QHD);
+
+        .avatar {
+          @include avatar-sizing-full-hd($QHD)
+        }
+
+        .round-player-name {
+          @include player-name-full-hd($QHD)
+        }
+
+
+        .round-player-two-box {
+          .avatar {
+            @include avatar-sizing-full-hd($QHD)
+          }
+
+          .round-player-name {
+            @include player-name-full-hd($QHD)
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

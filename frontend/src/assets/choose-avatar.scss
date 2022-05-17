@@ -1,0 +1,369 @@
+@import "color-scheme";
+@import "constants";
+
+$full-hd-font-size: 60px;
+$full-hd-line-height: 73px;
+$full-hd-text-border: 7px;
+$full-hd-width: 500px;
+$full-hd-text-shadow-border: 7px;
+
+$iphone12-font-size: 35px;
+$iphone12-line-height: 40px;
+$iphone12-width: 347px;
+
+@mixin welcome-message($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $full-hd) * $full-hd-font-size;
+  line-height: ($resolution / $full-hd) * $full-hd-line-height;
+  text-align: center;
+  color: $white;
+}
+
+@mixin welcome-message-iphone($resolution) {
+  font-family: $fredoka;
+  font-weight: 400;
+  font-size: ($resolution / $iphone12) * $iphone12-font-size;
+  line-height: ($resolution / $iphone12) * $iphone12-line-height;
+  text-align: center;
+  color: $white;
+}
+
+@mixin text-shadow-iphone($resolution) {
+  text-shadow: ($resolution / $iphone12) * -5px ($resolution / $iphone12) * -5px 0 $main-red,
+  0   ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * -5px 0 $main-red,
+  ($resolution / $iphone12) * 5px 0 0 $main-red,
+  ($resolution / $iphone12) * 5px ($resolution / $iphone12) * 5px 0 $main-red,
+  0 ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px ($resolution / $iphone12) * 5px 0 $main-red,
+  ($resolution / $iphone12) * -5px 0 0 $main-red;
+}
+
+@mixin text-shadow($resolution) {
+  text-shadow: ($resolution / $full-hd) * -5px ($resolution / $full-hd) * -5px 0 $main-red,
+  0   ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * -5px 0 $main-red,
+  ($resolution / $full-hd) * 5px 0 0 $main-red,
+  ($resolution / $full-hd) * 5px ($resolution / $full-hd) * 5px 0 $main-red,
+  0 ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px ($resolution / $full-hd) * 5px 0 $main-red,
+  ($resolution / $full-hd) * -5px 0 0 $main-red;
+}
+
+@mixin avatar-page {
+  margin-left: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  margin-left: 50vw;
+}
+
+.choose-avatar-page-background {
+  @include avatar-page;
+  position: absolute;
+
+  .main-welcome-message-background {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    color:rgba(0, 0, 0, 0);
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .welcome-message-background {
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    margin: 0;
+    color:rgba(0, 0, 0, 0);
+  }
+}
+
+.choose-avatar-page {
+  @include avatar-page;
+  position: relative;
+
+  .main-welcome-message {
+    margin-top: 2rem;
+    margin-bottom: 0;
+  }
+
+  .welcome-message {
+    margin: 0;
+  }
+
+  .box {
+    margin-top: 1rem;
+    background: rgba(49, 207, 160, 0.49);
+    border-radius: 39px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    .avatar-icon {
+      margin: 0.7rem;
+      transition: transform .2s;
+    }
+
+    .avatar-icon:hover {
+      transform: scale(1.4);
+    }
+
+    .button-container {
+      margin: 1rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+
+    .main-welcome-message {
+      margin-top: 1rem;
+      width: 95vw;
+      @include welcome-message-iphone($SE);
+      @include text-shadow-iphone($SE);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($SE);
+      @include text-shadow-iphone($SE);
+    }
+    .box {
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      margin-top: 1rem;
+      width: 95vw;
+      @include welcome-message-iphone($iphone8);
+      @include text-shadow-iphone($iphone8);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone8);
+      @include text-shadow-iphone($iphone8);
+    }
+    .box {
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      width: 95vw;
+      margin-top: 1rem;
+      @include welcome-message-iphone($iphone12);
+      @include text-shadow-iphone($iphone12);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone12);
+      @include text-shadow-iphone($iphone12);
+    }
+    .box {
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      width: 95vw;
+      margin-top: 1rem;
+      @include welcome-message-iphone($iphone8plus);
+      @include text-shadow-iphone($iphone8plus);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone8plus);
+      @include text-shadow-iphone($iphone8plus);
+    }
+    .box {
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) and (max-width: 1023px) {
+  .choose-avatar-page-background {
+    display: none;
+  }
+  .choose-avatar-page {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    .main-welcome-message {
+      width: 95vw;
+      margin-top: 1rem;
+      @include welcome-message-iphone($iphone11);
+      @include text-shadow-iphone($iphone11);
+    }
+    .welcome-message {
+      @include welcome-message-iphone($iphone11);
+      @include text-shadow-iphone($iphone11);
+    }
+    .box {
+      width: 95vw;
+      background: $main-orange;
+      .avatar-icon:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .main-welcome-message-background {
+    @include welcome-message($low-resolution)
+  }
+  .welcome-message-background {
+    @include welcome-message($low-resolution)
+  }
+  .main-welcome-message {
+    @include welcome-message($low-resolution);
+    @include text-shadow($low-resolution);
+  }
+  .welcome-message {
+    @include welcome-message($low-resolution);
+    @include text-shadow($low-resolution);
+  }
+  .box {
+    width: ($low-resolution / $full-hd) * $full-hd-width;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .main-welcome-message-background {
+    @include welcome-message($hd)
+  }
+  .welcome-message-background {
+    @include welcome-message($hd)
+  }
+  .main-welcome-message {
+    @include welcome-message($hd);
+    @include text-shadow($hd);
+  }
+  .welcome-message {
+    @include welcome-message($hd);
+    @include text-shadow($hd);
+  }
+  .box {
+    width: ($hd / $full-hd) * $full-hd-width;
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .main-welcome-message-background {
+    @include welcome-message($macbook)
+  }
+  .welcome-message-background {
+    @include welcome-message($macbook)
+  }
+  .main-welcome-message {
+    @include welcome-message($macbook);
+    @include text-shadow($macbook);
+  }
+  .welcome-message {
+    @include welcome-message($macbook);
+    @include text-shadow($macbook);
+  }
+  .box {
+    width: ($macbook / $full-hd) * $full-hd-width;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .main-welcome-message-background {
+    @include welcome-message($full-hd)
+  }
+  .welcome-message-background {
+    @include welcome-message($full-hd)
+  }
+  .main-welcome-message {
+    @include welcome-message($full-hd);
+    @include text-shadow($full-hd);
+  }
+  .welcome-message {
+    @include welcome-message($full-hd);
+    @include text-shadow($full-hd);
+  }
+  .box {
+    width: $full-hd-width;
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .main-welcome-message-background {
+    @include welcome-message($QHD)
+  }
+  .welcome-message-background {
+    @include welcome-message($QHD)
+  }
+  .main-welcome-message {
+    @include welcome-message($QHD);
+    @include text-shadow($QHD);
+  }
+  .welcome-message {
+    @include welcome-message($QHD);
+    @include text-shadow($QHD);
+  }
+  .box {
+    width: ($QHD / $full-hd) * $full-hd-width;
+  }
+}

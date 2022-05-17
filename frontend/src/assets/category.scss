@@ -1,0 +1,95 @@
+@import "color-scheme";
+@import "constants";
+
+$full-hd-width: 264px;
+$full-hd-height: 83px;
+$full-hd-font-size: 25px;
+$full-hd-line-height: 30px;
+
+$iphone12-width: 264px;
+$iphone12-height: 83px;
+$iphone12-font-size: 25px;
+$iphone12-line-height: 30px;
+
+.category-container {
+  margin: 0;
+  background-color: $main-blue;
+  border-radius: 30px;
+  text-align: center;
+  font-family: $fredoka;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  transition: transform .2s;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  .category {
+    margin: 0;
+  }
+}
+.category-container:hover {
+  transform: scale(1.2);
+}
+
+@media only screen and (min-width: 320px) {
+  .category-container {
+    @include iphoneSE($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .category-container {
+    @include iphone8($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .category-container {
+    @include iphone12($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .category-container {
+    @include iphone8plus($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .category-container {
+    @include iphone11($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .category-container {
+    @include low-resolution($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .category-container {
+    @include hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .category-container {
+    @include macbook($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .category-container {
+    @include full-hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .category-container {
+    @include QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+

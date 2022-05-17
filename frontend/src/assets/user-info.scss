@@ -1,0 +1,249 @@
+@import 'constants';
+
+// same properties for iphone12
+$full-hd-width: 365px;
+$full-hd-height: 121px;
+$full-hd-user-margin-left: 1rem;
+$full-hd-username-font-size: 36px;
+$full-hd-username-line-height: 44px;
+$full-hd-user-score-font-size: 18px;
+$full-hd-user-score-line-height: 22px;
+$avatar-margin-right: 0.5rem;
+
+.user-info {
+  border-radius: 39px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  align-items: center;
+  .user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: $fredoka;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: $white;
+    .username {
+      text-decoration: underline;
+      margin: 0;
+    }
+    .user-score {
+      margin: 0;
+    }
+  }
+  .avatar {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+@media only screen and (min-width: 320px) {
+  .user-info {
+    @include iphoneSE-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-orange;
+    .user {
+      margin-left: ($SE / $iphone12) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($SE / $iphone12) * $full-hd-username-font-size;
+        line-height: ($SE / $iphone12) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($SE / $iphone12) * $full-hd-user-score-font-size;
+        line-height: ($SE / $iphone12) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($SE / $iphone12) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .user-info {
+    @include iphone8-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-orange;
+    .user {
+      margin-left: ($iphone8 / $iphone12) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($iphone8 / $iphone12) * $full-hd-username-font-size;
+        line-height: ($iphone8 / $iphone12) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($iphone8 / $iphone12) * $full-hd-user-score-font-size;
+        line-height: ($iphone8 / $iphone12) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($iphone8 / $iphone12) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .user-info {
+    @include iphone12-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-orange;
+    .user {
+      margin-left: $full-hd-user-margin-left;
+      .username {
+        font-size: $full-hd-username-font-size;
+        line-height: $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: $full-hd-user-score-font-size;
+        line-height: $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .user-info {
+    @include iphone8plus-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-orange;
+    .user {
+      margin-left: ($iphone8plus / $iphone12) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($iphone8plus / $iphone12) * $full-hd-username-font-size;
+        line-height: ($iphone8plus / $iphone12) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($iphone8plus / $iphone12) * $full-hd-user-score-font-size;
+        line-height: ($iphone8plus / $iphone12) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($iphone8plus / $iphone12) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .user-info {
+    @include iphone11-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-orange;
+    .user {
+      margin-left: ($iphone11 / $iphone12) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($iphone11 / $iphone12) * $full-hd-username-font-size;
+        line-height: ($iphone11 / $iphone12) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($iphone11 / $iphone12) * $full-hd-user-score-font-size;
+        line-height: ($iphone11 / $iphone12) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($iphone11 / $iphone12) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .user-info {
+    @include low-resolution-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-green;
+    .user {
+      margin-left: ($low-resolution / $full-hd) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($low-resolution / $full-hd) * $full-hd-username-font-size;
+        line-height: ($low-resolution / $full-hd) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($low-resolution / $full-hd) * $full-hd-user-score-font-size;
+        line-height: ($low-resolution / $full-hd) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($low-resolution / $full-hd) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .user-info {
+    @include hd-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-green;
+    .user {
+      margin-left: ($hd / $full-hd) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($hd / $full-hd) * $full-hd-username-font-size;
+        line-height: ($hd / $full-hd) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($hd / $full-hd) * $full-hd-user-score-font-size;
+        line-height: ($hd / $full-hd) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($hd / $full-hd) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .user-info {
+    @include macbook-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-green;
+    .user {
+      margin-left: ($macbook / $full-hd) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($macbook / $full-hd) * $full-hd-username-font-size;
+        line-height: ($macbook / $full-hd) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($macbook / $full-hd) * $full-hd-user-score-font-size;
+        line-height: ($macbook / $full-hd) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($macbook / $full-hd) * $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .user-info {
+    @include full-hd-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-green;
+    .user {
+      margin-left: $full-hd-user-margin-left;
+      .username {
+        font-size: $full-hd-username-font-size;
+        line-height: $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: $full-hd-user-score-font-size;
+        line-height: $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: $avatar-margin-right;
+    }
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .user-info {
+    @include QHD-width-height($full-hd-width, $full-hd-height);
+    background-color: $main-green;
+    .user {
+      margin-left: ($QHD / $full-hd) * $full-hd-user-margin-left;
+      .username {
+        font-size: ($QHD / $full-hd) * $full-hd-username-font-size;
+        line-height: ($QHD / $full-hd) * $full-hd-username-line-height;
+      }
+      .user-score {
+        font-size: ($QHD / $full-hd) * $full-hd-user-score-font-size;
+        line-height: ($QHD / $full-hd) * $full-hd-user-score-line-height;
+      }
+    }
+    .avatar {
+      margin-right: ($QHD / $full-hd) * $avatar-margin-right;
+    }
+  }
+}
+

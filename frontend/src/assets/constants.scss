@@ -1,0 +1,148 @@
+@import 'color-scheme';
+
+$SE: 320*568;
+$iphone8: 375*667;
+$iphone8plus: 414*736;
+$iphone11: 414*896;
+$iphone12: 390*881;
+$low-resolution: 1024*768;
+$hd: 1280*720;
+$macbook: 1680*1050;
+$full-hd: 1920*1080;
+$QHD: 2560*1440;
+$UHD: 3840*2160;
+$fredoka: 'Fredoka One';
+$montserrat: 'Montserrat';
+
+@mixin iphoneSE($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height) {
+  width: ($SE / $iphone12) * $iphone12-width;
+  height: ($SE / $iphone12) * $iphone12-height;
+  font-size: ($SE / $iphone12) * $iphone12-font-size;
+  line-height: ($SE / $iphone12) * $iphone12-line-height;
+}
+
+@mixin iphone8($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height) {
+  width: ($iphone8 / $iphone12) * $iphone12-width;
+  height: ($iphone8 / $iphone12) * $iphone12-height;
+  font-size: ($iphone8 / $iphone12) * $iphone12-font-size;
+  line-height: ($iphone8 / $iphone12) * $iphone12-line-height;
+}
+
+@mixin iphone8plus($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height) {
+  width: ($iphone8plus / $iphone12) * $iphone12-width;
+  height: ($iphone8plus / $iphone12) * $iphone12-height;
+  font-size: ($iphone8plus / $iphone12) * $iphone12-font-size;
+  line-height: ($iphone8plus / $iphone12) * $iphone12-line-height;
+}
+
+@mixin iphone11($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height) {
+  width: ($iphone11 / $iphone12) * $iphone12-width;
+  height: ($iphone11 / $iphone12) * $iphone12-height;
+  font-size: ($iphone11 / $iphone12) * $iphone12-font-size;
+  line-height: ($iphone11 / $iphone12) * $iphone12-line-height;
+}
+
+@mixin iphone12($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height) {
+  width: $iphone12-width;
+  height: $iphone12-height;
+  font-size: $iphone12-font-size;
+  line-height: $iphone12-line-height;
+}
+
+@mixin iphoneSE-width-height($iphone12-width, $iphone12-height) {
+  width: ($SE / $iphone12) * $iphone12-width;
+  height: ($SE / $iphone12) * $iphone12-height;
+}
+
+@mixin iphone8-width-height($iphone12-width, $iphone12-height) {
+  width: ($iphone8 / $iphone12) * $iphone12-width;
+  height: ($iphone8 / $iphone12) * $iphone12-height;
+}
+
+@mixin iphone8plus-width-height($iphone12-width, $iphone12-height) {
+  width: ($iphone8plus / $iphone12) * $iphone12-width;
+  height: ($iphone8plus / $iphone12) * $iphone12-height;
+}
+
+@mixin iphone11-width-height($iphone12-width, $iphone12-height) {
+  width: ($iphone11 / $iphone12) * $iphone12-width;
+  height: ($iphone11 / $iphone12) * $iphone12-height;
+}
+
+@mixin iphone12-width-height($iphone12-width, $iphone12-height) {
+  width: $iphone12-width;
+  height: $iphone12-height;
+}
+
+@mixin low-resolution($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+  width: ($low-resolution / $full-hd) * $full-hd-width;
+  height: ($low-resolution / $full-hd) * $full-hd-height;
+  font-size: ($low-resolution / $full-hd) * $full-hd-font-size;
+  line-height: ($low-resolution / $full-hd) * $full-hd-line-height;
+}
+
+@mixin hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+  width: ($hd / $full-hd) * $full-hd-width;
+  height: ($hd / $full-hd) * $full-hd-height;
+  font-size: ($hd / $full-hd) * $full-hd-font-size;
+  line-height: ($hd / $full-hd) * $full-hd-line-height;
+}
+
+
+@mixin macbook($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+    width: ($macbook / $full-hd) * $full-hd-width;
+    height: ($macbook / $full-hd) * $full-hd-height;
+    font-size: ($macbook / $full-hd) * $full-hd-font-size;
+    line-height: ($macbook / $full-hd) * $full-hd-line-height;
+}
+
+@mixin full-hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+    width: $full-hd-width;
+    height: $full-hd-height;
+    font-size: $full-hd-font-size;
+    line-height: $full-hd-line-height;
+}
+
+@mixin QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+    width: ($QHD / $full-hd) * $full-hd-width;
+    height: ($QHD / $full-hd) * $full-hd-height;
+    font-size: ($QHD / $full-hd) * $full-hd-font-size;
+    line-height: ($QHD / $full-hd) * $full-hd-line-height;
+}
+
+@mixin UHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height) {
+    width: ($UHD / $full-hd) * $full-hd-width;
+    height: ($UHD / $full-hd) * $full-hd-height;
+    font-size: ($UHD / $full-hd) * $full-hd-font-size;
+    line-height: ($UHD / $full-hd) * $full-hd-line-height;
+}
+
+@mixin low-resolution-width-height($full-hd-width, $full-hd-height) {
+  width: ($low-resolution / $full-hd) * $full-hd-width;
+  height: ($low-resolution / $full-hd) * $full-hd-height;
+}
+
+@mixin hd-width-height($full-hd-width, $full-hd-height) {
+  width: ($hd / $full-hd) * $full-hd-width;
+  height: ($hd / $full-hd) * $full-hd-height;
+}
+
+@mixin macbook-width-height($full-hd-width, $full-hd-height) {
+  width: ($macbook / $full-hd) * $full-hd-width;
+  height: ($macbook / $full-hd) * $full-hd-height;
+}
+
+@mixin full-hd-width-height($full-hd-width, $full-hd-height) {
+  width: $full-hd-width;
+  height: $full-hd-height;
+}
+
+@mixin QHD-width-height($full-hd-width, $full-hd-height) {
+  width: ($QHD / $full-hd) * $full-hd-width;
+  height: ($QHD / $full-hd) * $full-hd-height;
+}
+
+@mixin UHD-width-height($full-hd-width, $full-hd-height) {
+  width: ($UHD / $full-hd) * $full-hd-width;
+  height: ($UHD / $full-hd) * $full-hd-height;
+}

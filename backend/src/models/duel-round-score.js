@@ -16,13 +16,13 @@ const DuelRoundScore = sequelize.define('duelRoundScore', {
   },
   playerOneScore: {
     type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false,
+    defaultValue: -1
   },
   playerTwoScore: {
     type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: null
+    allowNull: false,
+    defaultValue: -1
   }
 }, {timestamps: false})
 

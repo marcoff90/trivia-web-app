@@ -1,0 +1,171 @@
+@import 'constants';
+@import 'color-scheme';
+
+$password-font-size: 10px;
+$password-line-height: 12px;
+$forgotten-password-font-size: 16px;
+$forgotten-password-line-height: 19px;
+
+.modal-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 39px;
+  z-index: 3;
+}
+.modal-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+  .user-input {
+    margin-top: 2rem;
+    opacity: 1;
+  }
+  .button-container {
+    margin: 2rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .forgotten-password {
+    font-family: $fredoka;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: $white;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  .password-input {
+    margin-top: 2rem;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .password-specifics {
+      font-family: $montserrat;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
+      color: $white;
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) {
+  .forgotten-password {
+    font-size: ($SE / $iphone12) * $forgotten-password-font-size;
+    line-height: ($SE / $iphone12) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($SE / $iphone12) * $password-font-size;
+    line-height: ($SE / $iphone12) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .forgotten-password {
+    font-size: ($iphone8 / $iphone12) * $forgotten-password-font-size;
+    line-height: ($iphone8 / $iphone12) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($iphone8 / $iphone12) * $password-font-size;
+    line-height: ($iphone8 / $iphone12) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .forgotten-password {
+    font-size: $forgotten-password-font-size;
+    line-height: $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: $password-font-size;
+    line-height: $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .forgotten-password {
+    font-size: ($iphone8plus / $iphone12) * $forgotten-password-font-size;
+    line-height: ($iphone8plus / $iphone12) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($iphone8plus / $iphone12) * $password-font-size;
+    line-height: ($iphone8plus / $iphone12) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .forgotten-password {
+    font-size: ($iphone11/ $iphone12) * $forgotten-password-font-size;
+    line-height: ($iphone11 / $iphone12) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($iphone11 / $iphone12) * $password-font-size;
+    line-height: ($iphone11 / $iphone12) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .forgotten-password {
+    font-size: ($low-resolution / $full-hd) * $forgotten-password-font-size;
+    line-height: ($low-resolution / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($low-resolution / $full-hd) * $password-font-size;
+    line-height: ($low-resolution / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .forgotten-password {
+    font-size: ($hd / $full-hd) * $forgotten-password-font-size;
+    line-height: ($hd / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($hd / $full-hd) * $password-font-size;
+    line-height: ($hd / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .forgotten-password {
+    font-size: ($macbook / $full-hd) * $forgotten-password-font-size;
+    line-height: ($macbook / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($macbook / $full-hd) * $password-font-size;
+    line-height: ($macbook / $full-hd) * $password-line-height;
+  }
+}
+
+@media only screen and (min-width: 1980px) {
+  .forgotten-password {
+    font-size: $forgotten-password-font-size;
+    line-height: $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: $password-font-size;
+    line-height: $password-line-height;
+  }
+}
+
+@media only screen and (min-width:3840px) {
+  .forgotten-password {
+    font-size: ($QHD / $full-hd) * $forgotten-password-font-size;
+    line-height: ($QHD / $full-hd) * $forgotten-password-line-height;
+  }
+  .password-specifics {
+    font-size: ($QHD / $full-hd) * $password-font-size;
+    line-height: ($QHD / $full-hd) * $password-line-height;
+  }
+}
+

@@ -1,23 +1,23 @@
 import nodemailer from 'nodemailer';
 
-const sendPasswordResetMail = (userEmail, token) => {
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAILER_USER,
+    pass: process.env.MAILER_PASSWORD
+  }
+});
 
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAILER_USER,
-      pass: process.env.MAILER_PASSWORD
-    }
-  });
+const sendPasswordResetMail = (userEmail, token, username) => {
+  username = username[0].toUpperCase() + username.substring(1);
 
   let mailOptions = {
     from: process.env.MAILER_USER,
     to: userEmail,
     subject: 'Password reset link',
-    text: 'Dear user,\n\n' +
-        'please finish the password reset process at ...' // ! finish link
-        + token + '\n\n' +
-        'Quizzer App'
+    html: `Dear ${username},\n\n`
+        + '<p>Click <a href="http://localhost:3001/users/recover?token=' + token
+        + '">here</a> to reset your password.</p>' + `\n\nQuizzer Team`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -29,23 +29,37 @@ const sendPasswordResetMail = (userEmail, token) => {
   });
 };
 
-const sendConfirmationMail = (userEmail, token) => {
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAILER_USER,
-      pass: process.env.MAILER_PASSWORD
-    }
-  });
+const sendConfirmationMail = (userEmail, token, username) => {
+  username = username[0].toUpperCase() + username.substring(1);
 
   let mailOptions = {
     from: process.env.MAILER_USER,
     to: userEmail,
     subject: 'Activate your account',
-    text: 'Dear user,\n\n' +
-        'please  activate your account ...' // ! finish link
-        + token + '\n\n' +
-        'Quizzer App'
+    html: `Dear ${username},\n\n`
+        + '<p>Click <a href="http://localhost:3001/users?confirmation=' + token
+        + '">here</a> to complete your registration.</p>' + `\n\nQuizzer Team`
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+};
+
+const confirmPasswordChange = (userEmail, username) => {
+  username = username[0].toUpperCase() + username.substring(1);
+
+  let mailOptions = {
+    from: process.env.MAILER_USER,
+    to: userEmail,
+    subject: 'Your account has been updated',
+    html: `Dear ${username},\n\n`
+        + '<p>The password on your account has been changed. If you did not do this change. Change your <a href="http://localhost:3001">password</a></p>'
+        + `\n\nQuizzer Team`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -59,5 +73,6 @@ const sendConfirmationMail = (userEmail, token) => {
 
 export default {
   sendPasswordResetMail,
-  sendConfirmationMail
+  sendConfirmationMail,
+  confirmPasswordChange
 };

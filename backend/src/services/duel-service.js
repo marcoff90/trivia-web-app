@@ -8,6 +8,7 @@ import DuelQuestionsService from "./duel-questions-service";
 import AnsweredQuestionRepository
   from "../repositories/answered-question-repository";
 import AnsweredQuestionsService from "./answered-questions-service";
+import {compileTrust} from "express/lib/utils";
 
 const storeDuel = async (playerId) => {
   let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
@@ -28,6 +29,9 @@ const storeDuel = async (playerId) => {
   }
   // * no waiting duel
   let duel = await DuelRepository.create();
+  for (let i = 1; i <= 5; i++) {
+    await DuelRoundScoreService.create(i, duel.id);
+  }
   duel.setPlayerOne(player);
   duel['playerOneUsername'] = player['username'];
   await duel.save();
@@ -39,9 +43,13 @@ const isSecondPlayerIn = async (duelId) => {
 };
 
 const setCategories = async (duelId, categories) => {
-  let questions = await QuestionService.getQuestionsForDuel(categories);
-  for (let q of questions) {
-    await DuelQuestionsService.create(duelId, q.id);
+  // in case of double assigning nothing happens
+  let possibleQuestions = await DuelQuestionsService.findByDuelId(duelId);
+  if (possibleQuestions.length === 0) {
+    let questions = await QuestionService.getQuestionsForDuel(categories);
+    for (let q of questions) {
+      await DuelQuestionsService.create(duelId, q.id);
+    }
   }
 };
 
@@ -86,6 +94,16 @@ const checkAnswer = async (duelId, playerId, guessAnswerId, questionId) => {
   duel['questionsNumPlayerTwo'] += duel['playerTwoId'] === playerId && 1;
   await duel.save();
 
+  // if question num % 5 = 0 setResults for player
+  if ((duel['questionsNumPlayerOne'] - 1) % 5 === 0 && playerId === duel['playerOneId']) {
+    console.log('setting res')
+    await setPlayerOneResults(duelId, playerId);
+  }
+  if ((duel['questionsNumPlayerTwo'] - 1) % 5 === 0 && playerId === duel['playerTwoId']) {
+    console.log('setting res player two')
+    await setPlayerTwoResults(duelId, playerId);
+  }
+
   await AnsweredQuestionsService.create(duelId, playerId, questionId);
 
   return {
@@ -98,39 +116,74 @@ const checkAnswer = async (duelId, playerId, guessAnswerId, questionId) => {
   };
 };
 
-const getRoundResults = async (duelId) => {
+const setPlayerOneResults = async (duelId, playerId) => {
   let duel = await DuelRepository.findById(duelId);
+  let roundNumber = playerId == duel['playerOneId'] ? duel['playerOneRound'] : duel['playerTwoRound'];
 
-  if ((duel['questionsNumPlayerOne'] - 1) % 5 === 0 && (duel['questionsNumPlayerTwo'] - 1)
-      % 5 === 0) {
+  let duelScore = await DuelRoundScoreService.findOneByDuelIdAndRound(duelId,
+      roundNumber);
 
-    duel['playerOneWins'] += duel['playerOneRoundScore']
-        > duel['playerTwoRoundScore'] && 1;
-    duel['playerTwoWins'] += duel['playerOneRoundScore']
-        < duel['playerTwoRoundScore'] && 1;
-
-    await DuelRoundScoreService.create(duel['round'],
-        duel['playerOneRoundScore'], duel['playerTwoRoundScore'], duel.id);
-
-    duel['round'] = duel['round'] >= 5 ? 5 : duel['round'] + 1;
+  if (duelScore.playerOneScore < 0) {
+    duelScore.playerOneScore = duel['playerOneRoundScore'];
     duel['playerOneRoundScore'] = 0;
+  }
+  await duelScore.save();
+  await duel.save();
+};
+
+const setPlayerTwoResults = async (duelId, playerId) => {
+  let duel = await DuelRepository.findById(duelId);
+  console.log(playerId + ' is player two')
+  let roundNumber = playerId == duel['playerOneId'] ? duel['playerOneRound'] : duel['playerTwoRound'];
+
+  let duelScore = await DuelRoundScoreService.findOneByDuelIdAndRound(duelId,
+      roundNumber);
+
+  if (duelScore.playerTwoScore <= 0) {
+    duelScore.playerTwoScore = duel['playerTwoRoundScore'];
     duel['playerTwoRoundScore'] = 0;
+  }
+
+  await duelScore.save();
+  await duel.save();
+};
+
+const getRoundResults = async (duelId, playerId) => {
+  let duel = await DuelRepository.findById(duelId);
+  let roundNumber = playerId === duel['playerOneId'] ? duel['playerOneRound'] : duel['playerTwoRound'];
+
+  let results = await DuelRoundScoreService.findByDuelIdAndRoundNumberWhereBothPlayers(
+      duelId, roundNumber);
+
+  if (!results) {
+    return null;
+  } else {
+
+    if (results['playerOneScore'] > results['playerTwoScore']) {
+      duel['playerOneWins'] = duel['playerOneWins'] + 1;
+    } else if (results['playerOneScore'] < results['playerTwoScore']) {
+      duel['playerTwoWins'] = duel['playerTwoWins'] + 1;
+    }
 
     if (duel['questionsNumPlayerOne'] === 26 && duel['questionsNumPlayerTwo']
         === 26) {
       duel.finished = true;
     }
+    if (playerId === duel['playerOneId']) {
+      duel['playerOneRound'] = duel['playerOneRound'] + 1;
+    } else if (playerId === duel['playerTwoId']) {
+      duel['playerTwoRound'] = duel['playerTwoRound'] + 1;
+    }
+
 
     await duel.save();
 
-    let scores = await duel.getDuelRoundScores();
+    let scores = await duel.getDuelRoundScores(duelId);
 
     return {
       duel,
       scores
     };
-  } else {
-    return null;
   }
 };
 
@@ -159,7 +212,6 @@ const shuffle = (array) => {
   return array;
 };
 
-
 export default {
   storeDuel,
   isSecondPlayerIn,
@@ -170,44 +222,3 @@ export default {
   getRoundResults,
   isPlayerInDuel
 };
-
-/**
- * store duel
- *  -> check if player didnt double click
- *  -> check if there's a duel without player two
- *    -> in repo make filter
- *    -> if so, assign player as player two
- *    -> cancel button on FE -> quits the duel
- *
- *  -> if no game
- *    -> create a new game and waits for a second player
- *
- *
- * is second player connected
- *  -> returns false if not
- *  -> returns player username when connected
- *  -> FE send request in interval to get the info
- *
- * getQuestion
- *  -> checks which player send the request
- *  -> returns DuelQuestions.getQuestions()[PlayerXXXQuestionNumber]
- *  -> only accessible when both players are in game
- *
- *  check answer
- *    -> check which player of duel sent request
- *    -> updates points
- *    -> increments number of questions for players
- *
- *
- * show round end
- *  -> returns score after round
- *  -> playerOneWin / PlayerTwoWin
- *
- *  finish duel
- *    -> after fifth round
- *    -> announces winner and final score
- *    -> updates total points of players
- *    -> sets finished status
- *
- *
- */

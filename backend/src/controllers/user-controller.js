@@ -66,7 +66,10 @@ const showLogin = async (req, res, next) => {
       } else {
 
       res.json({
-        token: token
+        token: token,
+        username: loggedUser['username'],
+        avatar: loggedUser['avatar'],
+        totalScore: loggedUser['totalScore']
       });
     }
   }
@@ -101,27 +104,30 @@ const resetPassword = async (req, res, next) => {
   let token = req.query['token'];
   let timeNow = Date.now() / 1000;
 
-  if (!userEmail) {
+  if (!token) {
+    next(ApiError.badRequest('Reset password token must be provided!'));
+
+  } else if (!userEmail) {
     next(ApiError.badRequest('Email must be defined!'));
+
+  } else if (!password) {
+    next(ApiError.badRequest('Password must be defined!'));
 
   } else {
     user = await UserService.findByEmail(userEmail);
   }
 
-  if (!password) {
-    next(ApiError.badRequest('Password must be defined!'));
+  if (!user) {
+    next(ApiError.badRequest("User not found"));
 
-  } else if (!user.password.match(passwordRegex)) {
-    next(ApiError.badRequest("Password doesn't match requirements!"));
-
-  } else if (!user) {
-    next(ApiError.badRequest("Email doesn't match any user"));
+  } else if (user['forgottenPasswordToken'] !== token) {
+    next(ApiError.badRequest("Reset token not associated with email address!"));
 
   } else if (bcrypt.compareSync(password, user['password'])) {
     next(ApiError.badRequest("Password cannot be same as it was!"));
 
-  } else if (user['forgottenPasswordToken'] !== token) {
-    next(ApiError.badRequest("Token doesn't match!"));
+  } else if (!password.match(passwordRegex)) {
+    next(ApiError.badRequest("Password doesn't match requirements"));
 
   } else if (timeNow > user['forgottenPasswordTokenExpiration']) {
     next(ApiError.badRequest('Token expired!'));
@@ -160,11 +166,50 @@ const activateAccount = async (req, res, next) => {
 
     } else {
       let user = await UserService.confirmAccount(confirmationToken, avatar);
+      let token = await authentication(user);
       res.json({
         username: user['username'],
         active: user['active'],
-        avatar: user['avatar']
+        avatar: user['avatar'],
+        totalScore: user['totalScore'],
+        token: token
       });
+    }
+  }
+};
+
+const welcomeUser = async (req, res, next) => {
+  let confirmationToken = req.query['confirmation'];
+  if (!confirmationToken) {
+    next(ApiError.badRequest('Confirmation token must be provided!'));
+
+  } else {
+    let user = await UserService.findByConfirmationToken(confirmationToken);
+
+    if (!user) {
+      next(ApiError.notFound('Token not assigned to user!'));
+    } else {
+      res.json({
+        username: user['username']
+      })
+    }
+  }
+};
+
+const identifyUserByResetToken = async (req, res, next) => {
+  let token = req.query['token'];
+  let user;
+  if (!token) {
+    next(ApiError.badRequest('Token must be provided!'));
+
+  } else {
+    user = await UserService.findByPasswordToken(token);
+
+    if (!user) {
+      next(ApiError.notFound('Token not assigned to user!'));
+
+    } else {
+      res.json('ok');
     }
   }
 };
@@ -174,5 +219,7 @@ export default {
   showLogin,
   forgottenPassword,
   resetPassword,
-  activateAccount
+  activateAccount,
+  welcomeUser,
+  identifyUserByResetToken
 };

@@ -1,0 +1,67 @@
+@import 'constants';
+
+$full-hd-width: 549px;
+$full-hd-height: 155px;
+
+$iphone12-width: 340px;
+$iphone12-height: 87px;
+
+@media only screen and (min-width: 320px) {
+  .name-logo {
+    @include iphoneSE-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .name-logo {
+    @include iphone8-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .name-logo {
+    @include iphone12-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .name-logo {
+    @include iphone8plus-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .name-logo {
+    @include iphone11-width-height($iphone12-width, $iphone12-height);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .name-logo {
+    @include low-resolution-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .name-logo {
+    @include hd-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .name-logo {
+    @include macbook-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .name-logo {
+    @include full-hd-width-height($full-hd-width, $full-hd-height)
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .name-logo {
+    @include QHD-width-height($full-hd-width, $full-hd-height)
+  }
+}

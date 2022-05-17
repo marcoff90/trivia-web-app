@@ -1,0 +1,95 @@
+@import 'color-scheme';
+@import 'constants';
+
+$full-hd-width: 214px;
+$full-hd-height: 62px;
+$full-hd-font-size: 36px;
+$full-hd-line-height: 44px;
+
+$iphone12-width: 214px;
+$iphone12-height: 62px;
+$iphone12-font-size: 36px;
+$iphone12-line-height: 44px;
+
+.button {
+  margin: 0;
+  border-radius: 11px;
+  background-color: $main-green;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: $fredoka;
+  font-style: normal;
+  font-weight: 400;
+  color: $white;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s;
+}
+
+.button:hover {
+  transform: scale(1.2);
+}
+
+@media only screen and (min-width: 320px) {
+  .button {
+    @include iphoneSE($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .button {
+    @include iphone8($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .button {
+    @include iphone12($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 736px) {
+  .button {
+    @include iphone8plus($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+  .button {
+    @include iphone11($iphone12-width, $iphone12-height, $iphone12-font-size, $iphone12-line-height);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .button {
+    @include low-resolution($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .button {
+    @include hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1680px) {
+  .button {
+    @include macbook($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .button {
+    @include full-hd($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  .button {
+    @include QHD($full-hd-width, $full-hd-height, $full-hd-font-size, $full-hd-line-height)
+  }
+}
+

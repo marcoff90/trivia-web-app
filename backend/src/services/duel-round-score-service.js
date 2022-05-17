@@ -1,16 +1,29 @@
 import DuelRoundScoreRepository
   from "../repositories/duel-round-score-repository";
 
-const create = async (round, playerOneScore, playerTwoScore, duelId) => {
+const create = async (duelRound, duelId) => {
   let duelRoundScore = {
-    round,
-    playerOneScore,
-    playerTwoScore,
-    duel_id: duelId
+    round: duelRound,
+    duel_id: duelId,
+    playerOneScore: -1,
+    playerTwoScore: -1
   };
   await DuelRoundScoreRepository.create(duelRoundScore);
 };
 
+const findOneByDuelIdAndRound = async (duelId, roundNumber) => {
+  return await DuelRoundScoreRepository.findByDuelIdAndRoundNumber(duelId,
+      roundNumber);
+};
+
+const findByDuelIdAndRoundNumberWhereBothPlayers = async (duelId,
+    roundNumber) => {
+  return await DuelRoundScoreRepository.findByDuelIdAndRoundNumberWhereBothPlayers(
+      duelId, roundNumber);
+};
+
 export default {
-  create
+  create,
+  findOneByDuelIdAndRound,
+  findByDuelIdAndRoundNumberWhereBothPlayers
 };

@@ -2,6 +2,7 @@ import DuelService from "../services/duel-service";
 import ApiError from "../error/api-error";
 import DuelQuestionsService from "../services/duel-questions-service";
 import AnsweredQuestionsService from "../services/answered-questions-service";
+import UserService from "../services/user-service";
 
 const storeDuel = async (req, res, next) => {
   let user = req.user;
@@ -25,8 +26,37 @@ const isSecondPlayerIn = async (req, res, next) => {
   } else if (isDuelReady['playerOneId'] !== player.id) {
     next(ApiError.unauthorized('Only players in duel can see the game'));
 
+  } else if (isDuelReady['playerTwoId'] == null) {
+    next(ApiError.badRequest('Waiting for second player'));
+
   } else {
     res.json(isDuelReady);
+  }
+};
+
+const areQuestionsChosen = async (req, res, next) => {
+  let duelId = req.params.id;
+  let player = req.user;
+  let duel = await DuelService.findByIdUnfinished(duelId);
+  let duelQuestions = await DuelQuestionsService.findByDuelId(duelId);
+
+  if (!duel) {
+    next(ApiError.notFound('Duel not found!'));
+
+  } else if (duel['playerTwoId'] !== player.id) {
+    next(ApiError.unauthorized('Only players in duel can see the game'));
+
+  } else if (duelQuestions.length === 0) {
+    next(ApiError.notFound('Questions have not been assigned yet'));
+
+  } else {
+    let playerOneAvatar = await UserService.getUsersAvatar(duel['playerOneId']);
+    let playerTwoAvatar = await UserService.getUsersAvatar(duel['playerTwoId']);
+    res.json({
+      duel,
+      playerOneAvatar,
+      playerTwoAvatar
+    });
   }
 };
 
@@ -38,15 +68,15 @@ const setCategories = async (req, res, next) => {
 
   if (!categories) {
     next(ApiError.badRequest('Categories must be provided!'));
+
+  } else if (categories.length !== 5) {
+    next(ApiError.badRequest('Five categories must be chosen!'));
   }
 
   let categoriesSet = new Set(categories);
 
   if (categoriesSet.size !== 5) {
     next(ApiError.badRequest('Categories must be unique!'));
-
-  } else if (categories.length !== 5) {
-    next(ApiError.badRequest('Five categories must be chosen!'));
 
   } else if (!duel) {
     next(ApiError.notFound('Duel not found!'));
@@ -56,7 +86,13 @@ const setCategories = async (req, res, next) => {
 
   } else {
     await DuelService.setCategories(duelId, categories);
-    res.json('Categories added successfully');
+    let playerOneAvatar = await UserService.getUsersAvatar(duel['playerOneId']);
+    let playerTwoAvatar = await UserService.getUsersAvatar(duel['playerTwoId']);
+    res.json({
+      duel,
+      playerOneAvatar,
+      playerTwoAvatar
+    });
   }
 };
 
@@ -135,15 +171,26 @@ const checkAnswer = async (req, res, next) => {
 
 const showRoundScore = async (req, res, next) => {
   let duelId = req.params.id;
+  let player = req.user;
   let duel = await DuelService.findByIdUnfinished(duelId);
   if (!duel) {
     next(ApiError.notFound('Duel not found!'));
   } else {
-    let results = await DuelService.getRoundResults(duelId);
-    if (results) {
-      res.json(results);
+    let duelWithResults = await DuelService.getRoundResults(duelId, player.id);
+
+    if (!duelWithResults) {
+      next(ApiError.badRequest('Wait a moment for other player to finish this round too ☺️'));
+
     } else {
-      res.json('Round is not finished for both players');
+      let playerOneAvatar = await UserService.getUsersAvatar(
+          duel['playerOneId']);
+      let playerTwoAvatar = await UserService.getUsersAvatar(
+          duel['playerTwoId']);
+      res.json({
+        duelWithResults,
+        playerOneAvatar,
+        playerTwoAvatar
+      });
     }
   }
 };
@@ -154,5 +201,6 @@ export default {
   setCategories,
   getQuestion,
   checkAnswer,
-  showRoundScore
+  showRoundScore,
+  areQuestionsChosen
 };
