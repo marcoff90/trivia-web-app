@@ -19,9 +19,10 @@ const RoundResults = () => {
   console.log(state)
   let duel = state['data']['duelWithResults']['duel'];
   let scores = [] = state['data']['duelWithResults']['scores'];
+  console.log(duel);
 
   const finishDuelForPlayerOne = () => {
-    duel['playerOneWins'] > duel['duel']['playerTwoWins']
+    duel['playerOneWins'] > duel['playerTwoWins']
         ?
         toast.info('Congratulations! You have won the game!', {
           position: "top-center",
@@ -37,7 +38,7 @@ const RoundResults = () => {
   };
 
   const finishDuelForPlayerTwo = () => {
-    duel['playerOneWins'] < duel['duel']['playerTwoWins']
+    duel['playerOneWins'] < duel['playerTwoWins']
         ?
         toast.info('Congratulations! You have won the game!', {
           position: "top-center",
@@ -91,7 +92,9 @@ const RoundResults = () => {
   };
 
   const redirectToGamePage = () => {
-
+    setTimeout(() => {
+      navigate('/games/duels');
+    }, 3000);
   };
 
   const redirectToQuestion = () => {
@@ -113,9 +116,6 @@ const RoundResults = () => {
         // game finished -> based on player position show pop up and redirect
         console.log('finish')
         finishDuelForPlayerOne();
-        setTimeout(() => {
-          navigate('/games/duels');
-        }, 3000);
       } else {
         console.log('redirect player one')
         continueGameForPlayerOne();
@@ -126,9 +126,6 @@ const RoundResults = () => {
         console.log('finish')
         // game finished -> based on player position show pop up and redirect
         finishDuelForPlayerTwo();
-        setTimeout(() => {
-          navigate('/games/duels');
-        }, 3000);
       } else {
         continueGameForPlayerTwo();
       }

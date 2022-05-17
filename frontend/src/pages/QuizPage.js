@@ -126,7 +126,7 @@ const QuizPage = () => {
           setShowTimer(false);
           toast.info('Wait for other player to finish ☺️', {
             position: "top-center",
-            autoClose: false,
+            autoClose: 3000,
             theme: 'colored',
             closeOnClick: true
           });
