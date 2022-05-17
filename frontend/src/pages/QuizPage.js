@@ -28,6 +28,7 @@ const QuizPage = () => {
     id: state['data']['id'],
     question: state['data']['question']
   });
+
   const [answers, setAnswers] = useState(state['data']['answers']);
   const [timer, setTimer] = useState(15);
   const [correctAnswerState, setCorrectAnswerState] = useState([]);
@@ -41,10 +42,10 @@ const QuizPage = () => {
     border: screenWidth >= 1024 ? '7px solid #FF9292' : '3px solid #FF9292',
   };
 
-  const setBorder = (id) => {
-    if (correctAnswerState.filter(e => e.id === id)['selected']) {
+  const setBorder = (index) => {
+    if (correctAnswerState[index].selected) {
       return correctAnswerBorder.border;
-    } else if (wrongAnswerState.filter(e => e.id === id)['selected']) {
+    } else if (wrongAnswerState[index].selected) {
       return wrongAnswerBorder.border;
     } else {
       return {};
@@ -59,6 +60,8 @@ const QuizPage = () => {
   ];
 
   const setAnswersState = () => {
+    console.log(correctAnswerState);
+    console.log(wrongAnswerState);
     setCorrectAnswerState(answers.forEach(item => {
       correctAnswerState.push({
         id: item.id,
@@ -215,7 +218,7 @@ const QuizPage = () => {
                               <div className={'answer'}>
                                 <Answer answer={answer}
                                         style={{
-                                          backgroundColor: answerColors[id],
+                                          backgroundColor: answerColors[index],
                                           border: setBorder(index)
                                         }}
                                         onClick={() => checkAnswer(id)}/>

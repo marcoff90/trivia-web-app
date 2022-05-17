@@ -1,7 +1,6 @@
 import '../assets/answer.scss';
 
 const Answer = (props) => {
-
   return (
       <>
         <div className={'answer-container'}
