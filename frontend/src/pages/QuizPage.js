@@ -8,10 +8,11 @@ import UserInfo from "../components/UserInfo";
 import Quiz from "../components/Quiz";
 import Question from "../components/Question";
 import Answer from "../components/Answer";
-import {Slide} from "react-awesome-reveal";
 import Loader from "../components/Loader";
 import '../assets/quiz-page.scss';
 import {toast} from "react-toastify";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 
 const QuizPage = () => {
   const {state} = useLocation();
@@ -46,7 +47,6 @@ const QuizPage = () => {
   });
 
   const [answers, setAnswers] = useState(state['data']['answers']);
-  const [timer, setTimer] = useState(15);
 
   const answerColors = [
     colors['main-green'],
@@ -112,33 +112,30 @@ const QuizPage = () => {
         if (res.data['questionNumber'] % 5 === 0) {
           // AxiosService.getResults(duelId.duelId, navigate);
           loadQuestion();
+          setKey(prevKey => prevKey + 1)
         } else {
           loadQuestion();
-          setTimer(15);
-          // timerInterval();
+          setKey(prevKey => prevKey + 1)
         }
       }, 3000);
     });
   };
+  const [key, setKey] = useState(0);
+  const renderTime = ({ remainingTime }) => {
+    if (remainingTime === 0) {
+      checkAnswer(-1);
+    }
 
-  const timerInterval = () => {
-    const intervalCall = setInterval(() => {
-      if (timer > 0) {
-        setTimer(timer - 1);
-      } else {
-        checkAnswer(duelId.duelId, question.id, 0);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalCall);
-    };
+    return (
+        <div className="timer">
+          <div className="value">{remainingTime}</div>
+        </div>
+    );
   };
 
   useEffect(() => {
     if (loading) {
       setLoading(false)
-      // timerInterval();
     }
   }, []);
 
@@ -155,10 +152,20 @@ const QuizPage = () => {
               <div className={'quiz-page'}>
 
                 <div className={'header-container'}>
-                  <div className={'timer-container'}>
-                    <div className={'timer'}>
-                      {timer}
-                    </div>
+                  <div className={'timer-wrapper'}>
+                    <CountdownCircleTimer
+                        isPlaying
+                        key={key}
+                        duration={15}
+                        isSmoothColorTransition={true}
+                        colors={[colors['main-green'], colors['main-blue'], colors['main-orange'], colors['main-red']]}
+                        colorsTime={[11, 8, 3, 0]}
+                        onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+                        size={80}
+                        strokeWidth={7}
+                    >
+                      {renderTime}
+                    </CountdownCircleTimer>
                   </div>
                   <div className={'user-info-container'}>
                     <UserInfo username={username}

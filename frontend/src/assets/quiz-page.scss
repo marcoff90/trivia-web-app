@@ -14,23 +14,16 @@
     display: flex;
     justify-content: space-between;
 
-    .timer-container {
+    .timer-wrapper {
       margin: 2rem;
       display: flex;
       justify-content: flex-start;
 
       .timer {
+        font-family: $montserrat;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        font-size: 15px;
-        font-family: $fredoka;
-        font-weight: 400;
-        background: $main-red;
-        color: $white;
       }
     }
 
@@ -48,6 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     .points {
       font-size: 20px;
       font-family: $fredoka;
