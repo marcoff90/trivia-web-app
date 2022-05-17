@@ -21,9 +21,25 @@ const QuizPage = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
-
   const answersInitialState = [false, false, false, false];
+
+  const [key, setKey] = useState(0);
+  const [answers, setAnswers] = useState(state['data']['answers']);
   const [correctAnswerState, setCorrectAnswerState] = useState(answersInitialState);
+  const [loading, setLoading] = useState(true);
+  const [showPoints, setShowPoints] = useState(false);
+
+  const [question, setQuestion] = useState({
+    id: state['data']['id'],
+    question: state['data']['question']
+  });
+
+  const answerColors = [
+    colors['main-green'],
+    colors['main-blue'],
+    colors['main-red'],
+    colors['main-orange']
+  ];
 
   const tagCorrectAnswer = (correctAnswerId) => {
     let index = findAnswerIndex(correctAnswerId);
@@ -39,21 +55,33 @@ const QuizPage = () => {
     }
   };
 
-  const [loading, setLoading] = useState(true);
-  const [showPoints, setShowPoints] = useState(false);
-  const [question, setQuestion] = useState({
-    id: state['data']['id'],
-    question: state['data']['question']
-  });
+  const errorToast = (message) => {
+    return toast.error(message, {
+      position: "top-center",
+      autoClose: 3000,
+      theme: 'colored'
+    });
+  };
 
-  const [answers, setAnswers] = useState(state['data']['answers']);
+  const successToast = (message) => {
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 3000,
+      theme: 'colored'
+    });
+  };
 
-  const answerColors = [
-    colors['main-green'],
-    colors['main-blue'],
-    colors['main-red'],
-    colors['main-orange']
-  ];
+  const renderTime = ({ remainingTime }) => {
+    if (remainingTime === 0) {
+      // checkAnswer(-1);
+    }
+
+    return (
+        <div className="timer">
+          <div className="value">{remainingTime}</div>
+        </div>
+    );
+  };
 
   const loadQuestion = () => {
     setCorrectAnswerState(answersInitialState);
@@ -71,22 +99,6 @@ const QuizPage = () => {
     })
     .catch(err => {
       AxiosService.errorToast(err);
-    });
-  };
-
-  const errorToast = (message) => {
-    return toast.error(message, {
-      position: "top-center",
-      autoClose: 3000,
-      theme: 'colored'
-    });
-  };
-
-  const successToast = (message) => {
-    toast.success(message, {
-      position: "top-center",
-      autoClose: 3000,
-      theme: 'colored'
     });
   };
 
@@ -112,25 +124,12 @@ const QuizPage = () => {
         if (res.data['questionNumber'] % 5 === 0) {
           // AxiosService.getResults(duelId.duelId, navigate);
           loadQuestion();
-          setKey(prevKey => prevKey + 1)
         } else {
           loadQuestion();
-          setKey(prevKey => prevKey + 1)
         }
+        setKey(prevKey => prevKey + 1)
       }, 3000);
     });
-  };
-  const [key, setKey] = useState(0);
-  const renderTime = ({ remainingTime }) => {
-    if (remainingTime === 0) {
-      checkAnswer(-1);
-    }
-
-    return (
-        <div className="timer">
-          <div className="value">{remainingTime}</div>
-        </div>
-    );
   };
 
   useEffect(() => {
@@ -152,13 +151,14 @@ const QuizPage = () => {
               <div className={'quiz-page'}>
 
                 <div className={'header-container'}>
+
                   <div className={'timer-wrapper'}>
                     <CountdownCircleTimer
                         isPlaying
                         key={key}
                         duration={15}
                         isSmoothColorTransition={true}
-                        colors={[colors['main-green'], colors['main-blue'], colors['main-orange'], colors['main-red']]}
+                        colors={[colors['main-blue'], colors['main-yellow'], colors['main-orange'], colors['main-red']]}
                         colorsTime={[11, 8, 3, 0]}
                         onComplete={() => ({ shouldRepeat: true, delay: 1 })}
                         size={80}
@@ -167,6 +167,7 @@ const QuizPage = () => {
                       {renderTime}
                     </CountdownCircleTimer>
                   </div>
+
                   <div className={'user-info-container'}>
                     <UserInfo username={username}
                               avatar={avatar}
