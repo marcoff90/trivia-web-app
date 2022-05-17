@@ -11,6 +11,7 @@ import Answer from "../components/Answer";
 import {Slide} from "react-awesome-reveal";
 import Loader from "../components/Loader";
 import '../assets/quiz-page.scss';
+import {toast} from "react-toastify";
 
 const QuizPage = () => {
   const {state} = useLocation();
@@ -38,7 +39,6 @@ const QuizPage = () => {
   };
 
   const [loading, setLoading] = useState(true);
-  const [pointsForAnswer, setPointsForAnswer] = useState(0);
   const [showPoints, setShowPoints] = useState(false);
   const [question, setQuestion] = useState({
     id: state['data']['id'],
@@ -74,14 +74,34 @@ const QuizPage = () => {
     });
   };
 
+  const errorToast = (message) => {
+    return toast.error(message, {
+      position: "top-center",
+      autoClose: 3000,
+      theme: 'colored'
+    });
+  };
+
+  const successToast = (message) => {
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 3000,
+      theme: 'colored'
+    });
+  };
+
   const checkAnswer = (guessId) => {
 
     AxiosService.checkAnswer(duelId.duelId, question.id, guessId)
     .then(res => {
       let correctAnswerId = res.data['correctAnswerId'];
-      setPointsForAnswer(res.data['points']);
-      console.log(findAnswerIndex(correctAnswerId));
       tagCorrectAnswer(correctAnswerId);
+
+      if (correctAnswerId === guessId) {
+        successToast(`+${res.data['points']}p`)
+      } else {
+        errorToast('Maybe next one!')
+      }
 
       setTimeout(() => {
         setShowPoints(true);
@@ -145,17 +165,6 @@ const QuizPage = () => {
                               avatar={avatar}
                               userScore={score}/>
                   </div>
-                </div>
-
-                <div className={'points-container'}>
-                  {
-                      showPoints &&
-                      <Slide duration={2000}>
-                        <div className={'points'}>
-                          {pointsForAnswer}
-                        </div>
-                      </Slide>
-                  }
                 </div>
 
                 <div className={'quizzer-container'}>
