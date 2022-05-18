@@ -12,6 +12,7 @@ const Input = (props) => {
                  value={props.value}
                  placeholder={props.placeholder}
                  type={props.type}
+                 onKeyPress={props.onKeyPress}
                  onChange={props['onChange']}
           />
         </div>
