@@ -48,6 +48,24 @@ const Home = () => {
     setEmail(e.target.value);
   };
 
+  const onKeyPressHandlerLogin = (e) => {
+    if (e.key === 'Enter') {
+      AxiosService.login(username, password, navigate);
+    }
+  };
+
+  const onKeyPressHandlerRegister = (e) => {
+    if (e.key === 'Enter') {
+      AxiosService.register(username, email, password);
+    }
+  };
+
+  const onKeyPressHandlerForgotPassword = (e) => { //
+    if (e.key === 'Enter') {
+      AxiosService.forgottenPassword(email);
+    }
+  };
+
   return (
       <>
           <Background/>
@@ -92,6 +110,7 @@ const Home = () => {
                            color={colors['main-green']}
                            placeholder={'username'}
                            type={'text'}
+                           onKeyPress={onKeyPressHandlerLogin}
                            onChange={onChangeUsernameHandler}
                            value={username}/>
                   </div>
@@ -102,6 +121,7 @@ const Home = () => {
                            placeholder={'password'}
                            type={'password'}
                            value={password}
+                           onKeyPress={onKeyPressHandlerLogin}
                            onChange={onChangePasswordHandler}/>
                   </div>
 
@@ -134,6 +154,7 @@ const Home = () => {
                            color={colors['main-red']}
                            placeholder={'email'}
                            value={email}
+                           onKeyPress={onKeyPressHandlerForgotPassword}
                            onChange={onChangeEmailHandler}
                            type={'email'}/>
                   </div>
@@ -164,6 +185,7 @@ const Home = () => {
                             : colors['main-orange']}
                         placeholder={'username'}
                         value={username}
+                        onKeyPress={onKeyPressHandlerRegister}
                         onChange={onChangeUsernameHandler}
                         type={'text'}/>
                   </div>
@@ -176,6 +198,7 @@ const Home = () => {
                             : colors['main-orange']}
                         placeholder={'email'}
                         value={email}
+                        onKeyPress={onKeyPressHandlerRegister}
                         onChange={onChangeEmailHandler}
                         type={'email'}/>
                   </div>
@@ -189,6 +212,7 @@ const Home = () => {
                             : colors['main-orange']}
                         placeholder={'password'}
                         value={password}
+                        onKeyPress={onKeyPressHandlerRegister}
                         onChange={onChangePasswordHandler}
                         type={'password'}/>
 
