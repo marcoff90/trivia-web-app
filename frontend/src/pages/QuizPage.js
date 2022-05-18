@@ -86,11 +86,11 @@ const QuizPage = () => {
 
   const loadQuestion = () => {
     setCorrectAnswerState(answersInitialState);
+    setLoading(true);
 
     AxiosService.getQuestion(duelId.duelId)
     .then(res => {
       setShowPoints(false);
-      setLoading(true);
       setQuestion({
         id: res.data['id'],
         question: res.data['question']

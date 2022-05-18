@@ -16,10 +16,8 @@ const RoundResults = () => {
   let score = window.localStorage.getItem('totalScore');
   let navigate = useNavigate();
   let duelId = useParams();
-  console.log(state)
   let duel = state['data']['duelWithResults']['duel'];
   let scores = [] = state['data']['duelWithResults']['scores'];
-  console.log(duel);
 
   const finishDuelForPlayerOne = () => {
     duel['playerOneWins'] > duel['playerTwoWins']

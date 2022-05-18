@@ -7,21 +7,6 @@ const Quiz = (props) => {
       <>
         <div className={'quiz-container'}>
           {props.children}
-          {/*<div className={'question'}>*/}
-          {/*  /!*<Question question={props['question']}/>*!/*/}
-
-          {/*</div>*/}
-
-          {/*<>*/}
-          {/*  {props.answers.map(*/}
-          {/*      ({id, answer}, index) => (*/}
-          {/*          <div className={'answer'}>*/}
-          {/*            <Answer answer={answer} id={id}*/}
-          {/*                    backgroundColor={answerColors[index]}/>*/}
-          {/*          </div>*/}
-          {/*      ))}*/}
-          {/*</>*/}
-
         </div>
       </>
   );
