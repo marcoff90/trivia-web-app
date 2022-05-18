@@ -95,7 +95,6 @@ const ChooseCategory = () => {
         .then(res => {
           setCategories(res.data.forEach(e => categories.push(e)));
           setLoading(false);
-          console.log(categories);
           setCategories(categories);
         })
         .catch(err => {
