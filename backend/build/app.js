@@ -18,6 +18,8 @@ var _duelRouter = _interopRequireDefault(require("./routers/duel-router"));
 
 var _categoryRouter = _interopRequireDefault(require("./routers/category-router"));
 
+var _DuelMiddleware = _interopRequireDefault(require("./middlewares/DuelMiddleware"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -29,6 +31,7 @@ app.use(_express["default"].urlencoded({
 (0, _dbRelationships["default"])();
 app.use(_registerRouter["default"]);
 app.use(_authorizationMiddleware["default"]);
+app.use(_DuelMiddleware["default"]);
 app.use(_categoryRouter["default"]);
 app.use(_duelRouter["default"]);
 app.use(_apiErrorHandler["default"]);

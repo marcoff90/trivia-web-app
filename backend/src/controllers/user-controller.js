@@ -152,7 +152,6 @@ const activateAccount = async (req, res, next) => {
 
   } else {
     let user = await UserService.findByConfirmationToken(confirmationToken);
-    console.log(user);
 
     if (!user) {
       next(ApiError.notFound('Token not assigned to user!'));

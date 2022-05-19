@@ -8,6 +8,7 @@ import AuthorizationMiddleware
 import createRelationships from "./config/db-relationships";
 import DuelRouter from "./routers/duel-router";
 import CategoryRouter from "./routers/category-router";
+import DuelMiddleware from "./middlewares/DuelMiddleware";
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended: true}))
 createRelationships();
 app.use(RegisterRouter);
 app.use(AuthorizationMiddleware);
+app.use(DuelMiddleware)
 app.use(CategoryRouter);
 app.use(DuelRouter);
 app.use(apiErrorHandler);

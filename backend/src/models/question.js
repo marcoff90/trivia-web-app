@@ -21,10 +21,6 @@ const Question = sequelize.define('question', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  // type: {
-  //   type: DataTypes.STRING,
-  //   allowNull: true
-  // },
   correct_answer_id: {
     type: DataTypes.INTEGER,
     allowNull: false

@@ -1,6 +1,6 @@
 [Quizzer - Trivia Game](https://master.d6jcsgqi9y2ht.amplifyapp.com)
 
-- whole application hosted on AWS
+- whole application hosted on AWS with continuous integration using pipelines connected to github
 - Server using Elastic Beanstalk connected to RDS database
 - React app hosted on amplify
 

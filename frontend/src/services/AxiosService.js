@@ -1,7 +1,7 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const url = 'http://triviaapi-env.eba-biip2wtn.us-east-1.elasticbeanstalk.com/api/';
+const url = ' https://cors-everywhere.herokuapp.com/http://quizzer-env.eba-auujfmw8.eu-central-1.elasticbeanstalk.com/api/';
 
 const afterLoginSetup = (data) => {
   axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
@@ -98,7 +98,6 @@ const startDuel = (navigate) => {
   axios.get(url + 'duels/new')
   .then(res => {
     let duel = res.data;
-    console.log(duel['playerTwoId']);
     if (!duel['playerTwoId']) {
       navigate(`/games/duels/${duel.id}/searching-player`)
     } else {
@@ -116,7 +115,10 @@ const findSecondPlayer = (id, navigate) => {
     navigate(`/games/duels/${id}/choose-category`)
   })
   .catch(err => {
-    console.log(err);
+    if (err.response.status === 404) {
+      infoToast("Didn't find any available player. Try again  ☺️")
+      navigate('/games/duels')
+    }
   });
 };
 
@@ -126,6 +128,10 @@ const areQuestionsChosen = (id, navigate) => {
     navigate(`/games/duels/${id}/start`, {state: {data: res.data}});
   })
   .catch(err => {
+    if (err.response.status === 404) {
+      infoToast("Other player disconnected 😔️")
+      navigate('/games/duels')
+    }
     console.log(err);
   });
 };
@@ -153,8 +159,6 @@ const getCategories = () => {
 };
 
 const setCategories = (duelId, categories, navigate) => {
-  console.log(duelId)
-  console.log(categories)
   axios.post(url + `duels/${duelId}/categories`, {
     categories: categories
   })
@@ -162,7 +166,12 @@ const setCategories = (duelId, categories, navigate) => {
     navigate(`/games/duels/${duelId}/start`, {state: {data: res.data}});
   })
   .catch(err => {
-    errorToast(err);
+    if (err.response.status === 404) {
+      infoToast("Other player disconnected 😔️")
+      navigate('/games/duels')
+    } else {
+      errorToast(err);
+    }
   });
 };
 

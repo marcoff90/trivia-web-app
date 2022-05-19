@@ -135,7 +135,6 @@ const QuizPage = () => {
             AxiosService.getResults(duelId.duelId, navigate)
             .then(res => {
               if (res.status) {
-                console.log('stopping interval');
                 clearInterval(intervalCall);
               }
               navigate(`/games/duels/${duelId.duelId}/round-results`,

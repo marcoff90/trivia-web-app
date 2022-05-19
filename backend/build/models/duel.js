@@ -73,6 +73,16 @@ var Duel = _database["default"].define('duel', {
     type: _sequelize["default"].INTEGER,
     allowNull: false,
     defaultValue: 1
+  },
+  createdAt: {
+    type: _sequelize["default"].DOUBLE,
+    allowNull: false,
+    defaultValue: Math.round(Date.now() / 1000)
+  },
+  playerTwoConnectedAt: {
+    type: _sequelize["default"].DOUBLE,
+    allowNull: true,
+    defaultValue: null
   }
 }, {
   timestamps: false

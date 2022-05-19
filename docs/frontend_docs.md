@@ -85,12 +85,15 @@
 - the user sees loader component and text 'Searching for second player'
 - on this page the request to server is made in interval in order to find out if any other user has started the duel and the server connected these two users
 - once that happens user, as a player one, is redirected to [Categories choosing](#choose-category-page)
+- server sends 404 after three minutes of waiting -> redirects to [Choose game type](#choose-game-type-page)
 
 ### Player two wait page
 - since the user is the player number two in the duel, he needs to wait till the player one chooses categories of questions for the game
 - user sees loader component and text 'Other player chooses categories'
 - the request to server is made in interval in order to find out if the categories have been chosen
 - once that's done the user is redirected
+- server sends 404 after three minutes of waiting -> redirects to [Choose game type](#choose-game-type-page)
+
 
 ### Choose category page
 - when the page is loading, request to server is made in order to get the list of categories
@@ -144,6 +147,7 @@
   ```
   - when the categories are chosen the request with ids is sent to server which causes the second player to connect to the game and both players are redirected to [Player vs Player](#player-vs-player-page)
   - when the user is being redirected 
+  - if other user was disconnected due to waiting more than 3 minutes user is redirected to [Choose game type](#choose-game-type-page)
 
 ### Player vs player page
 - a page to display both users who is who -> avatars and usernames

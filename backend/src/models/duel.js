@@ -63,6 +63,16 @@ const Duel = sequelize.define('duel', {
     type:DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 1
+  },
+  createdAt: {
+    type: DataTypes.DOUBLE,
+    allowNull: true,
+    defaultValue: false
+  },
+  playerTwoConnectedAt: {
+    type: DataTypes.DOUBLE,
+    allowNull: true,
+    defaultValue: null
   }
 }, {timestamps: false});
 
