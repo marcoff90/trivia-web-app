@@ -1,0 +1,1 @@
+{"version":3,"file":"level-rules.js","names":["levelRules","userPoints"],"sources":["../../src/rules/level-rules.js"],"sourcesContent":["const levelRules = (userPoints) => {\n  // not linear leveling up\n}\n"],"mappings":";;AAAA,IAAMA,UAAU,GAAG,SAAbA,UAAa,CAACC,UAAD,EAAgB,CACjC;AACD,CAFD"}

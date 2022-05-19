@@ -1,7 +1,7 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 
-const url = 'http://localhost:3000/api/';
+const url = 'http://triviaapi-env.eba-biip2wtn.us-east-1.elasticbeanstalk.com/api/';
 
 const afterLoginSetup = (data) => {
   axios.defaults.headers.common['Authorization'] = "Bearer " + data.token;
