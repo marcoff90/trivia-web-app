@@ -112,16 +112,13 @@ const RoundResults = () => {
     if (username === duel['playerOneUsername']) {
       if (duel['questionsNumPlayerOne'] == 26) {
         // game finished -> based on player position show pop up and redirect
-        console.log('finish')
         finishDuelForPlayerOne();
       } else {
-        console.log('redirect player one')
         continueGameForPlayerOne();
       }
 
     } else if (username === duel['playerTwoUsername']) {
       if (duel['questionsNumPlayerTwo'] == 26) {
-        console.log('finish')
         // game finished -> based on player position show pop up and redirect
         finishDuelForPlayerTwo();
       } else {

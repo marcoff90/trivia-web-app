@@ -2,17 +2,17 @@ import {Sequelize} from 'sequelize';
 import 'dotenv/config';
 
 const {
-  DATABASE_NAME,
-  DATABASE_USERNAME,
-  DATABASE_PASSWORD,
-  DATABASE_HOST,
+  RDS_DB_NAME,
+  RDS_USERNAME,
+  RDS_PASSWORD,
+  RDS_HOSTNAME,
   DIALECT
 } = process.env;
 
-const sequelize = new Sequelize(DATABASE_NAME, DATABASE_USERNAME,
-    DATABASE_PASSWORD, {
+const sequelize = new Sequelize(RDS_DB_NAME, RDS_USERNAME,
+    RDS_PASSWORD, {
       dialect: DIALECT || "mysql",
-      host : DATABASE_HOST
+      host : RDS_HOSTNAME
     });
 
 export default sequelize;

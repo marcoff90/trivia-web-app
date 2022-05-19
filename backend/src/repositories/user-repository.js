@@ -1,7 +1,6 @@
 import User from "../models/user";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import passwordToken from "../utils/password-token";
 
 const create = async (user) => {
   let savedUser = await User.create(user);

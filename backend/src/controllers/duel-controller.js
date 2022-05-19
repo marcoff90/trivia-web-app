@@ -47,7 +47,7 @@ const areQuestionsChosen = async (req, res, next) => {
     next(ApiError.unauthorized('Only players in duel can see the game'));
 
   } else if (duelQuestions.length === 0) {
-    next(ApiError.notFound('Questions have not been assigned yet'));
+    next(ApiError.badRequest('Questions have not been assigned yet'));
 
   } else {
     let playerOneAvatar = await UserService.getUsersAvatar(duel['playerOneId']);

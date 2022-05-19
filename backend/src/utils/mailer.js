@@ -16,7 +16,7 @@ const sendPasswordResetMail = (userEmail, token, username) => {
     to: userEmail,
     subject: 'Password reset link',
     html: `Dear ${username},\n\n`
-        + '<p>Click <a href="http://localhost:3001/users/recover?token=' + token
+        + '<p>Click <a href="https://master.d6jcsgqi9y2ht.amplifyapp.com/users/recover?token=' + token
         + '">here</a> to reset your password.</p>' + `\n\nQuizzer Team`
   };
 
@@ -37,7 +37,7 @@ const sendConfirmationMail = (userEmail, token, username) => {
     to: userEmail,
     subject: 'Activate your account',
     html: `Dear ${username},\n\n`
-        + '<p>Click <a href="http://localhost:3001/users?confirmation=' + token
+        + '<p>Click <a href="https://master.d6jcsgqi9y2ht.amplifyapp.com/users?confirmation=' + token
         + '">here</a> to complete your registration.</p>' + `\n\nQuizzer Team`
   };
 
@@ -58,7 +58,7 @@ const confirmPasswordChange = (userEmail, username) => {
     to: userEmail,
     subject: 'Your account has been updated',
     html: `Dear ${username},\n\n`
-        + '<p>The password on your account has been changed. If you did not do this change. Change your <a href="http://localhost:3001">password</a></p>'
+        + '<p>The password on your account has been changed. If you did not do this change. Change your <a href="https://master.d6jcsgqi9y2ht.amplifyapp.com">password</a></p>'
         + `\n\nQuizzer Team`
   };
 

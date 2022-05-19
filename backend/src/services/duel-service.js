@@ -1,14 +1,10 @@
 import DuelRepository from "../repositories/duel-repository";
 import UserService from "./user-service";
 import QuestionService from "./question-service";
-import DuelQuestionsRepository from "../repositories/duel-questions-repository";
 import AnswerPointsRules from "../rules/answer-points-rules";
 import DuelRoundScoreService from "./duel-round-score-service";
 import DuelQuestionsService from "./duel-questions-service";
-import AnsweredQuestionRepository
-  from "../repositories/answered-question-repository";
 import AnsweredQuestionsService from "./answered-questions-service";
-import {compileTrust} from "express/lib/utils";
 
 const storeDuel = async (playerId) => {
   let unfinishedDuel = await DuelRepository.findOneUnfinishedOnePlayerOnly(
@@ -24,6 +20,7 @@ const storeDuel = async (playerId) => {
   if (possibleDuel) {
     possibleDuel.setPlayerTwo(player);
     possibleDuel['playerTwoUsername'] = player['username'];
+    possibleDuel['playerTwoConnectedAt'] = Math.round(Date.now() / 1000);
     await possibleDuel.save();
     return possibleDuel;
   }
@@ -34,6 +31,7 @@ const storeDuel = async (playerId) => {
   }
   duel.setPlayerOne(player);
   duel['playerOneUsername'] = player['username'];
+  duel['createdAt'] = Math.round(Date.now() / 1000);
   await duel.save();
   return duel;
 };
@@ -96,11 +94,9 @@ const checkAnswer = async (duelId, playerId, guessAnswerId, questionId) => {
 
   // if question num % 5 = 0 setResults for player
   if ((duel['questionsNumPlayerOne'] - 1) % 5 === 0 && playerId === duel['playerOneId']) {
-    console.log('setting res')
     await setPlayerOneResults(duelId, playerId);
   }
   if ((duel['questionsNumPlayerTwo'] - 1) % 5 === 0 && playerId === duel['playerTwoId']) {
-    console.log('setting res player two')
     await setPlayerTwoResults(duelId, playerId);
   }
 
@@ -133,7 +129,6 @@ const setPlayerOneResults = async (duelId, playerId) => {
 
 const setPlayerTwoResults = async (duelId, playerId) => {
   let duel = await DuelRepository.findById(duelId);
-  console.log(playerId + ' is player two')
   let roundNumber = playerId == duel['playerOneId'] ? duel['playerOneRound'] : duel['playerTwoRound'];
 
   let duelScore = await DuelRoundScoreService.findOneByDuelIdAndRound(duelId,
