@@ -1,4 +1,4 @@
-###[Quizzer - Trivia Game](https://master.d6jcsgqi9y2ht.amplifyapp.com)
+[Quizzer - Trivia Game](https://master.d6jcsgqi9y2ht.amplifyapp.com)
 
 - whole application hosted on AWS
 - Server using Elastic Beanstalk connected to RDS database
