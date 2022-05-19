@@ -154,20 +154,25 @@ const getRoundResults = async (duelId, playerId) => {
     return null;
   } else {
 
-    if (results['playerOneScore'] > results['playerTwoScore']) {
-      duel['playerOneWins'] = duel['playerOneWins'] + 1;
-    } else if (results['playerOneScore'] < results['playerTwoScore']) {
-      duel['playerTwoWins'] = duel['playerTwoWins'] + 1;
+    if (playerId === duel['playerOneId']) {
+      duel['playerOneWins'] += results['playerOneScore']
+      > results['playerTwoScore'] ? 1 : 0;
+
+      duel['playerOneRound'] = duel['playerOneRound'] >= 5 ? 5
+          : duel['playerOneRound'] + 1;
+    }
+
+    if (playerId === duel['playerTwoId']) {
+      duel['playerTwoWins'] += results['playerOneScore']
+      < results['playerTwoScore'] ? 1 : 0;
+
+      duel['playerTwoRound'] = duel['playerTwoRound'] >= 5 ? 5
+          : duel['playerTwoRound'] + 1;
     }
 
     if (duel['questionsNumPlayerOne'] === 26 && duel['questionsNumPlayerTwo']
         === 26) {
       duel.finished = true;
-    }
-    if (playerId === duel['playerOneId']) {
-      duel['playerOneRound'] = duel['playerOneRound'] + 1;
-    } else if (playerId === duel['playerTwoId']) {
-      duel['playerTwoRound'] = duel['playerTwoRound'] + 1;
     }
 
 
